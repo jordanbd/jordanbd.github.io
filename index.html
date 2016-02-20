@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test</title>
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/grid.css" />
+    <link rel="stylesheet" href="css/game2.css" />
+    <link href='https://fonts.googleapis.com/css?family=VT323' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="http://csshake.surge.sh/csshake.min.css" type="text/css" >
+    <script data-main="js/setup" src="js/lib/require.js"></script>
+</head>
+<body>
+
+<div class="grid">
+    <div class="col-1-4"><!-- side -->&nbsp;</div>
+    <div class="col-1-2">
+        <h1 class="pageTitle">
+            <span>Overwatch Beta: The RPG</span>
+        </h1>
+    </div>
+    <div class="col-1-4"><!-- side -->&nbsp;</div>
+</div>
+
+<div class="grid">
+    <div class="col-1-4"><!-- side -->&nbsp;</div>
+    <div id="canvas" class="col-1-2"><!-- content --></div>
+    <div class="col-1-4"><!-- side -->&nbsp;</div>
+</div>
+
+
+<script id="template-home" type="text/html">
+
+    <div>
+
+        <br/>
+
+        <p>This is a test</p>
+
+        <br/>
+
+        <button id="start">Start</button>
+
+        <button id="credits">Credits</button>
+
+    </div>
+
+</script>
+
+<script id="template-gameover" type="text/html">
+
+    <div>
+        <h2 class="game-over-type"><%= type %></h2>
+        <p class="game-over-title" style="margin-top:20px;"><%= title%></p>
+        <p class="game-over-description"><%= description%></p>
+    </div>
+
+    <div style="text-align: center; margin-top: 20px;">
+        <a id="restart" href="index.html" class="button" style="display:none;">Restart</a>
+    </div>
+
+</script>
+
+<script id="template-battle-header" type="text/html">
+
+    <div class="panel-header grid">
+        <div class="col-3-4 panel-character-stats">
+
+        </div>
+        <div class="col-1-4 panel-timer"></div>
+    </div>
+
+</script>
+
+<script id="template-news" type="text/html">
+
+    <div>
+        <span class="panel-news-title">Beta news stream</span>
+        <div class="panel-news">
+            Waiting for news to arrive!
+        </div>
+    </div>
+
+</script>
+
+<script id="template-character-stats" type="text/html">
+
+    <table class="character-stats">
+        <tr>
+            <th>Name</th>
+            <td><%= name %></td>
+        </tr>
+        <tr>
+            <th>Money</th>
+            <td class="money"><%= money %></td>
+        </tr>
+        <tr>
+            <th>Salt level</th>
+            <td class="salt">
+                <span class="value"><%= saltValue %>%</span>
+                <span class="description"><%= saltDescription %></span>
+                <span class="increment"></span>
+            </td>
+        </tr>
+        <tr>
+            <th>Beta chance</th>
+            <td class="beta-chance"><%= betaChance %></td>
+        </tr>
+    </table>
+
+</script>
+
+<script id="template-battle-actions" type="text/html">
+    <div class="panel-actions">
+        <div class="panel-actions-buttons">
+            <button id="action-attack">Attack</button>
+            <button id="action-item">Item</button>
+            <button id="action-shop">Shop</button>
+            <button id="action-run">Run</button>
+        </div>
+        <div class="panel-actions-options">
+        </div>
+    </div>
+</script>
+
+<script id="template-battle-action-option" type="text/html">
+    <div class="action-option">
+        <span class="title"><%= title %></span>
+        <span class="description"><%= description %></span>
+    </div>
+</script>
+
+<script id="template-battle-action-shop-item" type="text/html">
+    <div class="action-option">
+        <span class="title"><%= title %> - $<%= cost %></span>
+        <span class="description"><%= description %></span>
+    </div>
+</script>
+
+<script id="template-modal" type="text/html">
+
+    <div style="display:none;"><%= text %></div>
+
+</script>
+
+<script id="template-timer" type="text/html">
+
+    <div>
+        <span class="clock">52:55</span>
+        <span class="description">until beta wave ends...</span>
+    </div>
+
+</script>
+
+</body>
+</html>

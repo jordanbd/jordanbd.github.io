@@ -1,0 +1,39 @@
+'use strict';
+
+define(['jquery', 'underscore'], function($, _) {
+
+    var sm;
+
+    function buildScreen() {
+        var $templateHtml = $('#template-home').html();
+
+        // Compile template
+        var renderedTemplate = _.template($templateHtml);
+
+        // Bind start button
+        $(document).one('click', '#start', function() {
+            sm.enterScreen('battle');
+        });
+
+
+        // Add to screen
+        $('#canvas').html(renderedTemplate);
+    }
+
+    function enter(screenManager) {
+        sm = screenManager;
+        buildScreen();
+
+    }
+
+    function exit() {
+        console.debug('homescreen: exit()');
+        $('#canvas').html("");
+    }
+
+    return {
+        enter: enter,
+        exit: exit
+    }
+
+});

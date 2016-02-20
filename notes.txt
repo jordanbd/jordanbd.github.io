@@ -1,0 +1,16 @@
+7) http://i.imgur.com/HXT95hr.png, http://i.imgur.com/KxCGsVN.png
+10) RUN ends game
+13) beta text chance, 0.150000000001
+17) gimmick classes - lucky friend, twitch streamer
+19) Resource tick - money
+20) Resource tick - chance
+21) Check email - salt, pointless, old man help, get out slender comes
+23) certain words get auto css style - money, beta chance, salt
+24) New action: Work - severly reduces time
+26) icons for cms, mods?
+27) Mobile check
+28) IE check
+32) Extra information to attacks - <b>Produces:</b>, Costs, etc
+34) Book of the damned - adds items to shop (spells)
+35) Improve social media, seems useless and unpredictable at the moment
+36) Salt descriptions are a bit cheesy
