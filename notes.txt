@@ -14,3 +14,4 @@
 34) Book of the damned - adds items to shop (spells)
 35) Improve social media, seems useless and unpredictable at the moment
 36) Salt descriptions are a bit cheesy
+37) test
