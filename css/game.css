@@ -1,6 +1,18 @@
+@font-face {
+    font-family: "Big Noodle";
+    src: url("../font/big_noodle_titling.ttf");
+}
+
+@font-face {
+    font-family: "Digital";
+    src: url("../font/DS-DIGI.TTF");
+}
+
+:focus {outline:none;}
+
 body {
     box-sizing: border-box;
-    background-color: black;
+    background-color: #141516;
     color: white;
     font-family: Verdana, sans-serif;
     font-size: 1em;
@@ -10,16 +22,24 @@ body {
     box-sizing: inherit;
 }
 
+a, a:hover, a:active, a:visited {
+    text-decoration: underline;
+    color: #fff;
+}
+
 button, a.button {
-    border: 3px solid white;
+    border: 1px solid #9d9d9d;
+    border-radius: 7px;
+    /*font-family: "Big Noodle", serif;*/
+    font-family: Verdana, sans-serif;
+    text-transform: uppercase;
     font-weight: bold;
-    color: white;
-    background-color: black;
+    color: #ffc70e;
+    text-shadow: 1px 1px 1px rgba(0,0,0,.5);
+    background-color: rgba(255,255,255,.04);
     padding: 10px;
     width: 24%;
     cursor: pointer;
-
-    font-family: 'VT323', serif;
     font-size: 2em;
 }
 
@@ -28,18 +48,48 @@ a.button {
 }
 
 button:hover, a.button:hover {
-    background-color: #222222;
+    color: #fff;
 }
 
 button.active, a.button.active {
-    background-color: #222222;
+    color: #fff;
 }
 
 /** Typography? **/
 
 h1 {
-    font-family: 'VT323', serif;
+}
+
+h2 {
+    font-size: 2em;
+    font-style: italic;
+}
+
+h1.pageTitle {
+    font-family: "Big Noodle", sans-serif;
     font-size: 4em;
+    background: url(../img/logo-small-overwatch.png) no-repeat;
+    background-size: contain;
+}
+
+h1.pageTitle span {
+    margin-left: 1.1em;
+}
+
+p {
+    background-color: rgba(255,255,255,.05);
+    border: 1px solid #3f3f3f;
+    border-radius: 7px;
+    padding: 10px;
+}
+
+p strong {
+    font-weight: bold;
+}
+
+.secondaryText {
+    color: rgba(255,255,255,.5);
+    font-size: 0.8em;
 }
 
 /** Character **/
@@ -52,8 +102,26 @@ h1 {
     width: 100%;
 }
 
-.character-stats td:first-child {
+.character-stats th {
+    text-align: left;
+    font-weight: bold;
+    color: rgba(255,255,255,.7);
     width: 30%;
+}
+
+.panel-timer {
+
+}
+
+.panel-timer .clock {
+    font-size: 2em;
+    font-family: "Digital", serif;
+    display: block;
+}
+
+.panel-timer .description {
+    font-size: 1em;
+    color: rgba(255,255,255,.5);
 }
 
 .money {
@@ -66,9 +134,21 @@ h1 {
 
 /** News **/
 
+.panel-news-title {
+    color: rgba(255,255,255,.5);
+    text-shadow: 1px 1px 1px #000;
+    font-family: "Big Noodle", serif;
+}
+
 .panel-news {
+    background-color: #0b4772;
+    padding: 5px;
     margin-bottom: 10px;
-    height: 2em;
+    height: 3em;
+    border: 1px solid #2976AD;
+    border-radius: 7px;
+    width:98%;
+    text-shadow: 1px 1px 1px rgba(0,0,0,.8);
 }
 
 /** Actions **/
@@ -80,11 +160,14 @@ h1 {
 .action-option {
     cursor: pointer;
     margin-bottom: 1em;
+    color: rgba(255,255,255,.9);
+    text-shadow: 2px 2px 2px rgba(0,0,0,.5);
 }
 
 .action-option > .title {
     display: block;
     font-weight: bold;
+    text-transform:  uppercase;
 }
 
 .action-option > .title:before {
@@ -98,6 +181,14 @@ h1 {
 .action-option > .description {
     display: block;
     margin-left: 1.2em;
+}
+
+.action-option > .sub-description {
+    display: block;
+    margin-left: 1.2em;
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: bold;
+    margin-top: 3px;
 }
 
 /** Game over **/
@@ -118,8 +209,9 @@ h1 {
 /** Dialogs **/
 
 .ui-dialog {
-    background-color: #333333;
-    border: 3px solid white;
+    background-color: #000;
+    border: 1px solid #9d9d9d;
+    border-radius: 7px;
     padding: 10px;
 }
 
@@ -150,4 +242,25 @@ h1 {
 
 .ui-front {
     z-index: 100;
+}
+
+/** Class select **/
+
+.panel-class-select {
+    background-color: rgba(255,255,255,.05);
+    border: 1px solid #3f3f3f;
+    border-radius: 7px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.panel-class-select:hover {
+    color: yellow;
+}
+
+.panel-class-select .title {
+    display: block;
+    font-weight: bold;
+    text-shadow: 1px 1px 1px rgba(0,0,0,.5);
+    text-transform: uppercase;
 }

@@ -4,8 +4,14 @@
     <title>Test</title>
     <link rel="stylesheet" href="css/reset.css" />
     <link rel="stylesheet" href="css/grid.css" />
-    <link rel="stylesheet" href="css/game2.css" />
+    <link rel="stylesheet" href="css/game.css" />
     <link rel="stylesheet" href="css/csshake.min.css" type="text/css" >
+    <script type='text/javascript'>
+        var oldIE = false;
+    </script>
+    <!--[if lt IE 9]>
+        <script type="text/javascript">oldIE = true;</script>
+    <![endif]-->
     <script data-main="js/setup" src="js/lib/require.js"></script>
 </head>
 <body>
@@ -71,7 +77,7 @@
     </div>
 
     <div style="text-align: center; margin-top: 20px;">
-        <a id="restart" href="index.html" class="button" style="display:none;">Restart</a>
+        <a id="restart" href="index.html?ignorebrowser=true" class="button" style="display:none;">Restart</a>
     </div>
 
 </script>

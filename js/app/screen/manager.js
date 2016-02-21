@@ -1,6 +1,6 @@
 'use strict';
 
-define(['jquery', 'app/screen/home', 'app/screen/set.name', 'app/screen/battle', 'app/screen/gameover'], function($, home, setName, battle, gameover) {
+define(['jquery', 'app/util/browser', 'app/screen/home', 'app/screen/set.name', 'app/screen/battle', 'app/screen/gameover'], function($, browser, home, setName, battle, gameover) {
 
     var screens = {
         'home': home,
@@ -12,6 +12,12 @@ define(['jquery', 'app/screen/home', 'app/screen/set.name', 'app/screen/battle',
     var currentScreen = null;
 
     function start() {
+        if (browser.isMobile()) {
+            window.location = 'mobileWarning.html';
+        }
+        if (!browser.isBrowserSupported()) {
+            window.location = 'browserWarning.html';
+        }
         enterScreen('home');
     }
 

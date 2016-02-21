@@ -1,8 +1,6 @@
 TODO
 
 17) gimmick classes - lucky friend, twitch streamer
-27) Mobile check
-28) IE check
 35) Improve social media, seems useless and unpredictable at the moment
 40) gap between multiple buttons in dialog
 43) Name
@@ -14,7 +12,7 @@ TODO
 50) endings - got beta, darkness
 51) endings - salt too high, darkness
 52) endings - out of time, darkness
-53) tribute to the twitters
+53) tribute to the twitters (maybe an ending related to overstalk or twitter)
 54) Salt increments are still clumsy
 
 Some links...
