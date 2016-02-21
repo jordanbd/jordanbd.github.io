@@ -98,7 +98,7 @@ function($, emitter, templates, timer, player, words) {
 
     function setup($parent) {
         $ele = $(templates.getTemplate('characterStatsTmpl')({
-            name: 'test',
+            name: player.name,
 
             moneyValue: '$' + player.money,
             moneyDescription: '',

@@ -253,16 +253,16 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                 },
                 /* stumble on slenderman */
                 {
-                    chance: 0.5,// fixme
+                    chance: 0.01,
                     isAvailable: function() {
                         return !player.data['slender-spotted'];
                     },
-                    flavourText: 'You stop briefly to look out your bedroom window. In the distance you spot what looks like a tall, thin gray man wearing black.',
+                    flavourText: 'You stop briefly to look out your office window. In the distance you spot what looks like a tall, thin gray man wearing black.',
                     apply: function() {
                         player.changeSalt(-10);
                         player.data['slender-spotted'] = true;
                         return words.buildApplyReturn({salt: -10})
-                            + 'You close the blinds and pretend you didn\'t see anything.';
+                            + 'You pretend you didn\'t see anything.';
                     },
                     buttons: [
                         {
@@ -350,7 +350,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                 {
                     chance: 0.5,
                     isAvailable: function() {
-                        return player.money >= 100 && !player.data['helpedman'];
+                        return player.money >= 100 && !player.data['helpedman'] && !player.data['seenman'];
                     },
                     flavourText: 'You encounter a shaggy looking fellow on your walk. He asks you if he can have $100. ' +
                         'He does not say what for.<br/><br/>He says he will email you a thank-you message.',
@@ -361,10 +361,16 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                                 player.changeMoney(-100);
                                 player.changeSalt(-10);
                                 player.data['helpedman'] = true;
+                                player.data['seenman'] = true;
                             }
                         },
                         {
-                            text: 'No!!'
+                            text: 'No!!',
+                            apply: function() {
+                                player.changeSalt(-10);
+                                player.data['helpedman'] = false;
+                                player.data['seenman'] = true;
+                            }
                         }
                     ]
                 },
@@ -394,6 +400,19 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                 return player.secondsRemaining >= 50;
             },
             outcomes: [
+                {
+                    chance: 1,
+                    score: 999,
+                    isAvailable: function() {
+                        return player.data['slender-email'] && !player.data['slender-research'];
+                    },
+                    flavourText: 'Alex\'s warning keeps bouncing around your head. What could he possibly mean? You google ' +
+                        'the name - slender man. People know him. Others have seen him. Some have survived.<br/><br/>You find ' +
+                        'what you\'re looking for. You need to be salty. At least 90% salty. Once you have it, you must run.',
+                    apply: function() {
+                        player.data['slender-research'] = true;
+                    }
+                },
                 {
                     chance: 1,
                     flavourText: [

@@ -6,6 +6,7 @@ define(['emitter'], function(emitter) {
         data: {
             events: {}
         },
+        name: 'test',
         items: [],
         removeItem: function(code) {
             for (var i = 0; i < this.items.length; i++) {

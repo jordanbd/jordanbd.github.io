@@ -11,6 +11,8 @@ TODO
 44) Credits
 46) More news stream elements
 47) Time skipping makes you miss timer-10 ticker events
+48) Stat track
+49) A shaggy fellow => Winston
 
 
 Some links...

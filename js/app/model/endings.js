@@ -148,6 +148,56 @@ define(['app/model/player', 'app/util/random'], function(player, random) {
                 return player.data['run'];
             }
         },
+        {
+            type: '???',
+            title: 'H̬̘ͬ̅e̛̒̉̈̅͏͖̺̠̖̘͠ ̧̱ͦ͒́̃ͫ̈́̇́í̞̰̕s͇͇̝͋͟͞ ̹̱̠̼͖͕̤ͯͪ̊͑ͫ̈́̀̚͟c̣̓̏̇̿̅̌́̚͘o̴̴̭̊̇̆̔ͧ̂̀m̴͉̥̟͙̄̔̃̈́ͮ͋̏̊i͉̟̤̼͎̮̻̳̒̿ͤ͜͜n̹͓͈̮̗̈̊ͧͭ͊̄̽̾͊͠g͎͇̟͕̲͚ͪ͑͐̾͘ ̧̢͈ͮ̊͆͆ͫ̀̈̾h̓ͮ̈҉͉͚͕̼̳̦͈́ȩ͚̯͕͖̯̫̈͑̐ͧͫͪ ̬͕̖̘͇̫͚̪̠̇ͪ̽͑ͪ̏ͧ͘ị̴̧̰̝̎̉͝s̢̙̯͈̪͙̠͈̬ͩ̃ͣ̉ͫ͝ ̷̧̨̜̯͓̻̪͈͎͆͊̈̍͗ͦ͒̚č̣̦̤̣͔̰͙͟͝o̡̡ͨ̇̓̾̎ͭ̐͑҉͕̩̯̮̟͇̘͈ͅm̡̺̬̞̙̮̂̍͘i̧̱̞͔̘̋͒͒̈́ͩͧ̓ͩ͝n̜̻̞̗̠̑̾ͥ̂ͦ͠ͅg̦̱͇̲̫̓̈̍̊̓̈́͡ͅ ̴̴͔͔̖̲̟͓̝͗͂̋ͧ̓ͬh̫̅͠e͍̍ͣ͒͛ͪ̽ ̙̌̋ͪ́͞i̔ͥ̽҉̨͙̬̮͎̮s̴͈̞̱ͮ͋ͤ̽̾ͨ̔͘ ̵̸̜̳̰̜̳ͧ̾̌̃͝c̷͎͙̼̥̜͖̯̜̓ͬ͆̍ͫͮ̾ȯ͈̣͙̱̲̦̗͙͔͊̀m̶͋̎̽ͥ̊ͮ̀͏̳̩̺͔̰ȉ̢̟̘͖͚̳̑ͯ̎̍̏̀ñ̵͉̀͗͊̑̈́g͍͕͕̟̯̊ͬ̚͟͢ ̘̠̮̟̭̥̅͛̑ͣͥ̾͛ͤ̀ͅẖ̶̠͐ͭ̕e̴̯͇̮̪͋ͤͨ̅̄ ͇͍̤̗͕ͥͫ̒ͬ̈̿͢ï̷̟͇ͩ̓͛s̫͙͖̻̓͆͆͑́̚ ̗̭̉ͭͪ́ͅc̢̤̤̯͓̯̘͕̯͛̍́̽o̙͊͟m̜̠̻̒ͨ̀i̶̤͇͚͚̞̮̖̼ͬ̔͞n̵͇̩͕̳̯ͫ͂̿̊̋̋ͦg̨̧̤͚ͤͣ̌͒ͮ̇̉̚',
+            description: '"Run", he said. What choice did you have? You ran.<br/>' +
+                '<br/>' +
+                'You aren\'t sure what is chasing you. You think it is close. Perhaps it wasn\'t the wisest decision to flee into the woods.<br/>' +
+                '<br/>' +
+                'The Overwatch Beta seems so far away now. A few hours ago you would have been happy to get into Beta. Now you just don\'t want to die.<br/>' +
+                '<br/>' +
+                'You are out of breath. Perhaps you have outrun it? You look over your shoulder-',
+            isAvailable: function() {
+                return player.data['run'] && player.data['slender-email'] && !player.data['slender-research'];
+            },
+            score: 999
+        },
+        {
+            type: '???',
+            title: '            H̶̗̫̙͚̙̳͈̥ͣ̾ͮ͛͌̄E̩̳̮̗̙̥̓̃̈ ̳͖͈̜̾̅ͭ̍ͭ̾ͬC̵͇̲̜̪̼͇̍ͧ͌̆Ö̡̧̟̙̼̹̣̺̺̪̪́̽̿Ṃ̷͇̟̫̇ͬ̌͋̑͜Ȅ͛̄ͨͬ͌ͣ͒̏͏̵̨̮̪͎̙̤̝S̥̺̪͔̳̆ͤ̓ͨͥ̎̀̏͛ͅ',
+            description: 'You have what you need. Your mind is at its breaking point; struggling to both contain salt levels no human has ever withstood without ' +
+                'doing something stupid on reddit, and to hold back the terror you feel knowing what is chasing you. It is close now. You can practically see the static.<br/>' +
+                '<br/>' +
+                'You run deeper into the woods. It is dark. It is very close.<br/>' +
+                '<br/>' +
+                'The spell you read online called for regular table salt. But you have something better - something far more powerful. You have the salt of an OnlyWatcher. ' +
+                'It will not see this coming.<br/>' +
+                '<br/>' +
+                'It is directly behind you. If you were turn around it will strike. You need to reach the highest level of saltiness possible. You pull your iPhone out and ' +
+                'refresh the Account management screen. Not in Beta. Just as planned. The salt washes over you as you become more salty than anyone ever has before.<br/>' +
+                '<br/>' +
+                'Your eyes glow white.<br/>' +
+                '<br/>' +
+                'You turn to face the slender man-',
+            score: 999,
+            isAvailable: function() {
+                return player.data['run'] && player.data['slender-research'] && player.salt >= 90;
+            }
+        },
+        {
+            type: '???',
+            title: 'Ņ̗͉͍͖̮͕̺ͦ͛͆͘͡o̴̬̜͚ͩ̃̐ͧ ̠̗̹̤͂̈ͪ͆́̄̋̚n̟͓̥͚͖̦͙̥͆̑͘̕ǫ̵̢̮̙͇͖̔ͤͮ̽̅ͨ̊̚ ͇̫̳̟̠̲ͪ͐ͤͫ̑̅̋̐n͖̰͍̩̳̗͋͂͜oͤͮ͂ͦ͛͏̞̭̞̭͚͓̫͢ ̰̗͓̰͓̳ͪ̎͆ͭ̈́̆̃͢ņ̗̮̣̹̘̺͐̃̀̽o͈͍̖̥̪̦ͪ͆͡ ̿̽̔̍ͥ̑̆̿͂͠͏̙͚̺͎͓n̷͈̥̫̘̳̹ͫ͆̾ͫͨ̊̉̄ͤo̸̺̣̘̻̤͕̼̼̊ͬ̏̏̈̆ͩͬͩ ̸̫̜̻ͥ͊͜͝n̷̶͖͎̹̼͖̎ͫ̀ͮ͗͊͌ͨ͝ȍ̜̟͉̋ͧ̑͜ ̠̤͇͙͍͉ͨ̔ͭ̽̈́̿̆̐n̢̳̹̰͖ͨͭ͢o̶̡͉͔̫͗̊ͩͯ̂̌͢ͅ ̗͙̗͖̭͖̩̀̈́̏̏͂̒̑͘͟n̪̞̘̳̞͚͍̗͈̂͢o̫͉͑̓̿̐̊͛̔ͫ́ ̶̴̶͇́ͯ̄̋̎͆n̸̵̙̙̂͑̏ͧ̾ͥ͜o͕͓̫̺̺̗̤͆',
+            description: 'Not enough salt. You do not have enough. You ran too early and now you are doomed.<br/>' +
+                '<br/>' +
+                'It is close now.<br/>' +
+                '<br/>' +
+                'It is here.',
+            score: 999,
+            isAvailable: function() {
+                return player.data['run'] && player.data['slender-research'] && player.salt < 90;
+            }
+        },
 
         /* Special endings */
         {
@@ -200,6 +250,68 @@ define(['app/model/player', 'app/util/random'], function(player, random) {
                     && player.data['mindcontrolpass']
                     && player.data['beta']
             }
+        },
+        {
+            type: '???',
+            title: 'F͎̬̪̼͚͎͎͊͂́͢o̵̡̯̥̟͚͚̓͌̐͗͠ǫ̗̞ͨ̌ͮͭ̒̾͘l̼͓̹̏̇',
+            description: 'You thought you were so lucky. You finally were accepted into the Overwatch Beta. Your life was about to change.<br/>' +
+                '<br/>' +
+                'You saw it. On your walk; the tall, thin man. You did nothing. You tried to forget.<br/>' +
+                '<br/>' +
+                'It did not forget you. Perhaps it was cruel for it to attack you immediately after you were accepted.<br/>' +
+                '<br/>' +
+                'The slender man has you.',
+            score: 888,
+            isAvailable: function() {
+                return player.data['slender-spotted'] && player.data['beta'] && !player.data['slender-email'];
+            }
+        },
+        {
+            type: '???',
+            title: 'F͎̬̪̼͚͎͎͊͂́͢o̵̡̯̥̟͚͚̓͌̐͗͠ǫ̗̞ͨ̌ͮͭ̒̾͘l̼͓̹̏̇',
+            description: 'You thought you were so lucky. You finally were accepted into the Overwatch Beta. Your life was about to change.<br/>' +
+            '<br/>' +
+            'You saw it. On your walk; the tall, thin man. Alex tried to warn you but you ignored the warnings. You should have run.<br/>' +
+            '<br/>' +
+            'Perhaps it was cruel for it to attack you immediately after you were accepted. It doesn\'t matter anymore.<br/>' +
+            '<br/>' +
+            'The slender man has you.',
+            score: 888,
+            isAvailable: function() {
+                return player.data['slender-spotted'] && player.data['beta'] && player.data['slender-email'];
+            }
+        },
+        {
+            type: '???',
+            title: 'F͎̬̪̼͚͎͎͊͂́͢o̵̡̯̥̟͚͚̓͌̐͗͠ǫ̗̞ͨ̌ͮͭ̒̾͘l̼͓̹̏̇',
+            description: 'You curse your luck. Not because of what currently stands behind you, but because you were not accepted into the Overwatch Beta.<br/>' +
+                '<br/>' +
+                'In a moment that will not matter.<br/>' +
+                '<br/>' +
+                'You saw it. On your walk; the tall, thin man. You did nothing. You tried to forget.<br/>' +
+                '<br/>' +
+                'It did not forget you.<br/>' +
+                '<br/>' +
+                'The slender man has you.',
+            score: 888,
+            isAvailable: function() {
+                return player.data['slender-spotted'] && !player.data['beta'] && !player.data['slender-email'];
+            }
+        },
+        {
+            type: '???',
+            title: 'F͎̬̪̼͚͎͎͊͂́͢o̵̡̯̥̟͚͚̓͌̐͗͠ǫ̗̞ͨ̌ͮͭ̒̾͘l̼͓̹̏̇',
+            description: 'You curse your luck. Not because of what currently stands behind you, but because you were not accepted into the Overwatch Beta.<br/>' +
+            '<br/>' +
+            'In a moment that will not matter.<br/>' +
+            '<br/>' +
+            'You saw it. On your walk; the tall, thin man. Alex tried to warn you but you ignored the warnings. You should have run.<br/>' +
+            '<br/>' +
+            'The slender man has you.',
+            score: 888,
+            isAvailable: function() {
+                return player.data['slender-spotted'] && !player.data['beta'] && player.data['slender-email'];
+            }
         }
         // TODO endings - got beta, low darkness
         // TODO endings - got beta, high darkness
@@ -207,7 +319,6 @@ define(['app/model/player', 'app/util/random'], function(player, random) {
         // TODO endings - salt too high, high darkness
         // TODO endings - out of time, low darkness
         // TODO endings - out of time, high darkness
-        // TODO endings - went too far
     ];
 
     function getEnding() {
