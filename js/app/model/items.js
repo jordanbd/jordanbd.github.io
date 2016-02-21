@@ -256,14 +256,15 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
             ]
         },
         'deadbook': {
-            title: 'Book of the dead',
-            description: 'Probably just some gag gift.',
+            title: 'Book of the salt',
+            description: 'It is a salt cookbook by the looks of it.',
             outcomes: [
                 {
                     chance: 1,
                     flavourText: 'You hear voices as you open the dusty tome. The darkness has found you.',
                     apply: function() {
-                        player.data['darkness'] = 0;
+                        player.data['darkness'] += 10;
+                        player.data['deadbookread'] = true;
                         player.removeItem('deadbook');
                         return words.buildApplyReturn({itemCount: -1}) + 'New items for sale at shop.'
                     },
@@ -274,9 +275,91 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                     ]
                 }
             ]
+        },
+        'spell-increasechance': {
+            title: 'Salt spell of chance',
+            description: 'Increases your Beta chances...',
+            outcomes: [
+                {
+                    chance: 1,
+                    flavourText: 'Sodium chloride crystalline beta salinity!',
+                    apply: function() {
+                        player.data['darkness'] += 10;
+                        player.removeItem('spell-increasechance');
+                        player.changeBetaChance(0.2);
+                        player.changeSalt(40);
+                        return words.buildApplyReturn({itemCount: -1, beta: 0.2, salt: 40});
+                    },
+                    buttons: [
+                        {
+                            text: 'Yes...'
+                        }
+                    ]
+                }
+            ]
+        },
+        'spell-increasemoney': {
+            title: 'Salt spell of currency',
+            description: 'Increases your money...',
+            outcomes: [
+                {
+                    chance: 1,
+                    flavourText: 'Sodium chloride crystalline currency salinity mines!',
+                    apply: function() {
+                        player.data['darkness'] += 10;
+                        player.removeItem('spell-increasemoney');
+                        player.changeMoney(1000);
+                        player.changeSalt(40);
+                        return words.buildApplyReturn({itemCount: -1, money: 1000, salt: 40});
+                    },
+                    buttons: [
+                        {
+                            text: 'I need more...'
+                        }
+                    ]
+                }
+            ]
+        },
+        'spell-mindcontrol': {
+            title: 'Salt spell of control',
+            description: 'Attempt to mind-control a Blizzard CM...',
+            outcomes: [
+                {
+                    chance: 0.1,
+                    flavourText: 'Chlorine $$CM beta salinity halite sodium!',
+                    apply: function() {
+                        player.data['darkness'] += 100; // doesn't matter anyway but just for completeness
+                        player.removeItem('spell-mindcontrol');
+                        player.data['beta'] = true;
+                        player.data['mindcontrol'] = true;
+                        player.data['mindcontrolpass'] = true;
+                        return 'Using your dark powers of salt you command her to give you Beta.'
+                    },
+                    buttons: [
+                        {
+                            text: 'Please forgive me'
+                        }
+                    ]
+                },
+                {
+                    chance: 0.9,
+                    flavourText: 'Chlorine $$CM beta salinity halite sodium!',
+                    apply: function() {
+                        player.data['darkness'] += 100; // doesn't matter anyway but just for completeness
+                        player.removeItem('spell-mindcontrol');
+                        player.changeSalt(40);
+                        player.data['mindcontrol'] = true;
+                        return words.buildApplyReturn({itemCount: -1, salt: 40}) + 'Your spell fails to control the ' +
+                            'strong-willed CM. You have gone too far.';
+                    },
+                    buttons: [
+                        {
+                            text: 'What have I done?'
+                        }
+                    ]
+                }
+            ]
         }
-
-        // TODO: book of dead items (all increase darkness)
 
         // TODO: ward off slender
 

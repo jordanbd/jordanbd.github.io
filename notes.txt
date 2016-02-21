@@ -1,9 +1,9 @@
-7) http://i.imgur.com/HXT95hr.png, http://i.imgur.com/KxCGsVN.png
+TODO
+
 17) gimmick classes - lucky friend, twitch streamer
 21) Check email - salt, pointless, old man help, get out slender comes
 27) Mobile check
 28) IE check
-34) Book of the damned - adds items to shop (spells)
 35) Improve social media, seems useless and unpredictable at the moment
 38) move shake css to local
 40) gap between multiple buttons in dialog
@@ -11,15 +11,7 @@
 44) Credits
 46) More news stream elements
 
-WALK
- - Lowers: Salt
- - Costs: Time
 
-WORK
- - Increase: Money
- - Costs: Time
-
-SOCIAL
- - Occasionally increases: Money
- - Occasionally increases: Beta chance
- - Occasionally increases: Salt
+Some links...
+http://i.imgur.com/HXT95hr.png
+http://i.imgur.com/KxCGsVN.png

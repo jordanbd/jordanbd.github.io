@@ -119,7 +119,7 @@ define(['app/util/random'], function(random) {
                 sb += "Your time remaining has greatly increased. "
             } else if (opts.time > 0) {
                 sb += "Your time remaining has increased. "
-            } else if (opts.time <= 60) {
+            } else if (opts.time <= -60) {
                 sb += "Your time remaining has greatly decreased. "
             } else if (opts.time < 0) {
                 sb += "Your time remaining has decreased. "

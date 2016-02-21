@@ -9,7 +9,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
             title: 'Post to social media',
             description: 'Discuss the current ongoing wave on social media. Let\'s not kid around though - you are hoping that someone at Blizzard ' +
                 'notices your desperation and gives you beta. You are so transparent. Maybe stay away if you are very salty...',
-            subDescription: 'Costs: Time, Occasionally increases: Money, Occasionally increases: Beta chance, Occasionally increases: Salt',
+            subDescription: 'Costs: Time, May increase: Money, May increase: Beta chance, May increase: Salt',
             beforeOutcome: function() {
                 if (!player.data['socialmediacount']) {
                     player.data['socialmediacount'] = 0;
@@ -272,18 +272,18 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                 },
                 /* find money */
                 {
-                    chance: 0.25,
+                    chance: 0.1,
                     isAvailable: function() {
                         return !player.data['stole-partner-money']
                     },
                     flavourText: [
-                        'While on your walk you stumble upon your partner\'s bag and find $100.00 in it! You take your partner\'s money.'
+                        'While on your walk you stumble upon your partner\'s bag and find $200.00 in it! You take your partner\'s money.'
                     ],
                     apply: function() {
                         player.data['stole-partner-money'] = true;
                         player.changeSalt(-10);
-                        player.changeMoney(100);
-                        return words.buildApplyReturn({salt: -10, money: 100})
+                        player.changeMoney(200);
+                        return words.buildApplyReturn({salt: -10, money: 200})
                     },
                     buttons: [
                         {
@@ -353,7 +353,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         return player.money >= 100 && !player.data['helpedman'];
                     },
                     flavourText: 'You encounter a shaggy looking fellow on your walk. He asks you if he can have $100. ' +
-                        'He does not say what for. He says he will email you a thank-you message.',
+                        'He does not say what for.<br/><br/>He says he will email you a thank-you message.',
                     buttons: [
                         {
                             text: 'Uhh, sure?',
@@ -405,9 +405,9 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         'You spec requirements for an awful Overwatch Beta RPG on a notepad.'
                     ],
                     apply: function() {
-                        player.changeSecondsRemaining(-50);
+                        player.changeSecondsRemaining(-40);
                         player.changeMoney(100);
-                        return words.buildApplyReturn({time: -50, money: 100})
+                        return words.buildApplyReturn({time: -40, money: 100})
                     }
                 }
             ]
@@ -419,7 +419,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                 {
                     chance: 1,
                     isAvailable: function() {
-                        return player.data['helpedman'];
+                        return player.data['helpedman'] && !player.data['helpedman-items'];
                     },
                     flavourText: [
                         'You have received an email. "Hey, thanks for loaning me the $100. As a reward, I\'ve put some items up for sale that you may find useful...'
@@ -437,7 +437,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                     chance: 1,
                     isAvailable: function() {
                         // HACKY
-                        return !player.data['helpedman'];
+                        return (!player.data['helpedman'] || (player.data['helpedman'] && player.data['helpedman-items']));
                     },
                     flavourText: [
                         'You get excited when you spot an email from Blizzard, but it\'s a newsletter announcing another WoW expansion. You die a little inside.',

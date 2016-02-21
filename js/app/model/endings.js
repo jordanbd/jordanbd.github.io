@@ -2,11 +2,10 @@
 
 define(['app/model/player', 'app/util/random'], function(player, random) {
 
-    // TODO dark ones salt lord
     // TODO: victorious endings - found beta
     // TODO the mysterious briefcase
-    // TODO death
     // TODO slenderman
+    // TODO darkness ending salt lord
 
     var endings = [
         {
@@ -180,7 +179,35 @@ define(['app/model/player', 'app/util/random'], function(player, random) {
             isAvailable: function() {
                 return player.data['deadberry'];
             }
+        },
+        {
+            type: 'Victory?',
+            title: 'The Dark Lord of Salt has taken hold',
+            description: 'You have been accepted into the Beta but at great cost - your soul.<br/>' +
+                '<br/>' +
+                'In using that infernal salt cookbook you have allowed yourself to be possessed by a demon known ' +
+                'only as the Dark Lord of Salt. You did not know Him before. You certainly know Him now.<br/>' +
+                '<br/>' +
+                'Your successful attempt at using your own saltiness to mind control the Blizzard CMs was what cost you ' +
+                'the last shreds of your humanity. You can feel Him spreading out across your body; getting used to His ' +
+                'new host. You feel His disappointment when He realises that you are certainly not the prime specimen He ' +
+                'desired. You will have to do for now.<br/>' +
+                '<br/>' +
+                'It is time.',
+            score: 999,
+            isAvailable: function() {
+                return player.data['mindcontrol']
+                    && player.data['mindcontrolpass']
+                    && player.data['beta']
+            }
         }
+        // TODO endings - got beta, low darkness
+        // TODO endings - got beta, high darkness
+        // TODO endings - salt too high, low darkness
+        // TODO endings - salt too high, high darkness
+        // TODO endings - out of time, low darkness
+        // TODO endings - out of time, high darkness
+        // TODO endings - went too far
     ];
 
     function getEnding() {
