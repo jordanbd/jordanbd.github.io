@@ -31,6 +31,23 @@ define(['app/model/player'], function(player) {
         //        // FIXME
         //    ]
         //},
+        /* Warning about slender */
+        {
+            chance: 1,
+            isAvailable: function() {
+                return player.data['slender-spotted'] && !player.data['slender-warning'];
+            },
+            apply: function() {
+                player.data['slender-warning'] = true;
+            },
+            type: 'twitter',
+            flavourText: [
+                {
+                    user: 'Alex',
+                    text: player.name + '! CHECK YOUR EMAIL!! YOU ARE IN DANGER.'
+                }
+            ]
+        },
         /* Reddit salty posts */
         {
             chance: 0.4,

@@ -253,7 +253,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                 },
                 /* stumble on slenderman */
                 {
-                    chance: 0.01,
+                    chance: 0.5,// fixme
                     isAvailable: function() {
                         return !player.data['slender-spotted'];
                     },
@@ -418,6 +418,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
             outcomes: [
                 {
                     chance: 1,
+                    score: 999,
                     isAvailable: function() {
                         return player.data['helpedman'] && !player.data['helpedman-items'];
                     },
@@ -435,9 +436,26 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                 },
                 {
                     chance: 1,
+                    score: 9999,
                     isAvailable: function() {
-                        // HACKY
-                        return (!player.data['helpedman'] || (player.data['helpedman'] && player.data['helpedman-items']));
+                        return player.data['slender-warning'] && !player.data['slender-email'];
+                    },
+                    flavourText: [
+                        '"You saw him didn\'t you? You saw the slender man. He is coming for you. Right now. You need to run or you will die. Run you fool. RUN."'
+                    ],
+                    apply: function() {
+                        player.data['slender-email'] = true;
+                    },
+                    buttons: [
+                        {
+                            text: '...'
+                        }
+                    ]
+                },
+                {
+                    chance: 1,
+                    isAvailable: function() {
+                        return true;
                     },
                     flavourText: [
                         'You get excited when you spot an email from Blizzard, but it\'s a newsletter announcing another WoW expansion. You die a little inside.',

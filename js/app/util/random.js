@@ -15,6 +15,7 @@ define([], function() {
 
     function randomOutcome(outcomes) {
         // Sort outcomes so that lowest chance are first, otherwise high chance outcomes will occur too frequently.
+        // Additionally sort on score if it exists
         outcomes.sort(function compareFunction(a, b) {
 
             var aChance = null;
@@ -28,6 +29,21 @@ define([], function() {
                 bChance = b.chance();
             } else {
                 bChance = b.chance;
+            }
+
+            var aScore = 1;
+            if (a.score) {
+                aScore = a.score;
+            }
+            var bScore = 1;
+            if (b.score) {
+                bScore = b.score;
+            }
+
+            if (aScore > bScore) {
+                return -1;
+            } else if (bScore > aScore) {
+                return 1;
             }
 
             if (aChance < bChance) {
