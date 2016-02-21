@@ -1,6 +1,6 @@
 'use strict';
 
-define(['app/model/player'], function(player) {
+define(['app/model/player', 'app/model/words'], function(player, words) {
 
     // TODO: Salty pants - increases your salt generation but every N seconds increase your beta chance
 
@@ -15,7 +15,7 @@ define(['app/model/player'], function(player) {
                     apply: function() {
                         player.changeSalt(-30);
                         player.removeItem('stale-water');
-                        return 'You are less salty.';
+                        return words.buildApplyReturn({salt: -30, itemCount: -1});
                     },
                     buttons: [
                         {
@@ -29,7 +29,7 @@ define(['app/model/player'], function(player) {
                     apply: function() {
                         player.changeSecondsRemaining(-30);
                         player.removeItem('stale-water');
-                        return 'You have lost 30 seconds of time.';
+                        return words.buildApplyReturn({time: -30, itemCount: -1});
                     },
                     buttons: [
                         {
@@ -49,7 +49,7 @@ define(['app/model/player'], function(player) {
                     apply: function() {
                         player.changeBetaChance(0.1);
                         player.removeItem('clover');
-                        return 'Your beta chances have increased.'
+                        return words.buildApplyReturn({beta: 0.1, itemCount: -1});
                     },
                     buttons: [
                         {
@@ -85,7 +85,7 @@ define(['app/model/player'], function(player) {
                     apply: function() {
                         player.changeSalt(5);
                         player.removeItem('berry');
-                        return 'Your saltiness has increased.';
+                        return words.buildApplyReturn({salt: 5, itemCount: -1});
                     },
                     buttons: [
                         {
@@ -99,7 +99,7 @@ define(['app/model/player'], function(player) {
                     apply: function() {
                         player.changeSalt(-5);
                         player.removeItem('berry');
-                        return 'Your saltiness has decreased.';
+                        return words.buildApplyReturn({salt: -5, itemCount: -1});
                     },
                     buttons: [
                         {
@@ -134,7 +134,7 @@ define(['app/model/player'], function(player) {
                     apply: function() {
                         player.changeSalt(-20);
                         player.removeItem('mineral-water');
-                        return 'You are less salty.';
+                        return words.buildApplyReturn({salt: -20, itemCount: -1});
                     }
                 }
             ]
@@ -164,6 +164,7 @@ define(['app/model/player'], function(player) {
                     apply: function() {
                         player.changeMoney(5000);
                         player.removeItem('briefcase');
+                        return words.buildApplyReturn({money: 5000, itemCount: -1});
                     },
                     buttons: [
                         {
@@ -183,7 +184,7 @@ define(['app/model/player'], function(player) {
                     apply: function() {
                         player.removeItem('puppet');
                         player.changeBetaChance(0.05);
-                        return 'Your beta chances have increased.';
+                        return words.buildApplyReturn({beta: 0.05, itemCount: -1});
                     },
                     buttons: [
                         {
@@ -192,7 +193,89 @@ define(['app/model/player'], function(player) {
                     ]
                 }
             ]
+        },
+        'accelerator': {
+            title: 'Miniature chronal accelerator',
+            description: 'Gives you an additional 60 seconds of time. One-time use only.',
+            outcomes: [
+                {
+                    chance: 1,
+                    flavourText: 'Let\'s try that again!',
+                    apply: function() {
+                        player.removeItem('accelerator');
+                        player.changeSecondsRemaining(60);
+                        return words.buildApplyReturn({time: 60, itemCount: -1});
+                    },
+                    buttons: [
+                        {
+                            text: 'Whee!'
+                        }
+                    ]
+                }
+            ]
+        },
+        'visor': {
+            title: 'Tactical visor',
+            description: 'If you were a soldier it would help you lock on to targets. In your case it helps you lock on to ' +
+                'the Beta (???). I am not a good game designer.',
+            outcomes: [
+                {
+                    chance: 1,
+                    flavourText: 'You\'ve got the beta in your sights!',
+                    apply: function() {
+                        player.removeItem('visor');
+                        player.changeBetaChance(0.05);
+                        return words.buildApplyReturn({beta: 0.05, itemCount: -1});
+                    },
+                    buttons: [
+                        {
+                            text: 'I am a soldier now'
+                        }
+                    ]
+                }
+            ]
+        },
+        'peanut': {
+            title: 'Peanut butter',
+            description: 'Lower\'s your salt and makes gorillas happy.',
+            outcomes: [
+                {
+                    chance: 1,
+                    flavourText: 'Did someone say peanut butter?',
+                    apply: function() {
+                        player.removeItem('peanut');
+                        player.changeSalt(-25);
+                        return words.buildApplyReturn({salt: -25, itemCount: -1});
+                    }
+                }
+            ]
+        },
+        'deadbook': {
+            title: 'Book of the dead',
+            description: 'Probably just some gag gift.',
+            outcomes: [
+                {
+                    chance: 1,
+                    flavourText: 'You hear voices as you open the dusty tome. The darkness has found you.',
+                    apply: function() {
+                        player.data['darkness'] = 0;
+                        player.removeItem('deadbook');
+                        return words.buildApplyReturn({itemCount: -1}) + 'New items for sale at shop.'
+                    },
+                    buttons: [
+                        {
+                            text: 'This is fine'
+                        }
+                    ]
+                }
+            ]
         }
+
+        // TODO: book of dead items (all increase darkness)
+
+        // TODO: ward off slender
+
+        // TODO home security system
     };
 
     return {

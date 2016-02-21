@@ -126,6 +126,9 @@
     <div class="action-option">
         <span class="title"><%= title %></span>
         <span class="description"><%= description %></span>
+        <% if (typeof(subDescription) !== "undefined") { %>
+            <span class="sub-description"><%= subDescription %></span>
+        <% } %>
     </div>
 </script>
 

@@ -54,10 +54,7 @@ define(['jquery', 'emitter', 'app/ui/templates', 'app/model/player'], function($
         if (stopped) {
             return;
         }
-        // Capture start ticks
-        if (player.secondsRemaining % 5 == 0) {
-            emitter.emit('timer-tick5');
-        }
+        // Capture start ticks- ONLY do this for 10 second increment, not 5
         if (player.secondsRemaining % 10 == 0) {
             emitter.emit('timer-tick10');
         }

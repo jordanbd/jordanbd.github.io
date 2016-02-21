@@ -32,7 +32,8 @@ function($, _, emitter, templates, modal, timer, player, attacks, items, shop, w
 
             var $opt = $(templates.getTemplate('actionOptionTmpl')({
                 title: attack.title,
-                description: attack.description
+                description: attack.description,
+                subDescription: attack.subDescription
             }));
 
             var click = function(a) {

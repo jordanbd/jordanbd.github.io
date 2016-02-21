@@ -50,9 +50,64 @@ define(['app/util/random'], function(random) {
         return mods(blizzCms(text));
     }
 
+    function buildApplyReturn(opts) {
+        var sb = "";
+        if (opts.salt) {
+            if (salt >= 20) {
+                sb += "Your saltiness has greatly increased. "
+            } else if (salt > 0) {
+                sb += "Your saltiness has increased. "
+            } else if (salt <= 20) {
+                sb += "Your saltiness has greatly decreased. "
+            } else if (salt < 0) {
+                sb += "Your saltiness has decreased. "
+            }
+        }
+        if (opts.itemCount) {
+            if (opts.itemCount == 1) {
+                sb += "Item added to your inventory. "
+            } else if (opts.itemCount > 1) {
+                sb += "Items added to your inventory. "
+            } else if (opts.itemCount == -1) {
+                sb += "Item removed from your inventory. "
+            } else if (opts.itemCount < -1) {
+                sb += "Items removed from your inventory. "
+            }
+        }
+        if (opts.beta) {
+            if (opts.beta >= 0.1) {
+                sb += "Your beta chances have greatly increased. "
+            } else if (opts.beta > 0) {
+                sb += "Your beta chances have increased. "
+            } else if (opts.beta <= 0.1) {
+                sb += "Your beta chances have greatly decreased. "
+            } else if (opts.beta < 0) {
+                sb += "Your beta chances have decreased. "
+            }
+        }
+        if (opts.time) {
+            if (opts.time >= 60) {
+                sb += "Your time remaining has greatly increased. "
+            } else if (opts.time > 0) {
+                sb += "Your time remaining has increased. "
+            } else if (opts.time <= 60) {
+                sb += "Your time remaining has greatly decreased. "
+            } else if (opts.time < 0) {
+                sb += "Your time remaining has decreased. "
+            }
+        }
+        if (opts.money) {
+            if (opts.money > 0) {
+                sb += "You have gained $" + opts.money + ". "
+            }
+        }
+        return sb;
+    }
+
     return {
         salt: salt,
-        textReplace: textReplace
+        textReplace: textReplace,
+        buildApplyReturn: buildApplyReturn
     }
 
 });

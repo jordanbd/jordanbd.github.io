@@ -1,18 +1,23 @@
 'use strict';
 
-define(['app/model/player'], function(player) {
+define(['app/model/player', 'app/model/words'], function(player, words) {
+
+    // TODO: change give oldman to help gorrilla
 
     var attacks = [
         {
             title: 'Post to social media',
             description: 'Discuss the current ongoing wave on social media. Let\'s not kid around though - you are hoping that someone at Blizzard ' +
-                'notices your desperation and gives you beta. You are so transparent. Posting on social media can raise or lower your saltiness, ' +
-                'give or take money and yes, even raise or lower your beta chances. Be cautious. Maybe stay away if you are very salty...',
+                'notices your desperation and gives you beta. You are so transparent. Maybe stay away if you are very salty...',
+            subDescription: 'Costs: Time, Occasionally increases: Money, Occasionally increases: Beta chance, Occasionally increases: Salt',
             beforeOutcome: function() {
                 if (!player.data['socialmediacount']) {
                     player.data['socialmediacount'] = 0;
                 }
                 player.data['socialmediacount']++;
+            },
+            isAvailable: function() {
+                return player.secondsRemaining >= 10;
             },
             outcomes: [
                 /* reduce time */
@@ -26,7 +31,7 @@ define(['app/model/player'], function(player) {
                     apply: function() {
                         player.changeSecondsRemaining(60);
                         player.data['timetravelled'] = true;
-                        return 'You have gained 60 seconds of time.'
+                        return words.buildApplyReturn({time: 60});
                     },
                     buttons: [
                         {
@@ -37,10 +42,15 @@ define(['app/model/player'], function(player) {
                 /* raise saltiness */
                 {
                     chance: 0.1,
-                    flavourText: 'You comment on reddit, "Good luck everyone, I hope we all get in!". You are downvoted to -23.',
+                    flavourText: [
+                        'You comment on reddit, "Good luck everyone, I hope we all get in!". <br/><br/>You are downvoted to -23.',
+                        'You venture into a salt thread on Reddit and say something that is not salty. <br/><br/>You are downvoted to -18.',
+                        'You make a comment on Reddit that vaguely implies that you have Beta. <br/><br/>You are downvoted to -482.'
+                    ],
                     apply: function() {
                         player.changeSalt(5);
-                        return 'Your saltiness has increased';
+                        player.changeSecondsRemaining(-10);
+                        return words.buildApplyReturn({salt: 5, time: -10});
                     },
                     buttons: [
                         {
@@ -50,11 +60,18 @@ define(['app/model/player'], function(player) {
                 },
                 /* lower saltiness */
                 {
-                    chance: 0.1,
-                    flavourText: 'You get in on a "FUCK" chain in the reddit comments. Those things are so stupid. You are upvoted +239 times.',
+                    chance: 0.15,
+                    flavourText: [
+                        'You get in on a "FUCK" chain in the reddit comments. Those things are so stupid. <br/><br/>You are upvoted +239 times.',
+                        'You post on reddit demanding more invite ways get sent out.  Your post is littered with spelling mistakes, ' +
+                        'grammatical errors and a significant misunderstanding of the way software development works. <br/><br/>You are upvoted +588 times.',
+                        'You see some exceptional fanart posts on Twitter get attention from $$CM - those sneaky (junk) rats, I bet she gave them beta. You draw ' +
+                        'an awful picture of Tracer using MSPaint and post it on reddit. <br/><br/>You inexplicably gets +100 upvotes.'
+                    ],
                     apply: function() {
                         player.changeSalt(-5);
-                        return 'Your saltiness has decreased.';
+                        player.changeSecondsRemaining(-10);
+                        return words.buildApplyReturn({salt: -5, time: -10});
                     },
                     buttons: [
                         {
@@ -64,11 +81,16 @@ define(['app/model/player'], function(player) {
                 },
                 /* completely reset saltiness */
                 {
-                    chance: 0.03,
+                    chance: 0.08,
+                    isAvailable: function() {
+                        return !player.data['saltreset'];
+                    },
                     flavourText: '$$CM responds to one of your dumb Twitter questions that you could\'ve found the answer to yourself if you spent ' +
                         'literally any time googling it. You are so stupid, but you are happy that senpai has noticed you.',
                     apply: function() {
                         player.changeSalt(-100);
+                        player.changeSecondsRemaining(-10);
+                        player.data['saltreset'] = true;
                         return 'Your saltiness has reset to zero.';
                     },
                     buttons: [
@@ -80,10 +102,15 @@ define(['app/model/player'], function(player) {
                 /* find money */
                 {
                     chance: 0.1,
-                    flavourText: 'You post a series of odd videos to Youtube starring a puppet and prominently featuring chips for some reason.',
+                    flavourText: [
+                        'You post a video to Youtube demanding that Blizzard nerf McCree.',
+                        'You spend an evening counting the number of rockets Pharah launches during her ultimate and post a video to Youtube about it.',
+                        'You post a video to Youtube announcing that you will soon post a video to Youtube with some actual content.'
+                    ],
                     apply: function() {
-                        player.changeMoney(100);
-                        return 'Ad revenue pays out a crisp $100.'
+                        player.changeMoney(42);
+                        player.changeSecondsRemaining(-10);
+                        return words.buildApplyReturn({time: -10}) + 'Ad revenue pays out a crisp $42.'
                     },
                     buttons: [
                         {
@@ -91,19 +118,16 @@ define(['app/model/player'], function(player) {
                         }
                     ]
                 },
-                /* lose money */
-                // TODO
-                /* lose all money */
-                // TODO
                 /* raise beta */
                 {
                     chance: 0.05,
                     flavourText: [
-                        'Your desperate, obnoxious sounding posts have somehow caught the sympathetic eye of a watching Blizzard employee.'
+                        'Your desperate, obnoxious sounding posts have somehow caught the sympathetic eye of $$CM.'
                     ],
                     apply: function() {
                         player.changeBetaChance(0.03);
-                        return 'Your beta chances have slightly increased.';
+                        player.changeSecondsRemaining(-10);
+                        return words.buildApplyReturn({time: -10, beta: 0.03});
                     },
                     buttons: [
                         {
@@ -115,34 +139,44 @@ define(['app/model/player'], function(player) {
                 {
                     chance: 0.05,
                     isAvailable: function() {
-                        return player.salt >= 80 && player.betaChance > 0;
+                        return player.salt >= 50 && player.betaChance > 0;
                     },
                     flavourText: [
-                        'Posting on social media when you are salty is never a good idea. You send some creepy, desperate messages to a Blizzard employee ' +
+                        'Posting on social media when you are salty is never a good idea. You send some creepy, desperate messages to $$CM ' +
                         'on Twitter. They do not appreciate it.'
                     ],
                     apply: function() {
                         player.changeBetaChance(-0.03);
-                        return 'Your beta chances have slightly decreased.';
+                        player.changeSecondsRemaining(-10);
+                        return words.buildApplyReturn({time: -10, beta: -0.03});
                     },
                     buttons: [
                         {
                             text: 'It was just a prank!'
                         }
                     ]
+                },
+                /* me being a loser */
+                {
+                    chance: 0.05,
+                    isAvailable: function() {
+                        return player.salt >= 50;
+                    },
+                    flavourText: [
+                        'You make a childish comment on reddit lamenting that you missed out on the Beta stress test weekend. ' +
+                        '"Fuck me for believing in your Blizzard!" you shout (type) to the heavens. It literally gets you no where.'
+                    ],
+                    apply: function() {
+                        player.changeSecondsRemaining(-10);
+                        return words.buildApplyReturn({time: -10});
+                    }
                 }
-                // TODO
-                /* reset beta */
-                // TODO
-                /* give beta - happy ending */
-                /* give beta - robbery ending */
-                /* give beta - alien abduction ending */
             ]
         },
         {
             title: 'Go for a walk',
-            description: 'Go for a leisurely stroll. Your saltiness will decrease but you will waste 20 seconds of time. You have a chance ' +
-                'to find items and money when going for a walk.',
+            description: 'Go for a brief walk away from your computer. Dream of Tracer and clear your mind of salty thoughts.',
+            subDescription: 'Lowers: Salt, Costs: Time',
             isAvailable: function() {
                 return player.secondsRemaining >= 20;
             },
@@ -154,13 +188,13 @@ define(['app/model/player'], function(player) {
                 {
                     chance: 0.01,
                     flavourText: [
-                        'You decide to walk backwards around your building. Oddly enough you now find yourself with ' +
+                        'You decide to walk backwards on your walk. Oddly enough you now find yourself with ' +
                         'more time than you had before.'
                     ],
                     apply: function() {
                         player.changeSalt(-10);
                         player.changeSecondsRemaining(60);
-                        return 'Your saltiness has decreased and your time remaining has increased.'
+                        return words.buildApplyReturn({salt: -10, time: 60});
                     },
                     buttons: [
                         {
@@ -173,14 +207,15 @@ define(['app/model/player'], function(player) {
                     isAvailable: function() {
                         return true;
                     },
-                    chance: 0.39,
+                    chance: 0.6,
                     flavourText: [
                         'You take a brisk walk around the building to clear your head.',
                         'A brief respite from the beta frenzy helps prevent the build up of salt.',
-                        'The sounds of silence prevent you from meeting darkness (your old friend).'
+                        'The sounds of silence prevent you from meeting darkness (your old friend).',
+                        'You think about the big bucks you\'re going to make when you turn pro at this game.'
                     ],
                     apply: function() {
-                        player.changeSalt(-10);
+                        return words.buildApplyReturn({salt: -10});
                         return 'Your saltiness has decreased slightly.';
                     }
                 },
@@ -191,7 +226,7 @@ define(['app/model/player'], function(player) {
                     apply: function() {
                         player.changeSalt(-10);
                         player.items.push('stale-water');
-                        return 'Your saltiness has also decreased slightly.';
+                        return words.buildApplyReturn({salt: -10, itemCount: 1});
                     },
                     buttons: [
                         {
@@ -208,7 +243,7 @@ define(['app/model/player'], function(player) {
                     apply: function() {
                         player.changeSalt(-10);
                         player.items.push('clover');
-                        return 'Your saltiness has also decreased slightly.';
+                        return words.buildApplyReturn({salt: -10, itemCount: 1});
                     },
                     buttons: [
                         {
@@ -226,7 +261,8 @@ define(['app/model/player'], function(player) {
                     apply: function() {
                         player.changeSalt(-10);
                         player.data['slender-spotted'] = true;
-                        return 'Your saltiness has decreased slightly. You close the blinds and pretend you didn\'t see anything.';
+                        return words.buildApplyReturn({salt: -10})
+                            + 'You close the blinds and pretend you didn\'t see anything.';
                     },
                     buttons: [
                         {
@@ -236,10 +272,10 @@ define(['app/model/player'], function(player) {
                 },
                 /* find money */
                 {
+                    chance: 0.25,
                     isAvailable: function() {
                         return !player.data['stole-partner-money']
                     },
-                    chance: 0.05,
                     flavourText: [
                         'While on your walk you stumble upon your partner\'s bag and find $100.00 in it! You take your partner\'s money.'
                     ],
@@ -247,7 +283,7 @@ define(['app/model/player'], function(player) {
                         player.data['stole-partner-money'] = true;
                         player.changeSalt(-10);
                         player.changeMoney(100);
-                        return 'Your saltiness has decreased slightly.';
+                        return words.buildApplyReturn({salt: -10, money: 100})
                     },
                     buttons: [
                         {
@@ -262,7 +298,7 @@ define(['app/model/player'], function(player) {
                         'statue.',
                     apply: function() {
                         player.changeSalt(10);
-                        return 'Your saltiness has increased.';
+                        return words.buildApplyReturn({salt: 10})
                     },
                     buttons: [
                         {
@@ -277,14 +313,19 @@ define(['app/model/player'], function(player) {
                         return !player.data['briefcase'];
                     },
                     flavourText: [
-                        'A man hands you a briefcase and leaves before saying anything.'
+                        'A soldier in a numbered jacket hands you a briefcase and leaves before saying anything.'
                     ],
                     apply: function() {
                         player.changeSalt(-10);
                         player.items.push('briefcase');
                         player.data['briefcase'] = true;
-                        return 'Item added to your inventory. Your saltiness has decreased.';
-                    }
+                        return words.buildApplyReturn({salt: -10, itemCount: 1})
+                    },
+                    buttons: [
+                        {
+                            text: 'Was that...?'
+                        }
+                    ]
                 },
                 /* find a handful of berries */
                 {
@@ -302,22 +343,23 @@ define(['app/model/player'], function(player) {
                         player.items.push('berry');
                         player.items.push('berry');
                         player.data['berries'] = true;
-                        return '4 items added to your inventory. Your saltiness has decreased.';
+                        return words.buildApplyReturn({salt: -10, itemCount: 4})
                     }
                 },
                 /* a shaggy fellow */
                 {
-                    chance: 0.1,
+                    chance: 0.5,
                     isAvailable: function() {
                         return player.money >= 100 && !player.data['helpedman'];
                     },
                     flavourText: 'You encounter a shaggy looking fellow on your walk. He asks you if he can have $100. ' +
-                        'He does not say what for.',
+                        'He does not say what for. He says he will email you a thank-you message.',
                     buttons: [
                         {
                             text: 'Uhh, sure?',
                             apply: function() {
                                 player.changeMoney(-100);
+                                player.changeSalt(-10);
                                 player.data['helpedman'] = true;
                             }
                         },
@@ -334,7 +376,7 @@ define(['app/model/player'], function(player) {
                     ],
                     apply: function() {
                         player.changeSalt(-30);
-                        return 'Your saltiness has greatly decreased';
+                        return words.buildApplyReturn({salt: -30})
                     },
                     buttons: [
                         {
@@ -345,11 +387,37 @@ define(['app/model/player'], function(player) {
             ]
         },
         {
+            title: 'Do some work',
+            description: 'Actually do your job instead of sitting around waiting for a Beta invite.',
+            subDescription: 'Increases: Money, Costs: Time',
+            isAvailable: function() {
+                return player.secondsRemaining >= 20;
+            },
+            outcomes: [
+                {
+                    chance: 1,
+                    flavourText: [
+                        'You open up Microsoft Excel and mindlessly tap away at the keyboard so your colleagues think you are working.',
+                        'You shuffle some papers on your desk and randomly staple certain pages together.',
+                        'You call a colleague into a meeting room where you both work out on a whiteboard the odds of one of you ' +
+                        'getting into the Beta. You aren\'t creating an algorithm for Facebook here - you could have used a calculator.',
+                        'You plot out the number of days you can take as sick leave in the event you are invited into beta.',
+                        'You spec requirements for an awful Overwatch Beta RPG on a notepad.'
+                    ],
+                    apply: function() {
+                        player.changeSecondsRemaining(-20);
+                        player.changeMoney(50);
+                        return words.buildApplyReturn({time: -20, money: 50})
+                    }
+                }
+            ]
+        },
+        {
             title: 'Check your email inbox',
             description: 'Beta invites take hours to arrive by email. There is literally no reason why you should check your inbox...',
             outcomes: [
                 {
-                    chance: 2, // lol
+                    chance: 1,
                     isAvailable: function() {
                         return player.data['helpedman'];
                     },
@@ -368,7 +436,8 @@ define(['app/model/player'], function(player) {
                 {
                     chance: 1,
                     isAvailable: function() {
-                        return true;
+                        // HACKY
+                        return !player.data['helpedman'];
                     },
                     flavourText: [
                         'You get excited when you spot an email from Blizzard, but it\'s a newsletter announcing another WoW expansion. You die a little inside.',
@@ -384,15 +453,10 @@ define(['app/model/player'], function(player) {
             ]
         },
         {
-            title: 'Do some work',
-            description: 'Actually do your job instead of sitting around waiting for a Beta invite. Good way of increasing money but costs a significant ' +
-                'amount of time.',
-            outcomes: []
-        },
-        {
             title: 'Check your Battle.net account',
             description: 'Log in to Account Management and check to see if you have been invited into the Beta. This is the only way ' +
             'to confirm you are in beta. Be warned: if you have not yet been invited into the beta your salt will increase.',
+            subDescription:  'Chance to finish game',
             outcomes: [
                 //TODO slow internet connection costs you time
                 /* Success */
@@ -478,7 +542,7 @@ define(['app/model/player'], function(player) {
                     ]
                 }
             ]
-        },
+        }
     ];
 
     function getAttacks() {

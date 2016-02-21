@@ -5,13 +5,25 @@
 19) Resource tick - money
 20) Resource tick - chance
 21) Check email - salt, pointless, old man help, get out slender comes
-23) certain words get auto css style - money, beta chance, salt
-24) New action: Work - severly reduces time
-26) icons for cms, mods?
 27) Mobile check
 28) IE check
-32) Extra information to attacks - <b>Produces:</b>, Costs, etc
 34) Book of the damned - adds items to shop (spells)
 35) Improve social media, seems useless and unpredictable at the moment
 36) Salt descriptions are a bit cheesy
-37) test
+38) move shake css to local
+40) gap between multiple buttons in dialog
+41) Dead ending
+42) Nerf do work
+
+WALK
+ - Lowers: Salt
+ - Costs: Time
+
+WORK
+ - Increase: Money
+ - Costs: Time
+
+SOCIAL
+ - Occasionally increases: Money
+ - Occasionally increases: Beta chance
+ - Occasionally increases: Salt

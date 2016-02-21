@@ -152,12 +152,12 @@ p {
     cursor: pointer;
     margin-bottom: 1em;
     color: rgba(255,255,255,.9);
+    text-shadow: 2px 2px 2px rgba(0,0,0,.5);
 }
 
 .action-option > .title {
     display: block;
     font-weight: bold;
-    text-shadow: 1px 1px 1px rgba(0,0,0,.5);
     text-transform:  uppercase;
 }
 
@@ -172,6 +172,14 @@ p {
 .action-option > .description {
     display: block;
     margin-left: 1.2em;
+}
+
+.action-option > .sub-description {
+    display: block;
+    margin-left: 1.2em;
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: bold;
+    margin-top: 3px;
 }
 
 /** Game over **/

@@ -3,8 +3,17 @@
 define(['jquery', 'app/ui/templates', 'app/model/endings', 'app/model/words'], function($, templates, endings, words) {
 
     var sm;
+    var entered = false;
 
     function enter(screenManager) {
+
+        // Try to fix spam bug when you enter ending screen multiple times
+        if (!entered) {
+            entered = true;
+        } else {
+            return;
+        }
+
 
         // Generate an ending
         var ending = endings.getEnding();

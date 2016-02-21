@@ -1,6 +1,6 @@
 'use strict';
 
-define(['app/model/player'], function(player) {
+define(['app/model/player', 'app/model/words'], function(player, words) {
 
     var items = [
         {
@@ -20,7 +20,7 @@ define(['app/model/player'], function(player) {
                     apply: function() {
                         player.changeMoney(-20);
                         player.items.push('mineral-water');
-                        return 'Item added to your inventory. You have lost $20.';
+                        return words.buildApplyReturn({money: -20, itemCount: 1});
                     }
                 }
             ]
@@ -43,7 +43,7 @@ define(['app/model/player'], function(player) {
                         player.changeMoney(-200);
                         player.items.push('puppet');
                         player.data['puppet'] = true;
-                        return 'Item added to your inventory. You have lost $200.';
+                        return words.buildApplyReturn({money: -200, itemCount: 1});
                     }
                 }
             ]
@@ -70,7 +70,7 @@ define(['app/model/player'], function(player) {
                         player.changeMoney(-60);
                         player.items.push('origins');
                         player.data['origins'] = true;
-                        return 'Your beta chances have increased. You have lost $60. Overwatch: Origins edition has been added to your inventory.';
+                        return words.buildApplyReturn({money: -60, itemCount: 1, beta: 0.05});
                     }
                 },
                 /* does nothing ? */
@@ -81,7 +81,7 @@ define(['app/model/player'], function(player) {
                         player.changeMoney(-60);
                         player.items.push('origins');
                         player.data['origins'] = true;
-                        return 'You have lost $60. Overwatch: Origins edition has been added to your inventory.';
+                        return words.buildApplyReturn({money: -60, itemCount: 1});
                     },
                     buttons: [
                         {
@@ -109,16 +109,115 @@ define(['app/model/player'], function(player) {
                         player.changeMoney(-1000);
                         player.items.push('beard');
                         player.data['beard'] = true;
-                        return 'Item has been added to your inventory.';
+                        return words.buildApplyReturn({money: -1000, itemCount: 1});
+                    }
+                }
+            ]
+        },
+        {
+            itemRef: 'accelerator',
+            cost: 20,
+            canAfford: function() {
+                return player.money >= this.cost
+            },
+            isAvailable: function() {
+                return player.data['helpedman-items'] && !player.data['accelerator'];
+            },
+            outcomes: [
+                {
+                    chance: 1,
+                    flavourText: 'Everyone is going to think you need a nerf now.',
+                    apply: function() {
+                        player.changeMoney(-20);
+                        player.items.push('accelerator');
+                        player.data['accelerator'] = true;
+                        return words.buildApplyReturn({money: -20, itemCount: 1});
+                    }
+                }
+            ]
+        },
+        {
+            itemRef: 'visor',
+            cost: 60,
+            canAfford: function() {
+                return player.money >= this.cost
+            },
+            isAvailable: function() {
+                return player.data['helpedman-items'] && !player.data['visor'];
+            },
+            outcomes: [
+                {
+                    chance: 1,
+                    flavourText: 'The same visor worn by Data from Star Wars.',
+                    apply: function() {
+                        player.changeMoney(-20);
+                        player.items.push('visor');
+                        player.data['visor'] = true;
+                        return words.buildApplyReturn({money: -20, itemCount: 1});
+                    }
+                }
+            ]
+        },
+        {
+            itemRef: 'peanut',
+            cost: 20,
+            canAfford: function() {
+                return player.money >= this.cost
+            },
+            isAvailable: function() {
+                return player.data['helpedman-items'];
+            },
+            outcomes: [
+                {
+                    chance: 1,
+                    flavourText: 'This is salt-free peanut butter.',
+                    apply: function() {
+                        player.changeMoney(-20);
+                        player.items.push('peanut');
+                        return words.buildApplyReturn({money: -20, itemCount: 1});
+                    }
+                }
+            ]
+        },
+        {
+            itemRef: 'deadbook',
+            cost: 200,
+            canAfford: function() {
+                return player.money >= this.cost
+            },
+            isAvailable: function() {
+                return !player.data['darkness'];
+            },
+            outcomes: [
+                {
+                    chance: 1,
+                    flavourText: 'Time to reap, or do something evil-ish.',
+                    apply: function() {
+                        player.changeMoney(-200);
+                        player.items.push('deadbook');
+                        return words.buildApplyReturn({money: -200, itemCount: 1});
                     }
                 }
             ]
         }
     ];
 
-    // TODO: get sorts cheapest -> most expensive
-
     function getItemsForSale() {
+
+        items.sort(function compareFunction(a, b) {
+
+            if (a.cost < b.cost) {
+                // If compareFunction(a, b) is less than 0, sort a to a lower index than b, i.e. a comes first.
+                return -1;
+                // If compareFunction(a, b) is greater than 0, sort b to a lower index than a.
+            } else if (b.cost < a.cost) {
+                return 1;
+            }
+            // If compareFunction(a, b) returns 0, leave a and b unchanged with respect to each other, but sorted with respect to all different elements.
+            return 0;
+
+        });
+
         var result = [];
         for (var i = 0; i < items.length; i++) {
             var item = items[i];

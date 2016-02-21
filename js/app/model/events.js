@@ -28,7 +28,7 @@ define(['app/model/player'], function(player) {
             },
             type: 'twitter',
             flavourText: [
-
+                // FIXME
             ]
         },
         /* Reddit salty posts */
