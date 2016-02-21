@@ -83,6 +83,15 @@ p {
     padding: 10px;
 }
 
+p strong {
+    font-weight: bold;
+}
+
+.secondaryText {
+    color: rgba(255,255,255,.5);
+    font-size: 0.8em;
+}
+
 /** Character **/
 
 .panel-character-stats {

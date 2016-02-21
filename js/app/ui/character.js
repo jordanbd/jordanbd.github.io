@@ -8,6 +8,8 @@ function($, emitter, templates, timer, player, words) {
 
     function updateUI() {
 
+        /** Salt **/
+
         var $saltDescription = $('.salt > .description', $ele);
         $saltDescription.removeClass(function (index, css) {
             return (css.match (/(^|\s)shake\S+/g) || []).join(' ');
@@ -29,11 +31,18 @@ function($, emitter, templates, timer, player, words) {
         var $saltValue = $('.salt > .value', $ele);
         $saltValue.text(player.salt + '%');
 
-        var $money = $('.money', $ele);
-        $money.text('$' + player.money);
+        /** Money **/
 
-        var $betaChance = $('.beta-chance', $ele);
-        $betaChance.text(player.betaChance);
+        var $moneyDescription = $('.money > .description', $ele);
+        var $moneyValue = $('.money > .value', $ele);
+
+        $moneyValue.text('$' + player.money);
+
+        /** Beta chance **/
+
+        var $betaChanceDescription = $('.beta-chance > .description', $ele);
+        var $betaChanceValue = $('.beta-chance > .value', $ele);
+        $betaChanceValue.text(words.betaChanceValue(player.betaChance));
     }
 
     function increaseSalt() {
@@ -59,6 +68,26 @@ function($, emitter, templates, timer, player, words) {
         s.appendTo($('.salt > .increment', $ele));
     }
 
+    function showMoneyChange(amount) {
+        var s = $('<span/>');
+        if (amount > 0) {
+            s.text("(+" + amount + ")");
+        } else {
+            s.text("(" + amount + ")");
+        }
+
+        s.addClass('fade-queue');
+        s.appendTo($('.money > .increment', $ele));
+    }
+
+    function showBetaChanceChange(amount) {
+        var s = $('<span/>');
+        s.text(words.betaChanceIncrement(amount));
+
+        s.addClass('fade-queue');
+        s.appendTo($('.beta-chance > .increment', $ele));
+    }
+
     function fadeQueuedElements() {
         $('.fade-queue', $ele)
             .removeClass('fade-queue')
@@ -70,10 +99,15 @@ function($, emitter, templates, timer, player, words) {
     function setup($parent) {
         $ele = $(templates.getTemplate('characterStatsTmpl')({
             name: 'test',
-            money: '$' + player.money,
-            saltDescription: words.salt(player.salt),
+
+            moneyValue: '$' + player.money,
+            moneyDescription: '',
+
             saltValue: player.salt,
-            betaChance: player.betaChance
+            saltDescription: words.salt(player.salt),
+
+            betaChanceValue: words.betaChanceValue(player.betaChance),
+            betaChanceDescription: ''
         }));
         $parent.append($ele);
 
@@ -84,6 +118,12 @@ function($, emitter, templates, timer, player, words) {
 
         emitter.on('salt-change', showSaltChange); // prepares the +salt value for the screen
         emitter.on('salt-change', updateUI);
+
+        emitter.on('beta-chance-change', showBetaChanceChange);
+        emitter.on('beta-chance-change', updateUI);
+
+        emitter.on('money-change', showMoneyChange);
+        emitter.on('money-change', updateUI);
 
         emitter.on('character-refresh', updateUI);
     }

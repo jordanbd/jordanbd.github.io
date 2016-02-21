@@ -34,7 +34,7 @@ define(['app/model/player', 'app/util/random'], function(player, random) {
                 'PLAY',
             score: 1,
             isAvailable: function() {
-                return player.data['beta'] = true;
+                return player.data['beta'];
             }
         },
 
@@ -132,6 +132,24 @@ define(['app/model/player', 'app/util/random'], function(player, random) {
             }
         },
 
+        /* Run endings */
+        {
+            type: 'Defeat',
+            title: 'You have fled the Beta wave',
+            description: 'It was too much to bear. With tears streaming down your face you flee the building and escape to the sanctity of the woods.<br/>' +
+                '<br/>' +
+                'Could anyone really blame you for being unable to handle the pressure? The hype for this game can overpower even the best of us, which you ' +
+                'aren\'t, so it is no wonder it happened to you.<br/>' +
+                '<br/>' +
+                'You need time away. Away from this madness. Away from the salt.<br/>' +
+                '<br/>' +
+                'So you run. Because you can\'t take it. Because you\'re not a hero; you\'re a cowardly guardian, a useless protector. A salty knight.',
+            score: 1,
+            isAvailable: function() {
+                return player.data['run'];
+            }
+        },
+
         /* Special endings */
         {
             type: 'Victory?',
@@ -149,6 +167,18 @@ define(['app/model/player', 'app/util/random'], function(player, random) {
             score: 999,
             isAvailable: function() {
                 return player.data['isjkapp'];
+            }
+        },
+        {
+            type: 'Defeat',
+            title: 'You have died',
+            description: 'The odds of eating a poison berry are 1 in 100. If you weren\'t dead, I\'d tell you that maybe your Overwatch Beta chances ' +
+                'weren\'t so bleak.<br/>' +
+                '<br/>' +
+                'But you are dead.',
+            score: 999,
+            isAvailable: function() {
+                return player.data['deadberry'];
             }
         }
     ];
@@ -206,7 +236,8 @@ define(['app/model/player', 'app/util/random'], function(player, random) {
                 break;
             }
         }
-        console.debug('selecting ending from %s candidates %O', candidates.length, candidates);
+        console.debug('Selecting ending from %s candidates %O', candidates.length, candidates);
+        console.debug('Your state: %O', player);
 
         return random.randomArray(candidates);
     }

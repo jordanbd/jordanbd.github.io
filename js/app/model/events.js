@@ -18,19 +18,19 @@ define(['app/model/player'], function(player) {
                 'if you were accepted."'
             ]
         },
-        {
-            chance: 1,
-            isAvailable: function() {
-                return player.secondsRemaining < 180 && !player.data['event-blizz2'];
-            },
-            apply: function() {
-                player.data['event-blizz2'] = true;
-            },
-            type: 'twitter',
-            flavourText: [
-                // FIXME
-            ]
-        },
+        //{
+        //    chance: 1,
+        //    isAvailable: function() {
+        //        return player.secondsRemaining < 180 && !player.data['event-blizz2'];
+        //    },
+        //    apply: function() {
+        //        player.data['event-blizz2'] = true;
+        //    },
+        //    type: 'twitter',
+        //    flavourText: [
+        //        // FIXME
+        //    ]
+        //},
         /* Reddit salty posts */
         {
             chance: 0.4,

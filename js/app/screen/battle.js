@@ -43,7 +43,6 @@ function($, ui, _, emitter, templates, actions, news, character, modal, timer) {
     }
 
     function exit() {
-        // FIXME
         $('#canvas').html('');
     }
 

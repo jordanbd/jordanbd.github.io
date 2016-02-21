@@ -1,19 +1,15 @@
 7) http://i.imgur.com/HXT95hr.png, http://i.imgur.com/KxCGsVN.png
-10) RUN ends game
-13) beta text chance, 0.150000000001
 17) gimmick classes - lucky friend, twitch streamer
-19) Resource tick - money
-20) Resource tick - chance
 21) Check email - salt, pointless, old man help, get out slender comes
 27) Mobile check
 28) IE check
 34) Book of the damned - adds items to shop (spells)
 35) Improve social media, seems useless and unpredictable at the moment
-36) Salt descriptions are a bit cheesy
 38) move shake css to local
 40) gap between multiple buttons in dialog
-41) Dead ending
-42) Nerf do work
+43) Name
+44) Credits
+46) More news stream elements
 
 WALK
  - Lowers: Salt

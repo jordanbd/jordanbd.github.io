@@ -391,7 +391,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
             description: 'Actually do your job instead of sitting around waiting for a Beta invite.',
             subDescription: 'Increases: Money, Costs: Time',
             isAvailable: function() {
-                return player.secondsRemaining >= 20;
+                return player.secondsRemaining >= 50;
             },
             outcomes: [
                 {
@@ -405,9 +405,9 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         'You spec requirements for an awful Overwatch Beta RPG on a notepad.'
                     ],
                     apply: function() {
-                        player.changeSecondsRemaining(-20);
-                        player.changeMoney(50);
-                        return words.buildApplyReturn({time: -20, money: 50})
+                        player.changeSecondsRemaining(-50);
+                        player.changeMoney(100);
+                        return words.buildApplyReturn({time: -50, money: 100})
                     }
                 }
             ]
@@ -456,7 +456,10 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
             title: 'Check your Battle.net account',
             description: 'Log in to Account Management and check to see if you have been invited into the Beta. This is the only way ' +
             'to confirm you are in beta. Be warned: if you have not yet been invited into the beta your salt will increase.',
-            subDescription:  'Chance to finish game',
+            subDescription:  'Costs: Time, Increases: Salt, Chance to finish game',
+            isAvailable: function() {
+                return player.secondsRemaining >= 5;
+            },
             outcomes: [
                 //TODO slow internet connection costs you time
                 /* Success */
@@ -485,7 +488,8 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                     flavourText: 'YES... wait... no!! The Origins edition tricked you again... AGAIN. Your grip on your sanity loosens...',
                     apply: function() {
                         player.changeSalt(5);
-                        return 'Your saltiness increases.';
+                        player.changeSecondsRemaining(-5);
+                        return words.buildApplyReturn({salt: 5, time: -5})
                     },
                     buttons: [
                         {
@@ -510,7 +514,8 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                     ],
                     apply: function() {
                         player.changeSalt(10);
-                        return 'Your saltiness has increased.';
+                        player.changeSecondsRemaining(-5);
+                        return words.buildApplyReturn({salt: 10, time: -5})
                     },
                     buttons: [
                         {
@@ -533,7 +538,8 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                     ],
                     apply: function() {
                         player.changeSalt(10);
-                        return 'Your saltiness has increased.';
+                        player.changeSecondsRemaining(-5);
+                        return words.buildApplyReturn({salt: 10, time: -5})
                     },
                     buttons: [
                         {

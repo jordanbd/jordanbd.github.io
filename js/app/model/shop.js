@@ -63,7 +63,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
             outcomes: [
                 /* increases beta chance*/
                 {
-                    chance: 0.9,
+                    chance: 0.6,
                     flavourText: 'It doesn\'t come with beta access but you can\'t help but feel luckier.',
                     apply: function() {
                         player.changeBetaChance(0.05);
@@ -75,7 +75,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                 },
                 /* does nothing ? */
                 {
-                    chance: 0.1,
+                    chance: 0.4,
                     flavourText: 'You were told that it didn\'t come with beta access. Blizzard weren\'t kidding.',
                     apply: function() {
                         player.changeMoney(-60);

@@ -14,9 +14,9 @@ define(['app/util/random'], function(random) {
         if (value < 10) {
             return 'You are not very salty';
         } else if (value < 20) {
-            return 'Maybe you are a tiny bit salty';
+            return 'You are a tiny bit salty';
         } else if (value < 30) {
-            return 'You are starting to feel a little salty'
+            return 'You are starting to feel salty'
         } else if (value < 40) {
             return 'Come on, why you gotta be so salty?';
         } else if (value < 50) {
@@ -24,15 +24,44 @@ define(['app/util/random'], function(random) {
         } else if (value < 60) {
             return 'It\'s just a game bro. Don\'t be so mad';
         } else if (value < 70) {
-            return 'You have no "right" to get into beta';
+            return 'You have no right to get into beta, sook';
         } else if (value < 80) {
             return 'You were never getting in beta anyway';
         } else if (value < 90) {
             return 'You deserve beta more than the rest of them';
         } else if (value < 100) {
-            return 'You are more salt than human';
+            return 'The fury of the salt courses through your veins';
         } else {
-            return 'Make them pay';
+            return 'Make them all pay';
+        }
+    }
+
+    function betaChanceValue(value) {
+        //return Math.round(value * 100) + '%';
+        if (value >= 0.5) {
+            return 'Extremely high'
+        } else if (value >= 0.3) {
+            return 'High'
+        } else if (value >= 0.1) {
+            return 'Medium'
+        } else if (value >= 0.05) {
+            return 'Low'
+        } else if (value >= 0.01) {
+            return 'Very low'
+        } else {
+            return 'No chance'
+        }
+    }
+
+    function betaChanceIncrement(value) {
+        if (value >= 0.1) {
+            return '(large increase)'
+        } else if (value > 0) {
+            return '(small increase)'
+        } else if (value <= 0.1) {
+            return '(large decrease)'
+        } else if (value < 0) {
+            return '(small decrease)'
         }
     }
 
@@ -106,6 +135,8 @@ define(['app/util/random'], function(random) {
 
     return {
         salt: salt,
+        betaChanceValue: betaChanceValue,
+        betaChanceIncrement: betaChanceIncrement,
         textReplace: textReplace,
         buildApplyReturn: buildApplyReturn
     }

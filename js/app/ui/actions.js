@@ -176,6 +176,10 @@ function($, _, emitter, templates, modal, timer, player, attacks, items, shop, w
         $(document).on('click', '#action-shop', function() {
             showShopOptions();
         });
+        $(document).on('click', '#action-run', function() {
+            player.data['run'] = true;
+            emitter.emit('defeat');
+        });
 
 
         $canvas.append($actionsPanel);

@@ -34,7 +34,22 @@
 
         <br/>
 
-        <p>This is a test</p>
+        <p>
+            You have 4 minutes to get accepted into the Overwatch Beta.<br/>
+            <br/>
+            You must manage your saltiness and the time remaining in the wave to increase your odds of being
+            accepted.<br/>
+            <br/>
+            If your saltiness level reaches 100 you lose. If you run out of time you lose.<br/>
+            <br/>
+            The only way to tell if you are in the beta is to visit the <strong>Account management</strong> page.<br/>
+            <br/>
+            Good luck.
+        </p>
+
+        <br/>
+        <span class="secondaryText">Note: The wave does not work like a real beta wave does - you can be accepted into the beta at any point during the 4 minutes.</span>
+        <br/>
 
         <br/>
 
@@ -91,7 +106,11 @@
         </tr>
         <tr>
             <th>Money</th>
-            <td class="money"><%= money %></td>
+            <td class="money">
+                <span class="value"><%= moneyValue %></span>
+                <span class="description"><%= moneyDescription %></span>
+                <span class="increment"></span>
+            </td>
         </tr>
         <tr>
             <th>Salt level</th>
@@ -103,7 +122,11 @@
         </tr>
         <tr>
             <th>Beta chance</th>
-            <td class="beta-chance"><%= betaChance %></td>
+            <td class="beta-chance">
+                <span class="value"><%= betaChanceValue %></span>
+                <span class="description"><%= betaChanceDescription %></span>
+                <span class="increment"></span>
+            </td>
         </tr>
     </table>
 

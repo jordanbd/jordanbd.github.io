@@ -61,7 +61,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
         },
         'origins': {
             title: 'Overwatch: Origins edition',
-            description: 'You have prepurchased Overwatch. This item literally does nothing.',
+            description: 'You have prepurchased Overwatch. This item literally does nothing. It certainly doesn\'t guarantee Beta access, right Blizzard? :(',
             outcomes: [
                 {
                     chance: 1,
@@ -111,8 +111,8 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                     chance: 0.01,
                     flavourText: 'This is a poisonous berry.',
                     apply: function() {
-                        player.data['beta'] = true;
-                        player.data['dead'] = true;
+                        player.data['beta'] = true; // HACK
+                        player.data['deadberry'] = true;
                         player.removeItem('berry');
                         return 'You have died.';
                     },
@@ -150,7 +150,12 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         player.removeItem('beard');
                         player.data['isjkapp'] = true;
                         player.data['beta'] = true;
-                    }
+                    },
+                    buttons: [
+                        {
+                            text: 'HA HA HA'
+                        }
+                    ]
                 }
             ]
         },
