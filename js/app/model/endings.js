@@ -231,6 +231,18 @@ define(['app/model/player', 'app/util/random'], function(player, random) {
             }
         },
         {
+            type: 'Defeat',
+            title: 'You have died',
+            description: 'That orc statue has been there for years. You walk past it every day and today it decides to collapse on you. I\'d say it was ' +
+                'ironic, but I don\'t know what irony really means anymore.<br/>' +
+                '<br/>' +
+                'You are dead.',
+            score: 999,
+            isAvailable: function() {
+                return player.data['deadorcstatue'];
+            }
+        },
+        {
             type: 'Victory?',
             title: 'The Dark Lord of Salt has taken hold',
             description: 'You have been accepted into the Beta but at great cost - your soul.<br/>' +
@@ -313,12 +325,6 @@ define(['app/model/player', 'app/util/random'], function(player, random) {
                 return player.data['slender-spotted'] && !player.data['beta'] && player.data['slender-email'];
             }
         }
-        // TODO endings - got beta, low darkness
-        // TODO endings - got beta, high darkness
-        // TODO endings - salt too high, low darkness
-        // TODO endings - salt too high, high darkness
-        // TODO endings - out of time, low darkness
-        // TODO endings - out of time, high darkness
     ];
 
     function getEnding() {

@@ -216,7 +216,6 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                     ],
                     apply: function() {
                         return words.buildApplyReturn({salt: -10});
-                        return 'Your saltiness has decreased slightly.';
                     }
                 },
                 /* find water */
@@ -387,6 +386,20 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                     buttons: [
                         {
                             text: 'I am wasting my life'
+                        }
+                    ]
+                },
+                /* death on walk */
+                {
+                    chance: 0.01,
+                    flavourText: 'A giant orc statue collapses on you while on your walk.',
+                    apply: function() {
+                        player.data['deadorcstatue'] = true;
+                        return 'You have died.'
+                    },
+                    buttons: [
+                        {
+                            text: 'Oh WTF'
                         }
                     ]
                 }

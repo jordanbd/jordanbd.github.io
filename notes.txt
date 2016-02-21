@@ -1,20 +1,32 @@
 TODO
 
 17) gimmick classes - lucky friend, twitch streamer
-21) Check email - salt, pointless, old man help, get out slender comes
 27) Mobile check
 28) IE check
 35) Improve social media, seems useless and unpredictable at the moment
-38) move shake css to local
 40) gap between multiple buttons in dialog
 43) Name
 44) Credits
-46) More news stream elements
+46) More news stream events
 47) Time skipping makes you miss timer-10 ticker events
 48) Stat track
 49) A shaggy fellow => Winston
-
+50) endings - got beta, darkness
+51) endings - salt too high, darkness
+52) endings - out of time, darkness
+53) tribute to the twitters
+54) Salt increments are still clumsy
 
 Some links...
 http://i.imgur.com/HXT95hr.png
 http://i.imgur.com/KxCGsVN.png
+
+ENDING COUNT: 18
+ - 7: Slender
+ - 1: Dark Lord
+ - 1: JKapp
+ - 1: Run
+ - 1: Victorious Beta
+ - 3: Salty
+ - 2: Time
+ - 2: Dead
