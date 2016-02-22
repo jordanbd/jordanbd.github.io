@@ -153,7 +153,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                     },
                     buttons: [
                         {
-                            text: 'HA HA HA'
+                            text: 'NOW WE ARE ONE'
                         }
                     ]
                 }

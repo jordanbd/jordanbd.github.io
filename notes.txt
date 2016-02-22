@@ -16,7 +16,7 @@ TODO
 59) if overwatch preorder fails you can get lost and not know how to get into beta
 60) no time decrement
 61) tips on home screen
-
+62) way to trigger slender (random chance when working - add item to summon?)
 
 
 Some links...

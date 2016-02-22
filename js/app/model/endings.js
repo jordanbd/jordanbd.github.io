@@ -242,7 +242,7 @@ define(['app/model/player', 'app/util/random'], function(player, random) {
                 '<br/>' +
                 'You chuckle to yourself as you think of the futile attempt of your previous host to remove the beard and regain his humanity. He did not know the truth:<br/>' +
                 '<br/>' +
-                'There must always be a Jeff Kaplan with a beard.',
+                'There must always be a Jeff Kaplan... with a beard.',
             score: 999,
             isAvailable: function() {
                 return player.data['isjkapp'];
