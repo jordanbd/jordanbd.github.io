@@ -1,27 +1,31 @@
 TODO
 
 17) gimmick classes - lucky friend, twitch streamer
-35) Improve social media, seems useless and unpredictable at the moment
-40) gap between multiple buttons in dialog
 43) Name
 44) Credits
 46) More news stream events
 47) Time skipping makes you miss timer-10 ticker events
 48) Stat track
-49) A shaggy fellow => Winston
-50) endings - got beta, darkness
-51) endings - salt too high, darkness
 52) endings - out of time, darkness
 53) tribute to the twitters (maybe an ending related to overstalk or twitter)
 54) Salt increments are still clumsy
+55) some reference to fall tenth, maybe a news article
+56) tassadar ending -> random event, salt plague hits world, record levels of saltiness, you absorb it all to save everyone
+57) If preorder fails you can get lost
+58) grid left side doesnt get smaller
+59) if overwatch preorder fails you can get lost and not know how to get into beta
+60) no time decrement
+61) tips on home screen
+
+
 
 Some links...
 http://i.imgur.com/HXT95hr.png
 http://i.imgur.com/KxCGsVN.png
 
-ENDING COUNT: 18
+ENDING COUNT: 21
  - 7: Slender
- - 1: Dark Lord
+ - 4: Dark Lord
  - 1: JKapp
  - 1: Run
  - 1: Victorious Beta

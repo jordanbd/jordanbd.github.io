@@ -24,9 +24,9 @@ define(['app/util/random'], function(random) {
         } else if (value < 60) {
             return 'It\'s just a game bro. Don\'t be so mad';
         } else if (value < 70) {
-            return 'You have no right to get into beta, sook';
+            return 'Everyone else is in beta except you';
         } else if (value < 80) {
-            return 'You were never getting in beta anyway';
+            return 'You are NEVER getting into the beta';
         } else if (value < 90) {
             return 'You deserve beta more than the rest of them';
         } else if (value < 100) {
@@ -37,7 +37,6 @@ define(['app/util/random'], function(random) {
     }
 
     function betaChanceValue(value) {
-        //return Math.round(value * 100) + '%';
         if (value >= 0.5) {
             return 'Extremely high'
         } else if (value >= 0.3) {
@@ -82,14 +81,10 @@ define(['app/util/random'], function(random) {
     function buildApplyReturn(opts) {
         var sb = "";
         if (opts.salt) {
-            if (salt >= 20) {
-                sb += "Your saltiness has greatly increased. "
-            } else if (salt > 0) {
-                sb += "Your saltiness has increased. "
-            } else if (salt <= 20) {
-                sb += "Your saltiness has greatly decreased. "
-            } else if (salt < 0) {
-                sb += "Your saltiness has decreased. "
+            if (opts.salt > 0) {
+                sb += "Your saltiness has increased by " + opts.salt + "%. "
+            } else if (opts.salt < 0) {
+                sb += "Your saltiness has decreased by " + opts.salt + "%. "
             }
         }
         if (opts.itemCount) {
@@ -104,25 +99,17 @@ define(['app/util/random'], function(random) {
             }
         }
         if (opts.beta) {
-            if (opts.beta >= 0.1) {
-                sb += "Your beta chances have greatly increased. "
-            } else if (opts.beta > 0) {
-                sb += "Your beta chances have increased. "
-            } else if (opts.beta <= 0.1) {
-                sb += "Your beta chances have greatly decreased. "
+            if (opts.beta > 0) {
+                sb += "Your beta chances have increased by " + Math.round(opts.beta * 100) + "%. "
             } else if (opts.beta < 0) {
-                sb += "Your beta chances have decreased. "
+                sb += "Your beta chances have decreased by " + Math.round(opts.beta * 100) + "%. "
             }
         }
         if (opts.time) {
-            if (opts.time >= 60) {
-                sb += "Your time remaining has greatly increased. "
-            } else if (opts.time > 0) {
-                sb += "Your time remaining has increased. "
-            } else if (opts.time <= -60) {
-                sb += "Your time remaining has greatly decreased. "
+            if (opts.time > 0) {
+                sb += "Your time remaining has increased by " + opts.time + " seconds. "
             } else if (opts.time < 0) {
-                sb += "Your time remaining has decreased. "
+                sb += "Your time remaining has decreased by " + opts.time + " seconds. "
             }
         }
         if (opts.money) {

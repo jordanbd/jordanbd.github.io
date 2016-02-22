@@ -7,7 +7,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
     var items = {
         'stale-water': {
             title: 'Stale water',
-            description: 'Greatly lowers your saltiness. Tastes awful though.',
+            description: 'Lowers your saltiness by 30%. Tastes awful though.',
             outcomes: [
                 {
                     chance: 0.7,
@@ -41,7 +41,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
         },
         'clover': {
             title: 'Seven-leaf clover',
-            description: 'Greatly increases your chances of getting into the beta.',
+            description: 'Increases your chances of getting into the beta by 10%.',
             outcomes: [
                 {
                     chance: 1,
@@ -126,7 +126,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
         },
         'mineral-water': {
             title: 'Mineral water',
-            description: 'Lowers your saltiness. At least I think it does. Is salt a mineral? Does mineral water... contain salt? Oh god...',
+            description: 'Lowers your saltiness by -20%. At least I think it does. Is salt a mineral? Does mineral water... contain salt? Oh god...',
             outcomes: [
                 {
                     chance: 1,
@@ -242,7 +242,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
         },
         'peanut': {
             title: 'Peanut butter',
-            description: 'Lower\'s your salt and makes gorillas happy.',
+            description: 'Lower\'s your salt by -25% and makes gorillas happy.',
             outcomes: [
                 {
                     chance: 1,
@@ -361,9 +361,6 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
             ]
         }
 
-        // TODO: ward off slender
-
-        // TODO home security system
     };
 
     return {

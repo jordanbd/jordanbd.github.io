@@ -36,6 +36,21 @@ define(['app/model/player', 'app/util/random'], function(player, random) {
                 return player.data['beta'];
             }
         },
+        {
+            type: 'Victory',
+            title: 'You have been invited into the Overwatch Beta',
+            description: 'You are in the beta. You should be overjoyed - and you are. Mostly. It\'s just...<br/>' +
+                '<br/>' +
+                'Something about using the salt cookbook didn\'t feel right. Like you were using something evil. Something damned.<br/>' +
+                '<br/>' +
+                'You start playing Overwatch. The game is a delight. You have everything you ever wanted. But you feel wrong. <br/>' +
+                '<br/>' +
+                'Like you let something in...',
+            score: 999,
+            isAvailable: function() {
+                return player.data['beta'] && Number(player.data['darkness']) <= 30;
+            }
+        },
 
         /* Salty endings */
         {
@@ -93,6 +108,21 @@ define(['app/model/player', 'app/util/random'], function(player, random) {
             score: 1,
             isAvailable: function() {
                 return player.salt == 100;
+            }
+        },
+        {
+            type: 'Defeat',
+            title: 'The salt has consumed you',
+            description: 'Your salty rage is unleashed. Why! WHY! NOT AGAIN!<br/>' +
+                '<br/>' +
+                'As you rage, you feel something at the back of your mind clawing away. Scratching at your sanity.<br/>' +
+                '<br/>' +
+                'You are far too salty to realise, but you did something. Something wrong. You used the book.<br/>' +
+                '<br/>' +
+                'Now He knows you.',
+            score: 888, // enslaved ending is higher priority
+            isAvailable: function() {
+                return player.salt == 100 && Number(player.data['darkness']) > 0;
             }
         },
 
@@ -174,7 +204,7 @@ define(['app/model/player', 'app/util/random'], function(player, random) {
                 'The spell you read online called for regular table salt. But you have something better - something far more powerful. You have the salt of an OnlyWatcher. ' +
                 'It will not see this coming.<br/>' +
                 '<br/>' +
-                'It is directly behind you. If you were turn around it will strike. You need to reach the highest level of saltiness possible. You pull your iPhone out and ' +
+                'It is directly behind you. If you were turn around it will strike. Now is your chance - you need to reach the highest level of saltiness possible. You pull your iPhone out and ' +
                 'refresh the Account management screen. Not in Beta. Just as planned. The salt washes over you as you become more salty than anyone ever has before.<br/>' +
                 '<br/>' +
                 'Your eyes glow white.<br/>' +
@@ -252,7 +282,7 @@ define(['app/model/player', 'app/util/random'], function(player, random) {
                 '<br/>' +
                 'Your successful attempt at using your own saltiness to mind control the Blizzard CMs was what cost you ' +
                 'the last shreds of your humanity. You can feel Him spreading out across your body; getting used to His ' +
-                'new host. You feel His disappointment when He realises that you are certainly not the prime specimen He ' +
+                'new host. You feel His disappointment when He realises that you are certainly not the prime physical specimen He ' +
                 'desired. You will have to do for now.<br/>' +
                 '<br/>' +
                 'It is time.',
@@ -261,6 +291,22 @@ define(['app/model/player', 'app/util/random'], function(player, random) {
                 return player.data['mindcontrol']
                     && player.data['mindcontrolpass']
                     && player.data['beta']
+            }
+        },
+        {
+            type: 'Defeat',
+            title: 'You have been enslaved by the Dark Lord of Salt',
+            description: 'You meddled with powers you did not comprehend.<br/>' +
+                '<br/>' +
+                'In using that infernal salt cookbook you have allowed yourself to be possessed by a demon known ' +
+                'only as the Dark Lord of Salt. You did not know Him before. You certainly know Him now.<br/>' +
+                '<br/>' +
+                'You used the book too many times. It was just enough to give Him enough of a grip on your soul.<br/>' +
+                '<br/>' +
+                'Ph\'nglui mglw\'nafh Saltulu R\'lyehsalt wgah\'nagl fhtagn',
+            score: 999,
+            isAvailable: function() {
+                return Number(player.data['darkness']) > 30;
             }
         },
         {

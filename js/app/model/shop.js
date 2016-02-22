@@ -5,7 +5,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
     var items = [
         {
             itemRef: 'mineral-water',
-            description: 'This will lower your saltiness.',
+            description: 'This will lower your saltiness by -20%.',
             cost: 20,
             canAfford: function() {
                 return player.money >= this.cost;
@@ -30,7 +30,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
             description: 'Wow this thing is ugly.',
             cost: 80,
             isAvailable: function() {
-                return player.data['socialmediacount'] != null && player.data['socialmediacount'] >= 3 && !player.data['puppet'];
+                return player.data['socialmediacount'] != null && player.data['socialmediacount'] >= 1 && !player.data['puppet'];
             },
             canAfford: function() {
                 return player.money >= this.cost;

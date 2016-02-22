@@ -31,7 +31,7 @@ define(['emitter'], function(emitter) {
                 this.secondsRemaining = 0;
             }
         },
-        money: 20,
+        money: 40,
         changeMoney: function(amt) {
             this.money += amt;
             emitter.emit('money-change', amt);

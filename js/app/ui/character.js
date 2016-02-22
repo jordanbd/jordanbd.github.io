@@ -45,15 +45,19 @@ function($, emitter, templates, timer, player, words) {
         $betaChanceValue.text(words.betaChanceValue(player.betaChance));
     }
 
-    function increaseSalt() {
-        var incr = 5;
-        player.salt += incr;
-        emitter.emit('salt-change', incr);
+    function checkForMaxSaltiness() {
         if (player.salt >= 100) {
             player.salt = 100;
             timer.stop();
             emitter.emit('defeat');
         }
+    }
+
+    function increaseSalt() {
+        var incr = 5;
+        player.salt += incr;
+        emitter.emit('salt-change', incr);
+        checkForMaxSaltiness();
     }
 
     function showSaltChange(amount) {
@@ -115,6 +119,7 @@ function($, emitter, templates, timer, player, words) {
 
         emitter.on('timer-tick', updateUI);
         emitter.on('timer-tick', fadeQueuedElements); // fades the +salt value on screen
+        emitter.on('timer-tick', checkForMaxSaltiness);
 
         emitter.on('salt-change', showSaltChange); // prepares the +salt value for the screen
         emitter.on('salt-change', updateUI);

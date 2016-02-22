@@ -181,13 +181,12 @@ p strong {
 .action-option > .description {
     display: block;
     margin-left: 1.2em;
+    color: rgba(255, 255, 255, 0.5);
 }
 
 .action-option > .sub-description {
     display: block;
     margin-left: 1.2em;
-    color: rgba(255, 255, 255, 0.5);
-    font-weight: bold;
     margin-top: 3px;
 }
 
@@ -230,6 +229,7 @@ p strong {
     font-size: 1em;
     width: 75%;
     font-family: sans-serif;
+    margin-bottom: 5px;
 }
 
 .ui-widget-overlay {

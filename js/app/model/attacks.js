@@ -9,7 +9,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
             title: 'Post to social media',
             description: 'Discuss the current ongoing wave on social media. Let\'s not kid around though - you are hoping that someone at Blizzard ' +
                 'notices your desperation and gives you beta. You are so transparent. Maybe stay away if you are very salty...',
-            subDescription: 'Costs: Time, May increase: Money, May increase: Beta chance, May increase: Salt',
+            subDescription: 'Costs: -5 seconds, May increase: Money, May increase: Beta chance, May increase: Salt',
             beforeOutcome: function() {
                 if (!player.data['socialmediacount']) {
                     player.data['socialmediacount'] = 0;
@@ -17,7 +17,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                 player.data['socialmediacount']++;
             },
             isAvailable: function() {
-                return player.secondsRemaining >= 10;
+                return player.secondsRemaining >= 5;
             },
             outcomes: [
                 /* reduce time */
@@ -49,8 +49,8 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                     ],
                     apply: function() {
                         player.changeSalt(5);
-                        player.changeSecondsRemaining(-10);
-                        return words.buildApplyReturn({salt: 5, time: -10});
+                        player.changeSecondsRemaining(-5);
+                        return words.buildApplyReturn({salt: 5, time: -5});
                     },
                     buttons: [
                         {
@@ -70,8 +70,8 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                     ],
                     apply: function() {
                         player.changeSalt(-5);
-                        player.changeSecondsRemaining(-10);
-                        return words.buildApplyReturn({salt: -5, time: -10});
+                        player.changeSecondsRemaining(-5);
+                        return words.buildApplyReturn({salt: -5, time: -5});
                     },
                     buttons: [
                         {
@@ -89,9 +89,9 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         'literally any time googling it. You are so stupid, but you are happy that senpai has noticed you.',
                     apply: function() {
                         player.changeSalt(-100);
-                        player.changeSecondsRemaining(-10);
+                        player.changeSecondsRemaining(-5);
                         player.data['saltreset'] = true;
-                        return 'Your saltiness has reset to zero.';
+                        return words.buildApplyReturn({time: -5}) + 'Your saltiness has reset to zero.';
                     },
                     buttons: [
                         {
@@ -108,26 +108,26 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         'You post a video to Youtube announcing that you will soon post a video to Youtube with some actual content.'
                     ],
                     apply: function() {
-                        player.changeMoney(42);
-                        player.changeSecondsRemaining(-10);
-                        return words.buildApplyReturn({time: -10}) + 'Ad revenue pays out a crisp $42.'
+                        player.changeMoney(200);
+                        player.changeSecondsRemaining(-5);
+                        return words.buildApplyReturn({time: -5}) + 'Ad revenue pays out a crisp $200.'
                     },
                     buttons: [
                         {
-                            text: 'I will release my next video in 2017'
+                            text: 'I will release my next video in the fall of 2017'
                         }
                     ]
                 },
                 /* raise beta */
                 {
-                    chance: 0.05,
+                    chance: 0.1,
                     flavourText: [
                         'Your desperate, obnoxious sounding posts have somehow caught the sympathetic eye of $$CM.'
                     ],
                     apply: function() {
-                        player.changeBetaChance(0.03);
-                        player.changeSecondsRemaining(-10);
-                        return words.buildApplyReturn({time: -10, beta: 0.03});
+                        player.changeBetaChance(0.01);
+                        player.changeSecondsRemaining(-5);
+                        return words.buildApplyReturn({time: -5, beta: 0.01});
                     },
                     buttons: [
                         {
@@ -137,7 +137,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                 },
                 /* lower beta */
                 {
-                    chance: 0.05,
+                    chance: 0.01,
                     isAvailable: function() {
                         return player.salt >= 50 && player.betaChance > 0;
                     },
@@ -148,7 +148,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                     apply: function() {
                         player.changeBetaChance(-0.03);
                         player.changeSecondsRemaining(-10);
-                        return words.buildApplyReturn({time: -10, beta: -0.03});
+                        return words.buildApplyReturn({time: -5, beta: -0.03});
                     },
                     buttons: [
                         {
@@ -158,7 +158,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                 },
                 /* me being a loser */
                 {
-                    chance: 0.05,
+                    chance: 0.01,
                     isAvailable: function() {
                         return player.salt >= 50;
                     },
@@ -167,8 +167,8 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         '"Fuck me for believing in your Blizzard!" you shout (type) to the heavens. It literally gets you no where.'
                     ],
                     apply: function() {
-                        player.changeSecondsRemaining(-10);
-                        return words.buildApplyReturn({time: -10});
+                        player.changeSecondsRemaining(-5);
+                        return words.buildApplyReturn({time: -5});
                     }
                 }
             ]
@@ -176,7 +176,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
         {
             title: 'Go for a walk',
             description: 'Go for a brief walk away from your computer. Dream of Tracer and clear your mind of salty thoughts.',
-            subDescription: 'Lowers: Salt, Costs: Time',
+            subDescription: 'Costs: -20 seconds, Lowers: Salt, Chance to find: Money, Items',
             isAvailable: function() {
                 return player.secondsRemaining >= 20;
             },
@@ -215,6 +215,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         'You think about the big bucks you\'re going to make when you turn pro at this game.'
                     ],
                     apply: function() {
+                        player.changeSalt(-10);
                         return words.buildApplyReturn({salt: -10});
                     }
                 },
@@ -347,12 +348,14 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                 },
                 /* a shaggy fellow */
                 {
-                    chance: 0.5,
+                    chance: 1,
+                    score: 2,
                     isAvailable: function() {
                         return player.money >= 100 && !player.data['helpedman'] && !player.data['seenman'];
                     },
-                    flavourText: 'You encounter a shaggy looking fellow on your walk. He asks you if he can have $100. ' +
-                        'He does not say what for.<br/><br/>He says he will email you a thank-you message.',
+                    flavourText: 'You encounter a sad looking gorilla on your walk. He asks you if he can have $100. ' +
+                        'He does not say what for.<br/><br/>He says he will <strong>email</strong> you a thank-you message if you give him the money. <br/><br/>Yes, this gorilla ' +
+                        'can talk. ',
                     buttons: [
                         {
                             text: 'Uhh, sure?',
@@ -364,7 +367,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                             }
                         },
                         {
-                            text: 'No!!',
+                            text: 'Go away weird gorilla',
                             apply: function() {
                                 player.changeSalt(-10);
                                 player.data['helpedman'] = false;
@@ -408,7 +411,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
         {
             title: 'Do some work',
             description: 'Actually do your job instead of sitting around waiting for a Beta invite.',
-            subDescription: 'Increases: Money, Costs: Time',
+            subDescription: 'Costs: -30 seconds, Increases: Money by $100',
             isAvailable: function() {
                 return player.secondsRemaining >= 50;
             },
@@ -437,9 +440,9 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         'You spec requirements for an awful Overwatch Beta RPG on a notepad.'
                     ],
                     apply: function() {
-                        player.changeSecondsRemaining(-40);
+                        player.changeSecondsRemaining(-30);
                         player.changeMoney(100);
-                        return words.buildApplyReturn({time: -40, money: 100})
+                        return words.buildApplyReturn({time: -30, money: 100})
                     }
                 }
             ]
@@ -447,6 +450,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
         {
             title: 'Check your email inbox',
             description: 'Beta invites take hours to arrive by email. There is literally no reason why you should check your inbox...',
+            subDescription: 'Costs: 0 seconds',
             outcomes: [
                 {
                     chance: 1,
@@ -455,14 +459,14 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         return player.data['helpedman'] && !player.data['helpedman-items'];
                     },
                     flavourText: [
-                        'You have received an email. "Hey, thanks for loaning me the $100. As a reward, I\'ve put some items up for sale that you may find useful...'
+                        'You have received an email.<br/><br/>"Hey, thanks for loaning me the $100. I needed it for gorilla stuff like launching satellites into space. <br/><br/>As a reward, I\'ve put some items up for sale that you may find useful..."'
                     ],
                     apply: function() {
                         player.data['helpedman-items'] = true;
                     },
                     buttons: [
                         {
-                            text: 'Guess he needs more money'
+                            text: 'Greedy monkey won\'t give me them for free'
                         }
                     ]
                 },
@@ -506,7 +510,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
             title: 'Check your Battle.net account',
             description: 'Log in to Account Management and check to see if you have been invited into the Beta. This is the only way ' +
             'to confirm you are in beta. Be warned: if you have not yet been invited into the beta your salt will increase.',
-            subDescription:  'Costs: Time, Increases: Salt, Chance to finish game',
+            subDescription:  'Costs: -5 seconds, Increases: Salt, Chance to finish game',
             isAvailable: function() {
                 return player.secondsRemaining >= 5;
             },
