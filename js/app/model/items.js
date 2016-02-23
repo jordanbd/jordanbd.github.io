@@ -7,7 +7,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
     var items = {
         'stale-water': {
             title: 'Stale water',
-            description: 'Lowers your saltiness by 30%. Tastes awful though.',
+            description: 'Lowers your saltiness by -30%. Tastes awful though.',
             outcomes: [
                 {
                     chance: 0.7,
@@ -126,15 +126,15 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
         },
         'mineral-water': {
             title: 'Mineral water',
-            description: 'Lowers your saltiness by -20%. At least I think it does. Is salt a mineral? Does mineral water... contain salt? Oh god...',
+            description: 'Lowers your saltiness by -10%. At least I think it does. Is salt a mineral? Does mineral water... contain salt? Oh god...',
             outcomes: [
                 {
                     chance: 1,
                     flavourText: 'Salt is a mineral but let\'s just say this water does not have any.',
                     apply: function() {
-                        player.changeSalt(-20);
+                        player.changeSalt(-10);
                         player.removeItem('mineral-water');
-                        return words.buildApplyReturn({salt: -20, itemCount: -1});
+                        return words.buildApplyReturn({salt: -10, itemCount: -1});
                     }
                 }
             ]
@@ -201,15 +201,15 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
         },
         'accelerator': {
             title: 'Miniature chronal accelerator',
-            description: 'Gives you an additional 60 seconds of time. One-time use only.',
+            description: 'Gives you an additional 30 seconds of time. One-time use only.',
             outcomes: [
                 {
                     chance: 1,
                     flavourText: 'Let\'s try that again!',
                     apply: function() {
                         player.removeItem('accelerator');
-                        player.changeSecondsRemaining(60);
-                        return words.buildApplyReturn({time: 60, itemCount: -1});
+                        player.changeSecondsRemaining(30);
+                        return words.buildApplyReturn({time: 30, itemCount: -1});
                     },
                     buttons: [
                         {
@@ -229,8 +229,8 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                     flavourText: 'You\'ve got the beta in your sights!',
                     apply: function() {
                         player.removeItem('visor');
-                        player.changeBetaChance(0.05);
-                        return words.buildApplyReturn({beta: 0.05, itemCount: -1});
+                        player.changeBetaChance(0.02);
+                        return words.buildApplyReturn({beta: 0.02, itemCount: -1});
                     },
                     buttons: [
                         {
@@ -242,15 +242,15 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
         },
         'peanut': {
             title: 'Peanut butter',
-            description: 'Lower\'s your salt by -25% and makes gorillas happy.',
+            description: 'Lower\'s your salt by -15% and makes gorillas happy.',
             outcomes: [
                 {
                     chance: 1,
                     flavourText: 'Did someone say peanut butter?',
                     apply: function() {
                         player.removeItem('peanut');
-                        player.changeSalt(-25);
-                        return words.buildApplyReturn({salt: -25, itemCount: -1});
+                        player.changeSalt(-15);
+                        return words.buildApplyReturn({salt: -15, itemCount: -1});
                     }
                 }
             ]

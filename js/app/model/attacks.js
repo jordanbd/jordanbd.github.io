@@ -2,8 +2,6 @@
 
 define(['app/model/player', 'app/model/words'], function(player, words) {
 
-    // TODO: change give oldman to help gorrilla
-
     var attacks = [
         /* Default class attacks */
         {
@@ -109,9 +107,13 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         'You post a video to Youtube announcing that you will soon post a video to Youtube with some actual content.'
                     ],
                     apply: function() {
+                        player.data['socialmoney'] = true;
                         player.changeMoney(200);
                         player.changeSecondsRemaining(-5);
                         return words.buildApplyReturn({time: -5}) + 'Ad revenue pays out a crisp $200.'
+                    },
+                    isAvailable: function() {
+                        return !player.data['socialmoney'];
                     },
                     buttons: [
                         {
@@ -177,7 +179,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
         {
             title: 'Go for a walk',
             description: 'Go for a brief walk away from your computer. Dream of Tracer and clear your mind of salty thoughts.',
-            subDescription: 'Costs: -20 seconds, Lowers: Salt, Chance to find: Money, Items',
+            subDescription: 'Costs: -20 seconds, Lowers: Salt by -30%, Chance to find: Money, Items',
             isAvailable: function() {
                 return player.secondsRemaining >= 20 && player.characterClassId == 'default';
             },
@@ -193,9 +195,9 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         'more time than you had before.'
                     ],
                     apply: function() {
-                        player.changeSalt(-10);
+                        player.changeSalt(-30);
                         player.changeSecondsRemaining(60);
-                        return words.buildApplyReturn({salt: -10, time: 60});
+                        return words.buildApplyReturn({salt: -30, time: 60});
                     },
                     buttons: [
                         {
@@ -216,8 +218,8 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         'You think about the big bucks you\'re going to make when you turn pro at this game.'
                     ],
                     apply: function() {
-                        player.changeSalt(-10);
-                        return words.buildApplyReturn({salt: -10});
+                        player.changeSalt(-30);
+                        return words.buildApplyReturn({salt: -30});
                     }
                 },
                 /* find water */
@@ -225,9 +227,9 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                     chance: 0.05,
                     flavourText: 'On your walk you find some stale water in an old gym bag. You add the water to your inventory.',
                     apply: function() {
-                        player.changeSalt(-10);
+                        player.changeSalt(-30);
                         player.items.push('stale-water');
-                        return words.buildApplyReturn({salt: -10, itemCount: 1});
+                        return words.buildApplyReturn({salt: -30, itemCount: 1});
                     },
                     buttons: [
                         {
@@ -242,9 +244,9 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         ' a seven-leaf clover - looks like your luck is changing! You add the clover to your inventory.<br/><br/><em>"Here Lies ' +
                         'Philip J. Fry, named for his uncle, to carry on his spirit."</em>',
                     apply: function() {
-                        player.changeSalt(-10);
+                        player.changeSalt(-30);
                         player.items.push('clover');
-                        return words.buildApplyReturn({salt: -10, itemCount: 1});
+                        return words.buildApplyReturn({salt: -30, itemCount: 1});
                     },
                     buttons: [
                         {
@@ -260,9 +262,9 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                     },
                     flavourText: 'You stop briefly to look out your office window. In the distance you spot what looks like a tall, thin gray man wearing black.',
                     apply: function() {
-                        player.changeSalt(-10);
+                        player.changeSalt(-30);
                         player.data['slender-spotted'] = true;
-                        return words.buildApplyReturn({salt: -10})
+                        return words.buildApplyReturn({salt: -30})
                             + 'You pretend you didn\'t see anything.';
                     },
                     buttons: [
@@ -282,9 +284,9 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                     ],
                     apply: function() {
                         player.data['stole-partner-money'] = true;
-                        player.changeSalt(-10);
+                        player.changeSalt(-30);
                         player.changeMoney(200);
-                        return words.buildApplyReturn({salt: -10, money: 200})
+                        return words.buildApplyReturn({salt: -30, money: 200})
                     },
                     buttons: [
                         {
@@ -317,10 +319,10 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         'A soldier in a numbered jacket hands you a briefcase and leaves before saying anything.'
                     ],
                     apply: function() {
-                        player.changeSalt(-10);
+                        player.changeSalt(-30);
                         player.items.push('briefcase');
                         player.data['briefcase'] = true;
-                        return words.buildApplyReturn({salt: -10, itemCount: 1})
+                        return words.buildApplyReturn({salt: -30, itemCount: 1})
                     },
                     buttons: [
                         {
@@ -338,13 +340,13 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         'You grab a handful of berries from an unidentified bush while out walking.'
                     ],
                     apply: function() {
-                        player.changeSalt(-10);
+                        player.changeSalt(-30);
                         player.items.push('berry');
                         player.items.push('berry');
                         player.items.push('berry');
                         player.items.push('berry');
                         player.data['berries'] = true;
-                        return words.buildApplyReturn({salt: -10, itemCount: 4})
+                        return words.buildApplyReturn({salt: -30, itemCount: 4})
                     }
                 },
                 /* a shaggy fellow */
@@ -362,7 +364,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                             text: 'Uhh, sure?',
                             apply: function() {
                                 player.changeMoney(-100);
-                                player.changeSalt(-10);
+                                player.changeSalt(-30);
                                 player.data['helpedman'] = true;
                                 player.data['seenman'] = true;
                             }
@@ -370,7 +372,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         {
                             text: 'Go away weird gorilla',
                             apply: function() {
-                                player.changeSalt(-10);
+                                player.changeSalt(-30);
                                 player.data['helpedman'] = false;
                                 player.data['seenman'] = true;
                             }
@@ -384,8 +386,8 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         'You reflect on life and what it means to be a slave to the whims of a corporation like Blizzard.'
                     ],
                     apply: function() {
-                        player.changeSalt(-30);
-                        return words.buildApplyReturn({salt: -30})
+                        player.changeSalt(-50);
+                        return words.buildApplyReturn({salt: -50})
                     },
                     buttons: [
                         {
@@ -399,6 +401,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                     flavourText: 'A giant orc statue collapses on you while on your walk.',
                     apply: function() {
                         player.data['deadorcstatue'] = true;
+                        player.data['beta'] = true; // hack?
                         return 'You have died.'
                     },
                     buttons: [

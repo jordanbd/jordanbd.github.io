@@ -5,7 +5,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
     var items = [
         {
             itemRef: 'mineral-water',
-            description: 'This will lower your saltiness by -20%.',
+            description: 'This will lower your saltiness by -10%.',
             cost: 20,
             canAfford: function() {
                 return player.money >= this.cost;
@@ -30,7 +30,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
             description: 'Wow this thing is ugly.',
             cost: 80,
             isAvailable: function() {
-                return player.data['socialmediacount'] != null && player.data['socialmediacount'] >= 1 && !player.data['puppet'];
+                return player.data['socialmediacount'] != null && player.data['socialmediacount'] >= 4 && !player.data['puppet'];
             },
             canAfford: function() {
                 return player.money >= this.cost;
@@ -66,12 +66,17 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                     chance: 0.6,
                     flavourText: 'It doesn\'t come with beta access but you can\'t help but feel luckier.',
                     apply: function() {
-                        player.changeBetaChance(0.05);
+                        player.changeBetaChance(0.02);
                         player.changeMoney(-60);
                         player.items.push('origins');
                         player.data['origins'] = true;
-                        return words.buildApplyReturn({money: -60, itemCount: 1, beta: 0.05});
-                    }
+                        return words.buildApplyReturn({money: -60, itemCount: 1, beta: 0.02});
+                    },
+                    buttons: [
+                        {
+                            text: 'The luck truck drives on'
+                        }
+                    ]
                 },
                 /* does nothing ? */
                 {

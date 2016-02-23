@@ -3,7 +3,6 @@ TODO
 43) Name
 44) Credits
 46) More news stream events
-47) Time skipping makes you miss timer-10 ticker events
 48) Stat track
 52) endings - out of time, darkness
 53) tribute to the twitters (maybe an ending related to overstalk or twitter)
@@ -14,13 +13,18 @@ TODO
 60) no time decrement
 61) tips on home screen
 62) way to trigger slender (random chance when working - add item to summon?)
-66) go for walk does not tell you how much salt it will lower. is it even worth it if you can buy lower salt items for cheaper??
 67) Finish twitch streamer class
 68) Blizz CM bonus game
+69) Accelerator adds a LOT of time, makes it very easy
+70) New items: [overwatch char's] cookbook, provides basic food to help
 
 Some links...
 http://i.imgur.com/HXT95hr.png
 http://i.imgur.com/KxCGsVN.png
+
+KNOWN BUGS
+
+1) Time skipping makes you miss timer-10 ticker events
 
 ENDING COUNT: 21
  - 7: Slender

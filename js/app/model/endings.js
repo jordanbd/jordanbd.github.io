@@ -337,7 +337,7 @@ define(['app/model/player', 'app/util/random'], function(player, random) {
                 'ironic, but I don\'t know what irony really means anymore.<br/>' +
                 '<br/>' +
                 'You are dead.',
-            score: 999,
+            score: 1000,
             isAvailable: function() {
                 return player.characterClassId == 'default' && player.data['deadorcstatue'];
             }
