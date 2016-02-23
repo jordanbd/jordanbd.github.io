@@ -2,11 +2,6 @@
 
 define(['app/model/player', 'app/util/random'], function(player, random) {
 
-    // TODO: victorious endings - found beta
-    // TODO the mysterious briefcase
-    // TODO slenderman
-    // TODO darkness ending salt lord
-
     var endings = [
         {
             title: 'Dummy ending',
@@ -104,6 +99,21 @@ define(['app/model/player', 'app/util/random'], function(player, random) {
         {
             type: 'Defeat',
             title: 'The salt has consumed you',
+            description: 'All you had to do was view your Battle.net account management page. That\'s it. You would\'ve been accepted into the beta.<br/>' +
+                '<br/>' +
+                'Did you just sit there letting your character get salty? That is pretty cruel bro.<br/>' +
+                '<br/>' +
+                'Or is it that even when you pick the cheat classes you still can\'t win.<br/>' +
+                '<br/>' +
+                'You make me sick.',
+            score: 1,
+            isAvailable: function() {
+                return (player.characterClassId == 'friend' || player.characterClassId == 'twitch') && player.salt == 100;
+            }
+        },
+        {
+            type: 'Defeat',
+            title: 'The salt has consumed you',
             description: 'The salt stings your eyes. Even if you had gotten into beta you aren\'t sure you\'d even be able to click the INSTALL button ' +
                 'on the Battle.net client. Not that it matters. You\'re going to miss out and you know it. Well you won\'t go down without ' +
                 'a fight. And you know exactly who to blame.<br/>' +
@@ -191,6 +201,22 @@ define(['app/model/player', 'app/util/random'], function(player, random) {
                 return player.characterClassId == 'default' && player.secondsRemaining == 0;
             }
         },
+        {
+            type: 'Defeat',
+            title: 'The beta wave has ended',
+            description: 'You are playing a gimmick class - you\'re just supposed to view your Battle.net account management page and you win.<br/>' +
+                '<br/>' +
+                'But I just knew that there would be some smart ass out there who would sit there and watch the timer tick down to zero so I had to ' +
+                'waste my time writing an ending for it.<br/>' +
+                '<br/>' +
+                'Then I had to test the stupid thing by watching the timer tick down myself. So who is really playing who here?<br/>' +
+                '<br/>' +
+                'I hate you.',
+            score: 1,
+            isAvailable: function() {
+                return (player.characterClassId == 'friend' || player.characterClassId == 'twitch') && player.secondsRemaining == 0;
+            }
+        },
 
         /* Run endings */
         {
@@ -207,6 +233,19 @@ define(['app/model/player', 'app/util/random'], function(player, random) {
             score: 1,
             isAvailable: function() {
                 return player.characterClassId == 'default' && player.data['run'];
+            }
+        },
+        {
+            type: 'Defeat',
+            title: 'You have fled the Beta wave',
+            description: 'What the hell are you doing? All you had to do was check out your Battle.net account management page.<br/>' +
+                '<br/>' +
+                'Wow.<br/>' +
+                '<br/>' +
+                'This is a GIMMICK class. You cannot lose! Come on!',
+            score: 1,
+            isAvailable: function() {
+                return (player.characterClassId == 'friend' || player.characterClassId == 'twitch') && player.data['run'];
             }
         },
         {

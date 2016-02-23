@@ -11,7 +11,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                 return player.money >= this.cost;
             },
             isAvailable: function() {
-                return true;
+                return player.characterClassId == 'default';
             },
             outcomes: [
                 {
@@ -58,7 +58,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                 return player.money >= this.cost
             },
             isAvailable: function() {
-                return !player.data['origins'];
+                return !player.data['origins'] && player.characterClassId == 'default';
             },
             outcomes: [
                 /* increases beta chance*/
@@ -99,7 +99,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                 return player.money >= this.cost
             },
             isAvailable: function() {
-                return !player.data['beard'];
+                return !player.data['beard'] && player.characterClassId == 'default';
             },
             outcomes: [
                 {
@@ -186,7 +186,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                 return player.money >= this.cost
             },
             isAvailable: function() {
-                return !player.data['deadbook'];
+                return !player.data['deadbook'] && player.characterClassId == 'default';
             },
             outcomes: [
                 {

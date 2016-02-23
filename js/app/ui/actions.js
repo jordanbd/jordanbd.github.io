@@ -80,25 +80,29 @@ function($, _, emitter, templates, modal, timer, player, attacks, items, shop, w
         $('#action-shop').addClass('active');
 
         var itemsForSale = shop.getItemsForSale();
-        for (var i = 0; i < itemsForSale.length; i++) {
+        if (itemsForSale.length > 0) {
+            for (var i = 0; i < itemsForSale.length; i++) {
 
-            var saleItem = itemsForSale[i];
-            var item = items.get[saleItem.itemRef];
+                var saleItem = itemsForSale[i];
+                var item = items.get[saleItem.itemRef];
 
-            // Build HTML element
-            var $opt = $(templates.getTemplate('shopItemTmpl')({
-                title: saleItem.title ? saleItem.title : item.title,
-                description: saleItem.description ? saleItem.description : item.description,
-                cost: saleItem.cost
-            }));
+                // Build HTML element
+                var $opt = $(templates.getTemplate('shopItemTmpl')({
+                    title: saleItem.title ? saleItem.title : item.title,
+                    description: saleItem.description ? saleItem.description : item.description,
+                    cost: saleItem.cost
+                }));
 
-            var click = function (a) {
-                useAction(a);
-                showShopOptions();
-            }.bind(this, saleItem);
-            $opt.click(click);
+                var click = function (a) {
+                    useAction(a);
+                    showShopOptions();
+                }.bind(this, saleItem);
+                $opt.click(click);
 
-            $optionsPanel.append($opt);
+                $optionsPanel.append($opt);
+            }
+        } else {
+            $optionsPanel.append($('<p>There is nothing for sale.</p>'));
         }
     }
 
