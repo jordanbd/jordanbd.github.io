@@ -291,9 +291,9 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
             var item = items[i];
             if (item.isAvailable && !item.isAvailable()) {
                 continue;
-            } else {
-                result.push(item);
             }
+
+            result.push(item);
         }
         return result;
     }

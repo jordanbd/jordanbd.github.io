@@ -12,7 +12,7 @@ define(['jquery', 'underscore'], function($, _) {
 
         // Bind start button
         $(document).one('click', '#start', function() {
-            sm.enterScreen('battle');
+            sm.enterScreen('selectClass');
         });
 
 
@@ -27,7 +27,6 @@ define(['jquery', 'underscore'], function($, _) {
     }
 
     function exit() {
-        console.debug('homescreen: exit()');
         $('#canvas').html("");
     }
 

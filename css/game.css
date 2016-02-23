@@ -63,6 +63,7 @@ h1 {
 h2 {
     font-size: 2em;
     font-style: italic;
+    text-align: center;
 }
 
 h1.pageTitle {
@@ -192,10 +193,6 @@ p strong {
 
 /** Game over **/
 
-.game-over-type {
-    text-align: center;
-}
-
 .game-over-title, .game-over-description {
     opacity: 0;
 }
@@ -247,10 +244,7 @@ p strong {
 /** Class select **/
 
 .panel-class-select {
-    background-color: rgba(255,255,255,.05);
-    border: 1px solid #3f3f3f;
-    border-radius: 7px;
-    padding: 10px;
+    margin-top: 20px;
     cursor: pointer;
 }
 

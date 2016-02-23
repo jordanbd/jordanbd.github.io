@@ -5,6 +5,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
     // TODO: change give oldman to help gorrilla
 
     var attacks = [
+        /* Default class attacks */
         {
             title: 'Post to social media',
             description: 'Discuss the current ongoing wave on social media. Let\'s not kid around though - you are hoping that someone at Blizzard ' +
@@ -17,7 +18,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                 player.data['socialmediacount']++;
             },
             isAvailable: function() {
-                return player.secondsRemaining >= 5;
+                return player.secondsRemaining >= 5 && player.characterClassId == 'default';
             },
             outcomes: [
                 /* reduce time */
@@ -178,7 +179,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
             description: 'Go for a brief walk away from your computer. Dream of Tracer and clear your mind of salty thoughts.',
             subDescription: 'Costs: -20 seconds, Lowers: Salt, Chance to find: Money, Items',
             isAvailable: function() {
-                return player.secondsRemaining >= 20;
+                return player.secondsRemaining >= 20 && player.characterClassId == 'default';
             },
             beforeOutcome: function() {
                 player.changeSecondsRemaining(-20);
@@ -413,7 +414,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
             description: 'Actually do your job instead of sitting around waiting for a Beta invite.',
             subDescription: 'Costs: -30 seconds, Increases: Money by $100',
             isAvailable: function() {
-                return player.secondsRemaining >= 50;
+                return player.secondsRemaining >= 30 && player.characterClassId == 'default';
             },
             outcomes: [
                 {
@@ -451,6 +452,9 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
             title: 'Check your email inbox',
             description: 'Beta invites take hours to arrive by email. There is literally no reason why you should check your inbox...',
             subDescription: 'Costs: 0 seconds',
+            isAvailable: function() {
+                return player.characterClassId == 'default';
+            },
             outcomes: [
                 {
                     chance: 1,
@@ -512,7 +516,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
             'to confirm you are in beta. Be warned: if you have not yet been invited into the beta your salt will increase.',
             subDescription:  'Costs: -5 seconds, Increases: Salt, Chance to finish game',
             isAvailable: function() {
-                return player.secondsRemaining >= 5;
+                return player.secondsRemaining >= 5 && player.characterClassId == 'default';
             },
             outcomes: [
                 //TODO slow internet connection costs you time
@@ -598,6 +602,33 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                     buttons: [
                         {
                             text: 'Grr...'
+                        }
+                    ]
+                }
+            ]
+        },
+
+        /* Friend and twitch class attacks */
+        {
+            title: 'Check your Battle.net account',
+            description: 'Log in to Account Management and check to see if you have been invited into the Beta. This is the only way ' +
+            'to confirm you are in beta. As you are playing the friend or twitch classes this is LITERALLY ALL YOU NEED TO DO TO WIN THE GAME.',
+            isAvailable: function() {
+                return player.characterClassId == 'friend' || player.characterClassId == 'twitch';
+            },
+            outcomes: [
+                /* Success */
+                {
+                    chance: function() {
+                        return player.betaChance;
+                    },
+                    flavourText: 'Ah yes I expected this.',
+                    apply: function() {
+                        player.data['beta'] = true;
+                    },
+                    buttons: [
+                        {
+                            text: 'About time'
                         }
                     ]
                 }

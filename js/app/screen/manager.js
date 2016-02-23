@@ -1,10 +1,12 @@
 'use strict';
 
-define(['jquery', 'app/util/browser', 'app/screen/home', 'app/screen/set.name', 'app/screen/battle', 'app/screen/gameover'], function($, browser, home, setName, battle, gameover) {
+define(['jquery', 'app/util/browser', 'app/screen/home', 'app/screen/set.name', 'app/screen/battle', 'app/screen/gameover', 'app/screen/selectclass'],
+function($, browser, home, setName, battle, gameover, selectClass) {
 
     var screens = {
         'home': home,
         'setName': setName,
+        'selectClass': selectClass,
         'battle': battle,
         'gameover': gameover
     };

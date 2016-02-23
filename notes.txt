@@ -17,7 +17,10 @@ TODO
 60) no time decrement
 61) tips on home screen
 62) way to trigger slender (random chance when working - add item to summon?)
-
+63) Change page title
+64) Glenn says mineral water broken still
+65) digital text does not work in IE
+66) go for walk does not tell you how much salt it will lower. is it even worth it if you can buy lower salt items for cheaper??
 
 Some links...
 http://i.imgur.com/HXT95hr.png

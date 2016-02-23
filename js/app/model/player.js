@@ -7,6 +7,7 @@ define(['emitter'], function(emitter) {
             events: {}
         },
         name: 'test',
+        characterClassId: null,
         items: [],
         removeItem: function(code) {
             for (var i = 0; i < this.items.length; i++) {

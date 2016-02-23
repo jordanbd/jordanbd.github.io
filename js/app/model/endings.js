@@ -33,7 +33,7 @@ define(['app/model/player', 'app/util/random'], function(player, random) {
                 'PLAY',
             score: 1,
             isAvailable: function() {
-                return player.data['beta'];
+                return player.characterClassId == 'default' && player.data['beta'];
             }
         },
         {
@@ -48,7 +48,38 @@ define(['app/model/player', 'app/util/random'], function(player, random) {
                 'Like you let something in...',
             score: 999,
             isAvailable: function() {
-                return player.data['beta'] && Number(player.data['darkness']) <= 30;
+                return player.characterClassId == 'default' && player.data['beta'] && Number(player.data['darkness']) <= 30;
+            }
+        },
+        {
+            type: 'Victory',
+            title: 'You have been invited into the Overwatch Beta',
+            description: 'Congrats Mike! I\'m totally happy for you.<br/>' +
+                '<br/>' +
+                'No I get it, you probably shouldn\'t share your account... Blizzard are pretty strict about that I guess.<br/>' +
+                '<br/>' +
+                'You are going where for 12 weeks? Oh, so you like have only this weekend to play before you leave? So are you going to play? ' +
+                'Ah ofcourse, you have to go apply for unemployment benefits again. So how are you affording this trip? No matter.<br/>' +
+                '<br/>' +
+                'Huh?? Mike, this isn\'t the Overwatch anti cheat program from Counter-Strike... this is Blizzard\'s new game. Do you seriously not... what?<br/>' +
+                '<br/>' +
+                'What KIND of game is this? It\'s a team based shooter. By Blizzard. The people that made WoW. Holy smokes, Mike just hang on oneeeee second. Stay where you are...<br/>',
+            score: 1,
+            nextEnding: {
+                type: 'Defeat',
+                title: 'You have been murdered',
+                description: 'Mike ... Stay with me! Mike, bro... if you can hear me... what is your Battle.net password???<br/>' +
+                    '<br/>' +
+                    'Mike?<br/>' +
+                    '<br/>' +
+                    'Crap.',
+                score: 1,
+                isAvailable: function() {
+                    return true;
+                }
+            },
+            isAvailable: function() {
+                return player.characterClassId == 'friend' && player.data['beta']
             }
         },
 
@@ -67,7 +98,7 @@ define(['app/model/player', 'app/util/random'], function(player, random) {
                 'CONTENT: fuk u bliz.',
             score: 1,
             isAvailable: function() {
-                return player.salt == 100;
+                return player.characterClassId == 'default' && player.salt == 100;
             }
         },
         {
@@ -88,7 +119,7 @@ define(['app/model/player', 'app/util/random'], function(player, random) {
                 'POST TITLE: -( ͡° ͜ʖ ͡°)╯╲___卐卐卐卐 Don\'t mind me just taking my mods for a walk',
             score: 1,
             isAvailable: function() {
-                return player.salt == 100;
+                return player.characterClassId == 'default' && player.salt == 100;
             }
         },
         {
@@ -107,7 +138,7 @@ define(['app/model/player', 'app/util/random'], function(player, random) {
                 'You feel the salt begin to rise again.',
             score: 1,
             isAvailable: function() {
-                return player.salt == 100;
+                return player.characterClassId == 'default' && player.salt == 100;
             }
         },
         {
@@ -122,7 +153,7 @@ define(['app/model/player', 'app/util/random'], function(player, random) {
                 'Now He knows you.',
             score: 888, // enslaved ending is higher priority
             isAvailable: function() {
-                return player.salt == 100 && Number(player.data['darkness']) > 0;
+                return player.characterClassId == 'default' && player.salt == 100 && Number(player.data['darkness']) > 0;
             }
         },
 
@@ -138,7 +169,7 @@ define(['app/model/player', 'app/util/random'], function(player, random) {
                 'at your clock. Seven days to go until the next beta wave.',
             score: 1,
             isAvailable: function() {
-                return player.secondsRemaining == 0;
+                return player.characterClassId == 'default' && player.secondsRemaining == 0;
             }
         },
         {
@@ -157,7 +188,7 @@ define(['app/model/player', 'app/util/random'], function(player, random) {
                 'Start a "FUCK" chain. Gotta get that sweet, easy karma.',
             score: 1,
             isAvailable: function() {
-                return player.secondsRemaining == 0;
+                return player.characterClassId == 'default' && player.secondsRemaining == 0;
             }
         },
 
@@ -175,7 +206,7 @@ define(['app/model/player', 'app/util/random'], function(player, random) {
                 'So you run. Because you can\'t take it. Because you\'re not a hero; you\'re a cowardly guardian, a useless protector. A salty knight.',
             score: 1,
             isAvailable: function() {
-                return player.data['run'];
+                return player.characterClassId == 'default' && player.data['run'];
             }
         },
         {
@@ -189,7 +220,7 @@ define(['app/model/player', 'app/util/random'], function(player, random) {
                 '<br/>' +
                 'You are out of breath. Perhaps you have outrun it? You look over your shoulder-',
             isAvailable: function() {
-                return player.data['run'] && player.data['slender-email'] && !player.data['slender-research'];
+                return player.characterClassId == 'default' && player.data['run'] && player.data['slender-email'] && !player.data['slender-research'];
             },
             score: 999
         },
@@ -212,7 +243,7 @@ define(['app/model/player', 'app/util/random'], function(player, random) {
                 'You turn to face the slender man-',
             score: 999,
             isAvailable: function() {
-                return player.data['run'] && player.data['slender-research'] && player.salt >= 90;
+                return player.characterClassId == 'default' && player.data['run'] && player.data['slender-research'] && player.salt >= 90;
             }
         },
         {
@@ -225,7 +256,7 @@ define(['app/model/player', 'app/util/random'], function(player, random) {
                 'It is here.',
             score: 999,
             isAvailable: function() {
-                return player.data['run'] && player.data['slender-research'] && player.salt < 90;
+                return player.characterClassId == 'default' && player.data['run'] && player.data['slender-research'] && player.salt < 90;
             }
         },
 
@@ -245,7 +276,7 @@ define(['app/model/player', 'app/util/random'], function(player, random) {
                 'There must always be a Jeff Kaplan... with a beard.',
             score: 999,
             isAvailable: function() {
-                return player.data['isjkapp'];
+                return player.characterClassId == 'default' && player.data['isjkapp'];
             }
         },
         {
@@ -257,7 +288,7 @@ define(['app/model/player', 'app/util/random'], function(player, random) {
                 'But you are dead.',
             score: 999,
             isAvailable: function() {
-                return player.data['deadberry'];
+                return player.characterClassId == 'default' && player.data['deadberry'];
             }
         },
         {
@@ -269,7 +300,7 @@ define(['app/model/player', 'app/util/random'], function(player, random) {
                 'You are dead.',
             score: 999,
             isAvailable: function() {
-                return player.data['deadorcstatue'];
+                return player.characterClassId == 'default' && player.data['deadorcstatue'];
             }
         },
         {
@@ -288,7 +319,8 @@ define(['app/model/player', 'app/util/random'], function(player, random) {
                 'It is time.',
             score: 999,
             isAvailable: function() {
-                return player.data['mindcontrol']
+                return player.characterClassId == 'default'
+                    && player.data['mindcontrol']
                     && player.data['mindcontrolpass']
                     && player.data['beta']
             }
@@ -306,7 +338,7 @@ define(['app/model/player', 'app/util/random'], function(player, random) {
                 'Ph\'nglui mglw\'nafh Saltulu R\'lyehsalt wgah\'nagl fhtagn',
             score: 999,
             isAvailable: function() {
-                return Number(player.data['darkness']) > 30;
+                return player.characterClassId == 'default' && Number(player.data['darkness']) > 30;
             }
         },
         {
@@ -321,7 +353,7 @@ define(['app/model/player', 'app/util/random'], function(player, random) {
                 'The slender man has you.',
             score: 888,
             isAvailable: function() {
-                return player.data['slender-spotted'] && player.data['beta'] && !player.data['slender-email'];
+                return player.characterClassId == 'default' && player.data['slender-spotted'] && player.data['beta'] && !player.data['slender-email'];
             }
         },
         {
@@ -336,7 +368,7 @@ define(['app/model/player', 'app/util/random'], function(player, random) {
             'The slender man has you.',
             score: 888,
             isAvailable: function() {
-                return player.data['slender-spotted'] && player.data['beta'] && player.data['slender-email'];
+                return player.characterClassId == 'default' && player.data['slender-spotted'] && player.data['beta'] && player.data['slender-email'];
             }
         },
         {
@@ -353,7 +385,7 @@ define(['app/model/player', 'app/util/random'], function(player, random) {
                 'The slender man has you.',
             score: 888,
             isAvailable: function() {
-                return player.data['slender-spotted'] && !player.data['beta'] && !player.data['slender-email'];
+                return player.characterClassId == 'default' && player.data['slender-spotted'] && !player.data['beta'] && !player.data['slender-email'];
             }
         },
         {
@@ -368,7 +400,7 @@ define(['app/model/player', 'app/util/random'], function(player, random) {
             'The slender man has you.',
             score: 888,
             isAvailable: function() {
-                return player.data['slender-spotted'] && !player.data['beta'] && player.data['slender-email'];
+                return player.characterClassId == 'default' && player.data['slender-spotted'] && !player.data['beta'] && player.data['slender-email'];
             }
         }
     ];
