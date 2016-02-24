@@ -201,15 +201,15 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
         },
         'accelerator': {
             title: 'Miniature chronal accelerator',
-            description: 'Gives you an additional 30 seconds of time. One-time use only.',
+            description: 'Gives you an additional 40 seconds of time. One-time use only.',
             outcomes: [
                 {
                     chance: 1,
                     flavourText: 'Let\'s try that again!',
                     apply: function() {
                         player.removeItem('accelerator');
-                        player.changeSecondsRemaining(30);
-                        return words.buildApplyReturn({time: 30, itemCount: -1});
+                        player.changeSecondsRemaining(40);
+                        return words.buildApplyReturn({time: 40, itemCount: -1});
                     },
                     buttons: [
                         {
@@ -229,8 +229,8 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                     flavourText: 'You\'ve got the beta in your sights!',
                     apply: function() {
                         player.removeItem('visor');
-                        player.changeBetaChance(0.02);
-                        return words.buildApplyReturn({beta: 0.02, itemCount: -1});
+                        player.changeBetaChance(0.04);
+                        return words.buildApplyReturn({beta: 0.04, itemCount: -1});
                     },
                     buttons: [
                         {
@@ -359,8 +359,83 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                     ]
                 }
             ]
+        },
+        'djset': {
+            title: 'Lucio\'s DJ Tabletop Player',
+            description: 'It will be off the hook when you awkwardly use this thing.',
+            outcomes: [
+                {
+                    chance: 1,
+                    flavourText: 'You own it! Now you must buy some songs to use on it!',
+                    apply: function() {}
+                }
+            ]
+        },
+        'djbricks': {
+            title: 'A box full of bricks',
+            description: 'A permanent reminder of a poor decision.',
+            outcomes: [
+                {
+                    chance: 1,
+                    flavourText: 'Blinded by rage, you throw the bricks through the windows of a local Brazilian restaurant ' +
+                        'that you assume Lucio owns because you are a racist.',
+                    apply: function() {
+                        player.removeItem('djbricks');
+                        player.data['brickrage'] = true;
+                        player.data['beta'] = true; // hack
+                        return words.buildApplyReturn({itemCount: -1});
+                    },
+                    buttons: [
+                        {
+                            text: 'They called the cops on me?'
+                        }
+                    ]
+                }
+            ]
+        },
+        'djpractice1': {
+            title: '[SONG] Learning to Pretend to Play A DJ Tabletop Player',
+            description: 'Mandatory practice before you can get stuck into pretending to play real songs! This song is 30 seconds in length.',
+            outcomes: [
+                {
+                    chance: 1,
+                    flavourText: 'It is just a voice recording of some guy telling you how to plug everything in.',
+                    apply: function() {
+                        player.removeItem('djpractice1');
+                        player.data['djpractice1'] = true;
+                        player.changeSecondsRemaining(-30);
+                        return words.buildApplyReturn({itemCount: -1, time: -30});
+                    },
+                    buttons: [
+                        {
+                            text: 'I think I have been ripped off'
+                        }
+                    ]
+                }
+            ]
+        },
+        'djbeta': {
+            title: '[SONG] We Are Salty Together As One',
+            description: 'Let\'s drop the beat or something? This song is 30 seconds in length and will increase your beta chances by 10%.',
+            outcomes: [
+                {
+                    chance: 1,
+                    flavourText: 'You press PLAY and pretend to fiddle with the dials and knobs. Everyone around you is distracted by the loud music ' +
+                        'you are obnoxiously playing at your desk.<br/><br/>Hopefully someone from Blizzard hears this... somehow.',
+                    apply: function() {
+                        player.removeItem('djbeta');
+                        player.changeBetaChance(0.10);
+                        player.changeSecondsRemaining(-30);
+                        return words.buildApplyReturn({itemCount: -1, beta: 0.10, time: -30});
+                    },
+                    buttons: [
+                        {
+                            text: 'Woo, you feel that? Anyone?'
+                        }
+                    ]
+                }
+            ]
         }
-
     };
 
     return {

@@ -197,7 +197,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                     apply: function() {
                         player.changeSalt(-30);
                         player.changeSecondsRemaining(60);
-                        return words.buildApplyReturn({salt: -30, time: 60});
+                        return words.buildApplyReturn({salt: -30, time: 40});
                     },
                     buttons: [
                         {
@@ -316,7 +316,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         return !player.data['briefcase'];
                     },
                     flavourText: [
-                        'A soldier in a numbered jacket hands you a briefcase and leaves before saying anything.'
+                        'A crazy-looking Australian fellow hands you a briefcase and asks you to hide it for him. He then giggles and runs off.'
                     ],
                     apply: function() {
                         player.changeSalt(-30);
@@ -326,7 +326,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                     },
                     buttons: [
                         {
-                            text: 'Was that...?'
+                            text: 'Thank you generous stranger!'
                         }
                     ]
                 },
@@ -351,7 +351,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                 },
                 /* a shaggy fellow */
                 {
-                    chance: 1,
+                    chance: 0.3,
                     score: 2,
                     isAvailable: function() {
                         return player.money >= 100 && !player.data['helpedman'] && !player.data['seenman'];
@@ -397,7 +397,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                 },
                 /* death on walk */
                 {
-                    chance: 0.01,
+                    chance: 0.005,
                     flavourText: 'A giant orc statue collapses on you while on your walk.',
                     apply: function() {
                         player.data['deadorcstatue'] = true;

@@ -17,6 +17,15 @@ TODO
 68) Blizz CM bonus game
 69) Accelerator adds a LOT of time, makes it very easy
 70) New items: [overwatch char's] cookbook, provides basic food to help
+71) People don't realise they have to use the item after they buy it?
+
+FROM IPHONE
+
+Overpowered items should be hard to come by, or require planning.
+Social media should be wildcard / "magic find run."
+Add twitch streaming as social activity. Can be recipient of donations or provider of them in exchange for items / beta%. Eg maybe seagull donation lands you "lucky gull" item?
+
+http://asciiflow.com/#0B6nDGcibuPdKS2hGd1RRM3FwWGc
 
 Some links...
 http://i.imgur.com/HXT95hr.png

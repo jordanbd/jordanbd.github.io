@@ -332,6 +332,15 @@ define(['app/model/player', 'app/util/random'], function(player, random) {
         },
         {
             type: 'Defeat',
+            title: 'You have been arrested',
+            description: 'For what it\'s worth you absolutely NAILED that window. Unfortunately there will be no Overwatch where you\'re heading.',
+            score: 999,
+            isAvailable: function() {
+                return player.characterClassId == 'default' && player.data['brickrage'];
+            }
+        },
+        {
+            type: 'Defeat',
             title: 'You have died',
             description: 'That orc statue has been there for years. You walk past it every day and today it decides to collapse on you. I\'d say it was ' +
                 'ironic, but I don\'t know what irony really means anymore.<br/>' +
