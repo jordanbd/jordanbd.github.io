@@ -115,6 +115,8 @@ define(['app/util/random'], function(random) {
         if (opts.money) {
             if (opts.money > 0) {
                 sb += "You have gained $" + opts.money + ". "
+            } else if (opts.money < 0) {
+                sb += "You have lost $" + opts.money + ". "
             }
         }
         return sb;

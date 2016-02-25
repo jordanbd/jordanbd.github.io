@@ -17,6 +17,15 @@ define(['emitter'], function(emitter) {
                 }
             }
         },
+        countItems: function(code) {
+            var count = 0;
+            for (var i = 0; i < this.items.length; i++) {
+                if (this.items[i] == code) {
+                    count++;
+                }
+            }
+            return count;
+        },
         salt: 0,
         changeSalt: function(amt) {
             this.salt += amt;

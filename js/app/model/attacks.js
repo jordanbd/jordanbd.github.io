@@ -178,39 +178,18 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
         },
         {
             title: 'Go for a walk',
-            description: 'Go for a brief walk away from your computer. Dream of Tracer and clear your mind of salty thoughts.',
-            subDescription: 'Costs: -20 seconds, Lowers: Salt by -30%, Chance to find: Money, Items',
+            description: 'Resets your saltiness. Chance to get involved in a very quick adventure.',
+            subDescription: 'Costs: -20 seconds',
             isAvailable: function() {
                 return player.secondsRemaining >= 20 && player.characterClassId == 'default';
             },
-            beforeOutcome: function() {
-                player.changeSecondsRemaining(-20);
-            },
             outcomes: [
-                /* increase time */
-                {
-                    chance: 0.01,
-                    flavourText: [
-                        'You decide to walk backwards on your walk. Oddly enough you now find yourself with ' +
-                        'more time than you had before.'
-                    ],
-                    apply: function() {
-                        player.changeSalt(-30);
-                        player.changeSecondsRemaining(60);
-                        return words.buildApplyReturn({salt: -30, time: 40});
-                    },
-                    buttons: [
-                        {
-                            text: 'That is NOT how it works'
-                        }
-                    ]
-                },
                 /* standard outcome - lower salt */
                 {
                     isAvailable: function() {
                         return true;
                     },
-                    chance: 0.6,
+                    chance: 0.3,
                     flavourText: [
                         'You take a brisk walk around the building to clear your head.',
                         'A brief respite from the beta frenzy helps prevent the build up of salt.',
@@ -218,35 +197,27 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         'You think about the big bucks you\'re going to make when you turn pro at this game.'
                     ],
                     apply: function() {
-                        player.changeSalt(-30);
-                        return words.buildApplyReturn({salt: -30});
+                        player.changeSecondsRemaining(-20);
+                        player.changeSalt(-100);
+                        return words.buildApplyReturn({time: -20, salt: -100});
                     }
                 },
-                /* find water */
-                {
-                    chance: 0.05,
-                    flavourText: 'On your walk you find some stale water in an old gym bag. You add the water to your inventory.',
-                    apply: function() {
-                        player.changeSalt(-30);
-                        player.items.push('stale-water');
-                        return words.buildApplyReturn({salt: -30, itemCount: 1});
-                    },
-                    buttons: [
-                        {
-                            text: 'I have never been to a gym?'
-                        }
-                    ]
-                },
+
                 /* find lucky clover */
                 {
-                    chance: 0.05,
+                    chance: 0.01,
+                    isAvailable: function() {
+                        return !player.data['clover'];
+                    },
                     flavourText: 'You stumble across a small wooden container with a faded inscription on the lid. The container contains ' +
                         ' a seven-leaf clover - looks like your luck is changing! You add the clover to your inventory.<br/><br/><em>"Here Lies ' +
                         'Philip J. Fry, named for his uncle, to carry on his spirit."</em>',
                     apply: function() {
-                        player.changeSalt(-30);
+                        player.changeSalt(-100);
+                        player.changeSecondsRemaining(-20);
                         player.items.push('clover');
-                        return words.buildApplyReturn({salt: -30, itemCount: 1});
+                        player.data['clover'] = true;
+                        return words.buildApplyReturn({time: -20, salt: -100, itemCount: 1});
                     },
                     buttons: [
                         {
@@ -262,9 +233,10 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                     },
                     flavourText: 'You stop briefly to look out your office window. In the distance you spot what looks like a tall, thin gray man wearing black.',
                     apply: function() {
-                        player.changeSalt(-30);
+                        player.changeSalt(-100);
+                        player.changeSecondsRemaining(-20);
                         player.data['slender-spotted'] = true;
-                        return words.buildApplyReturn({salt: -30})
+                        return words.buildApplyReturn({time: -20, salt: -100})
                             + 'You pretend you didn\'t see anything.';
                     },
                     buttons: [
@@ -273,39 +245,94 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         }
                     ]
                 },
-                /* find money */
+
+                /* find dollar sign bag */
                 {
                     chance: 0.1,
                     isAvailable: function() {
-                        return !player.data['stole-partner-money']
+                        return !player.data['dollarsignbag-found']
                     },
                     flavourText: [
-                        'While on your walk you stumble upon your partner\'s bag and find $200.00 in it! You take your partner\'s money.'
+                        'A bag with a dollar sign on it falls off the back of an ice-cream truck driven by a fat guy in a Bane constume.<br/><br/>' +
+                        'You take the bag... it could come in handy!'
                     ],
                     apply: function() {
-                        player.data['stole-partner-money'] = true;
-                        player.changeSalt(-30);
-                        player.changeMoney(200);
-                        return words.buildApplyReturn({salt: -30, money: 200})
+                        player.data['dollarsignbag-found'] = true;
+                        player.changeSecondsRemaining(-20);
+                        player.changeSalt(-100);
+                        player.items.push('dollarsignbag');
+                        return words.buildApplyReturn({time: -20, salt: -30, itemCount: 1});
                     },
                     buttons: [
                         {
-                            text: 'Haha, I don\'t even have a partner'
+                            text: 'I don\'t think he saw me'
                         }
                     ]
                 },
-                /* reverse - increase salt */
+                /* dollar sign bag - where is it? */
                 {
-                    chance: 0.05,
-                    flavourText: 'As you re-enter your computer room you stub your toe on your Soldier: 76 collector\'s edition ' +
-                        'statue.',
+                    chance: 0.2,
+                    isAvailable: function() {
+                        return player.data['dollarsignbag-found']
+                            && player.data['dollarsignbag-open']
+                    },
+                    flavourText: [
+                        'The fat idiot who was driving the ice-cream truck steps out from the shadows. ' +
+                        'With a surprisingly upper class accent, fat Bane demands to know where the bag that fell off his truck went.<br/><br/>You tell fatty that you ' +
+                        'took the money and that if he wants it so bad he can chase you for it. You are unaware he possesses a hook.<br/><br/> Fat Bane beats ' +
+                        'you up and takes your money.'
+                    ],
                     apply: function() {
-                        player.changeSalt(10);
-                        return words.buildApplyReturn({salt: 10})
+                        player.data['dollarsignbag-beatup'] = true;
+                        player.changeSecondsRemaining(-20);
+                        var moneyStolen = player.money;
+                        player.changeMoney(-moneyStolen);
+                        return words.buildApplyReturn({time: -20, money: -moneyStolen});
                     },
                     buttons: [
                         {
-                            text: 'This game sucks'
+                            text: 'Ugh, that fat hog'
+                        }
+                    ]
+                },
+                /* dollar sign bag - return it */
+                {
+                    chance: 0.2,
+                    isAvailable: function() {
+                        return player.data['dollarsignbag-found']
+                            && !player.data['dollarsignbag-open']
+                    },
+                    flavourText: [
+                        'The fat idiot who was driving the ice-cream truck steps out from the shadows. ' +
+                        'With a surprisingly upper class accent, fat Bane demands to know where the bag that fell off his truck went.<br/><br/>You don\'t want to upset ' +
+                        'him so you give him his bag back. He offers you a breath from his weird cannister as a thank you. At this point you are too scared to ' +
+                        'say no.<br/><br/> Somehow... you feel luckier.'
+                    ],
+                    apply: function() {
+                        player.changeSecondsRemaining(-20);
+                        player.changeBetaChance(0.05);
+                        player.removeItem('dollarsignbag');
+                        return words.buildApplyReturn({time: -20, secondsRemaining: -20, beta: 0.05})
+                    },
+                    buttons: [
+                        {
+                            text: 'That was gross'
+                        }
+                    ]
+                },
+
+                /* reverse - increase salt */
+                {
+                    chance: 0.05,
+                    flavourText: 'As you return from your walk you stub your toe on your Soldier: 76 collector\'s edition statue.',
+                    apply: function() {
+                        player.changeSalt(10);
+                        player.changeSecondsRemaining(-20);
+                        return words.buildApplyReturn({time: -20, salt: 10})
+                    },
+                    buttons: [
+                        {
+                            text: 'Why is this on the floor?'
                         }
                     ]
                 },
@@ -313,16 +340,17 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                 {
                     chance: 0.01,
                     isAvailable: function() {
-                        return !player.data['briefcase'];
+                        return !player.data['briefcase-found'];
                     },
                     flavourText: [
                         'A crazy-looking Australian fellow hands you a briefcase and asks you to hide it for him. He then giggles and runs off.'
                     ],
                     apply: function() {
-                        player.changeSalt(-30);
+                        player.changeSalt(-100);
+                        player.changeSecondsRemaining(-20);
                         player.items.push('briefcase');
-                        player.data['briefcase'] = true;
-                        return words.buildApplyReturn({salt: -30, itemCount: 1})
+                        player.data['briefcase-found'] = true;
+                        return words.buildApplyReturn({time: -20, salt: -100, itemCount: 1})
                     },
                     buttons: [
                         {
@@ -340,64 +368,182 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         'You grab a handful of berries from an unidentified bush while out walking.'
                     ],
                     apply: function() {
-                        player.changeSalt(-30);
+                        player.changeSalt(-100);
+                        player.changeSecondsRemaining(-20);
                         player.items.push('berry');
                         player.items.push('berry');
                         player.items.push('berry');
                         player.items.push('berry');
                         player.data['berries'] = true;
-                        return words.buildApplyReturn({salt: -30, itemCount: 4})
+                        return words.buildApplyReturn({time: -20, salt: -100, itemCount: 4})
                     }
                 },
-                /* a shaggy fellow */
+
+                /* sad gorilla, no peanut butter */
                 {
                     chance: 0.3,
+                    isAvailable: function() {
+                        return !player.data['sadgorilla-nopeanutbutter']
+                            && player.countItems('peanut') == 0;
+                    },
+                    flavourText: 'You encounter a sad looking gorilla on your walk. He tells you that he wished he had ' +
+                        'some peanut butter and that he would greatly reward anyone who gave him some.<br/><br/>' +
+                        'He then sighs and trudges off. Nobody else seems to notice the magic talking gorilla.',
+                    apply: function() {
+                        player.changeSalt(-100);
+                        player.changeSecondsRemaining(-20);
+                        player.data['sadgorilla-nopeanutbutter'] = true;
+                        return words.buildApplyReturn({time: -20, salt: -100})
+                    },
+                    buttons: [
+                        {
+                            text: 'The poor monkey'
+                        }
+                    ]
+                },
+                /* sad gorilla, havent met before, have 1x peanut butter */
+                {
+                    chance: 0.4,
+                    isAvailable: function() {
+                        return !player.data['sadgorilla-nopeanutbutter']
+                            && player.countItems('peanut') == 1;
+                    },
+                    flavourText: 'You encounter a sad looking gorilla on your walk. He tells you that he wished he had ' +
+                        'some peanut butter and that he would greatly reward anyone who gave him some.<br/><br/>' +
+                        'After giving the weird magic gorilla your peanut butter, he sighs again. He tells you he wishes ' +
+                        'he had more peanut butter.',
+                    apply: function() {
+                        player.changeSalt(-100);
+                        player.changeSecondsRemaining(-20);
+                        player.data['sadgorilla-nopeanutbutter'] = true;
+                        player.data['sadgorilla-onepeanutbutter'] = true;
+                        player.removeItem('peanut');
+                        return words.buildApplyReturn({time: -20, salt: -100, itemCount: -1})
+                    },
+                    buttons: [
+                        {
+                            text: 'What a greedy jerk'
+                        }
+                    ]
+                },
+                /* sad gorilla, havent met before, have 2x peanut butter */
+                {
+                    chance: 0.4,
+                    isAvailable: function() {
+                        return !player.data['sadgorilla-nopeanutbutter']
+                            && !player.data['sadgorilla-twopeanutbutter']
+                            && player.countItems('peanut') >= 2;
+                    },
+                    flavourText: 'You encounter a sad looking gorilla on your walk. He tells you that he wished he had ' +
+                        'some peanut butter and that he would greatly reward anyone who gave him some.<br/><br/>' +
+                        'The greedy monkey takes two jars of your peanut butter. He then hands you a weird looking gadget before ' +
+                        'leaping away while mumbling about launching a satellite.',
+                    apply: function() {
+                        player.changeSalt(-100);
+                        player.changeSecondsRemaining(-20);
+                        player.data['sadgorilla-nopeanutbutter'] = true;
+                        player.data['sadgorilla-onepeanutbutter'] = true;
+                        player.data['sadgorilla-twopeanutbutter'] = true;
+                        player.removeItem('peanut');
+                        player.removeItem('peanut');
+                        player.items.push('accelerator');
+                        return words.buildApplyReturn({time: -20, salt: -100, itemCount: 2})
+                    },
+                    buttons: [
+                        {
+                            text: 'I\'m sure he knows what he\'s doing'
+                        }
+                    ]
+                },
+                /* sad gorilla, have met before, have 1x peanut butter*/
+                {
+                    chance: 1,
                     score: 2,
                     isAvailable: function() {
-                        return player.money >= 100 && !player.data['helpedman'] && !player.data['seenman'];
+                        return player.data['sadgorilla-nopeanutbutter']
+                            && !player.data['sadgorilla-onepeanutbutter']
+                            && player.countItems('peanut') == 1;
                     },
-                    flavourText: 'You encounter a sad looking gorilla on your walk. He asks you if he can have $100. ' +
-                        'He does not say what for.<br/><br/>He says he will <strong>email</strong> you a thank-you message if you give him the money. <br/><br/>Yes, this gorilla ' +
-                        'can talk. ',
-                    buttons: [
-                        {
-                            text: 'Uhh, sure?',
-                            apply: function() {
-                                player.changeMoney(-100);
-                                player.changeSalt(-30);
-                                player.data['helpedman'] = true;
-                                player.data['seenman'] = true;
-                            }
-                        },
-                        {
-                            text: 'Go away weird gorilla',
-                            apply: function() {
-                                player.changeSalt(-30);
-                                player.data['helpedman'] = false;
-                                player.data['seenman'] = true;
-                            }
-                        }
-                    ]
-                },
-                /* large lower salt */
-                {
-                    chance: 0.05,
-                    flavourText: [
-                        'You reflect on life and what it means to be a slave to the whims of a corporation like Blizzard.'
-                    ],
+                    flavourText: 'You bump into that magical gorilla again. He still looks sad.<br/><br/>' +
+                        'After giving him your peanut butter, he sighs again. He tells you he wishes ' +
+                        'he had more peanut butter.',
                     apply: function() {
-                        player.changeSalt(-50);
-                        return words.buildApplyReturn({salt: -50})
+                        player.changeSalt(-100);
+                        player.changeSecondsRemaining(-20);
+                        player.data['sadgorilla-nopeanutbutter'] = true;
+                        player.data['sadgorilla-onepeanutbutter'] = true;
+                        player.removeItem('peanut');
+                        return words.buildApplyReturn({time: -20, salt: -100, itemCount: -1})
                     },
                     buttons: [
                         {
-                            text: 'I am wasting my life'
+                            text: 'The cheek of this guy?'
                         }
                     ]
                 },
+                /* sad gorilla, have met before, have given 1 peanut butter already, have 1x peanut butter*/
+                {
+                    chance: 1,
+                    score: 2,
+                    isAvailable: function() {
+                        return player.data['sadgorilla-nopeanutbutter']
+                            && player.data['sadgorilla-onepeanutbutter']
+                            && !player.data['sadgorilla-twopeanutbutter']
+                            && player.countItems('peanut') >= 1;
+                    },
+                    flavourText: 'You find the gorilla again. He looks at you expectantly.<br/><br/>' +
+                        'You give the greedy jerk another jar of your peanut butter. He hands you a weird looking gadget before ' +
+                        'leaping away while mumbling about launching a satellite.',
+                    apply: function() {
+                        player.changeSalt(-100);
+                        player.changeSecondsRemaining(-20);
+                        player.data['sadgorilla-nopeanutbutter'] = true;
+                        player.data['sadgorilla-onepeanutbutter'] = true;
+                        player.data['sadgorilla-twopeanutbutter'] = true;
+                        player.items.push('accelerator');
+                        player.removeItem('peanut');
+                        return words.buildApplyReturn({time: -20, salt: -100, itemCount: 1})
+                    },
+                    buttons: [
+                        {
+                            text: 'This better be worth it'
+                        }
+                    ]
+                },
+                /* sad gorilla, have met before, have 2x peanut butter*/
+                {
+                    chance: 1,
+                    score: 2,
+                    isAvailable: function() {
+                        return player.data['sadgorilla-nopeanutbutter']
+                            && !player.data['sadgorilla-onepeanutbutter']
+                            && !player.data['sadgorilla-twopeanutbutter']
+                            && player.countItems('peanut') >= 2;
+                    },
+                    flavourText: 'You find the gorilla again, looking sad. Don\'t worry magical gorilla; you are here to brighten his day.<br/><br/>' +
+                    'You offer him one of your peanut butter jars but he demands both and snatches them away before you can do anything. ' +
+                    'He finally hands you a weird looking gadget then leaps away mumbling about launching a satellite.',
+                    apply: function() {
+                        player.changeSalt(-100);
+                        player.changeSecondsRemaining(-20);
+                        player.data['sadgorilla-nopeanutbutter'] = true;
+                        player.data['sadgorilla-onepeanutbutter'] = true;
+                        player.data['sadgorilla-twopeanutbutter'] = true;
+                        player.items.push('accelerator');
+                        player.removeItem('peanut');
+                        player.removeItem('peanut');
+                        return words.buildApplyReturn({time: -20, salt: -100, itemCount: 1})
+                    },
+                    buttons: [
+                        {
+                            text: 'You\'re welcome you stupid greedy gorilla'
+                        }
+                    ]
+                },
+
                 /* death on walk */
                 {
-                    chance: 0.005,
+                    chance: 0.01,
                     flavourText: 'A giant orc statue collapses on you while on your walk.',
                     apply: function() {
                         player.data['deadorcstatue'] = true;

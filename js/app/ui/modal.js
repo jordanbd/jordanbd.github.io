@@ -2,6 +2,10 @@
 
 define(['jquery', 'app/ui/templates'], function($, templates) {
 
+    function render(opts) {
+
+    }
+
     function open(opts) {
         var $modal = $(templates.getTemplate('modalTmpl')({
             text: opts.text

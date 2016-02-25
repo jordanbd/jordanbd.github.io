@@ -14,7 +14,7 @@ define(['app/util/random'], function(random) {
             },
             salt: 0,
             money: 40,
-            secondsRemaining: 240,
+            secondsRemaining: 999,
             betaChance: 0
         },
         {

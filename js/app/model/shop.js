@@ -4,28 +4,6 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
 
     var items = [
         {
-            itemRef: 'mineral-water',
-            description: 'This will lower your saltiness by -10%.',
-            cost: 20,
-            canAfford: function() {
-                return player.money >= this.cost;
-            },
-            isAvailable: function() {
-                return player.characterClassId == 'default';
-            },
-            outcomes: [
-                {
-                    chance: 1,
-                    flavourText: 'Did that say "mineral" water?',
-                    apply: function() {
-                        player.changeMoney(-20);
-                        player.items.push('mineral-water');
-                        return words.buildApplyReturn({money: -20, itemCount: 1});
-                    }
-                }
-            ]
-        },
-        {
             itemRef: 'puppet',
             description: 'Wow this thing is ugly.',
             cost: 80,
@@ -219,28 +197,6 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
             ]
         },
         {
-            itemRef: 'accelerator',
-            cost: 60,
-            canAfford: function() {
-                return player.money >= this.cost
-            },
-            isAvailable: function() {
-                return player.data['helpedman-items'] && !player.data['accelerator'];
-            },
-            outcomes: [
-                {
-                    chance: 1,
-                    flavourText: 'Everyone is going to think you need a nerf now.',
-                    apply: function() {
-                        player.changeMoney(-60);
-                        player.items.push('accelerator');
-                        player.data['accelerator'] = true;
-                        return words.buildApplyReturn({money: -60, itemCount: 1});
-                    }
-                }
-            ]
-        },
-        {
             itemRef: 'visor',
             cost: 80,
             canAfford: function() {
@@ -269,7 +225,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                 return player.money >= this.cost
             },
             isAvailable: function() {
-                return player.data['helpedman-items'];
+                return true;
             },
             outcomes: [
                 {

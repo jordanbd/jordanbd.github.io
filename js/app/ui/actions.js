@@ -147,7 +147,9 @@ function($, _, emitter, templates, modal, timer, player, attacks, items, shop, w
                     text: words.textReplace(flavourText + (output != null ? '<br/><br/>' + output : '')),
                     buttons: winningOutcome.buttons
                 }).then(function onClose() {
-                    //unselectAction();
+
+
+
                     if (player.data['beta']) {
                         timer.stop();
                         emitter.emit('victory');

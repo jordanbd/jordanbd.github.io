@@ -1,0 +1,83 @@
+
+
+                /* increase time */
+                {
+                    chance: 0.01,
+                    flavourText: [
+                        'You decide to walk backwards on your walk. Oddly enough you now find yourself with ' +
+                        'more time than you had before.'
+                    ],
+                    apply: function() {
+                        player.changeSalt(-30);
+                        player.changeSecondsRemaining(60);
+                        return words.buildApplyReturn({salt: -30, time: 40});
+                    },
+                    buttons: [
+                        {
+                            text: 'That is NOT how it works'
+                        }
+                    ]
+                },
+
+                /* find water */
+                {
+                    chance: 0.05,
+                    flavourText: 'On your walk you find some stale water in an old gym bag. You add the water to your inventory.',
+                    apply: function() {
+                        player.changeSalt(-30);
+                        player.items.push('stale-water');
+                        return words.buildApplyReturn({salt: -30, itemCount: 1});
+                    },
+                    buttons: [
+                        {
+                            text: 'I have never been to a gym?'
+                        }
+                    ]
+                },
+                /* large lower salt */
+                {
+                    chance: 0.05,
+                        flavourText: [
+                    'You reflect on life and what it means to be a slave to the whims of a corporation like Blizzard.'
+                ],
+                    apply: function() {
+                    player.changeSalt(-50);
+                    return words.buildApplyReturn({salt: -50})
+                },
+                    buttons: [
+                        {
+                            text: 'I am wasting my life'
+                        }
+                    ]
+                },
+
+                /* sad gorilla */
+                {
+                    chance: 0.3,
+                    score: 2,
+                    isAvailable: function() {
+                        return player.money >= 100 && !player.data['helpedman'] && !player.data['seenman'];
+                    },
+                    flavourText: 'You encounter a sad looking gorilla on your walk. He asks you if he can have $100. ' +
+                        'He does not say what for.<br/><br/>He says he will <strong>email</strong> you a thank-you message if you give him the money. <br/><br/>Yes, this gorilla ' +
+                        'can talk. ',
+                    buttons: [
+                        {
+                            text: 'Uhh, sure?',
+                            apply: function() {
+                                player.changeMoney(-100);
+                                player.changeSalt(-30);
+                                player.data['helpedman'] = true;
+                                player.data['seenman'] = true;
+                            }
+                        },
+                        {
+                            text: 'Go away weird gorilla',
+                            apply: function() {
+                                player.changeSalt(-30);
+                                player.data['helpedman'] = false;
+                                player.data['seenman'] = true;
+                            }
+                        }
+                    ]
+                },

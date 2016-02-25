@@ -19,6 +19,10 @@ TODO
 70) New items: [overwatch char's] cookbook, provides basic food to help
 71) People don't realise they have to use the item after they buy it?
 
+- why go for a walk straight away?  you basically have social media or work options. walk is SO USELESS as work + buy is more efficient.
+ - walk costs no time if salt < 10
+ - check battlenet account should be more punishing on time, salt levels are OK though
+
 FROM IPHONE
 
 Overpowered items should be hard to come by, or require planning.

@@ -1,0 +1,37 @@
+
+
+Dollar sign bag dropped
+ - Open
+   - Find some money, ink explodes
+     - On walk: Encounter -> give me our money back
+       - Beat up
+   - Find all money
+     - On walk: Encounter -> give me our money back
+       - Beat up
+ - Keep
+   - On walk: Encounter -> give me our money back
+     - Ok take it
+       - Beta chance
+
+Overgrown, broken bastion
+ - No kit
+   - maybe next time
+ - Kit
+   - Beta chance
+
+Slenderman
+
+Sad gorilla
+ - 1 peanut butter
+  - Grateful
+ - 2 peanut butter
+  - Tracer item
+  - Visor (lower salt increasewhile in inventory)
+
+Soldier 76, the blind man
+ - No visor
+  - :(
+ - Visor
+  - beta chance (my organisation, maybe you have a shot)
+
+Briefcase ??

@@ -201,7 +201,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
         },
         'accelerator': {
             title: 'Miniature chronal accelerator',
-            description: 'Gives you an additional 40 seconds of time. One-time use only.',
+            description: 'Gives you an additional 40 seconds of time and increases your beta chances by 5%.',
             outcomes: [
                 {
                     chance: 1,
@@ -209,7 +209,8 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                     apply: function() {
                         player.removeItem('accelerator');
                         player.changeSecondsRemaining(40);
-                        return words.buildApplyReturn({time: 40, itemCount: -1});
+                        player.changeBetaChance(0.05);
+                        return words.buildApplyReturn({time: 40, itemCount: -1, beta: 0.05});
                     },
                     buttons: [
                         {
@@ -431,6 +432,44 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                     buttons: [
                         {
                             text: 'Woo, you feel that? Anyone?'
+                        }
+                    ]
+                }
+            ]
+        },
+        'dollarsignbag': {
+            title: 'A bag with a dollar sign on it',
+            description: 'Kind of inconspicuous isn\'t it?',
+            outcomes: [
+                {
+                    chance: 0.5,
+                    flavourText: 'A dye pack explodes in your face. Most of the money still seems OK! But you can\'t help feel salty at being covered ' +
+                        'in paint.',
+                    apply: function() {
+                        player.removeItem('dollarsignbag');
+                        player.changeSalt(20);
+                        player.changeMoney(130);
+                        player.data['dollarsignbag-open'] = true;
+                        return words.buildApplyReturn({itemCount: -1, salt: 20, money: 130});
+                    },
+                    buttons: [
+                        {
+                            text: 'I am sure no one is looking for this money'
+                        }
+                    ]
+                },
+                {
+                    chance: 0.5,
+                    flavourText: 'Wow it actually is full of money.',
+                    apply: function() {
+                        player.removeItem('dollarsignbag');
+                        player.changeMoney(150);
+                        player.data['dollarsignbag-open'] = true;
+                        return words.buildApplyReturn({itemCount: -1, money: 150});
+                    },
+                    buttons: [
+                        {
+                            text: 'Yay free money'
                         }
                     ]
                 }
