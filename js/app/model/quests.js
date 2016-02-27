@@ -423,6 +423,71 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                     ]
                 }
             ]
+        },
+        'torb-scrap': {
+            title: 'Torbjörn needs scrap!',
+            description: 'The local mad scientist wants you to collect scrap metal for him so he can build a turret or a ' +
+                'delorean time machine or something; you weren\'t really paying attention.',
+            canComplete: function() {
+                return player.countItems('scrap') > 0;
+            },
+            outcomes: [
+                {
+                    chance: 1,
+                    flavourText: 'The crazy scientist thanks you for your donation of scrap.',
+                    apply: function() {
+                        if (!player.data['torb-turret']) {
+                            player.data['torb-turret'] = 0;
+                        }
+
+                        var scrapCount = player.countItems('scrap');
+                        var scrapNeeded = (100 - Number(player.data['torb-turret'])) / 10;
+                        //console.debug('scrapCount = %s', scrapCount);
+                        //console.debug('scrapNeeded = %s', scrapNeeded);
+
+                        // Update turret %
+                        player.data['torb-turret'] += (scrapCount * 10);
+                        if (Number(player.data['torb-turret']) > 100) {
+                            player.data['torb-turret'] = 100;
+                        }
+
+                        var scrapUsed = 0;
+                        if (scrapCount >= scrapNeeded) {
+                            scrapUsed = scrapNeeded;
+                        } else {
+                            scrapUsed = scrapCount;
+                        }
+
+                        // Remove scrap used
+                        for (var i = 0; i < scrapUsed; i++) {
+                            player.removeItem('scrap');
+                        }
+                        //console.debug('removed %s scrap', scrapUsed);
+
+                        if (Number(player.data['torb-turret']) == 100) {
+                            player.removeQuest('torb-scrap');
+                            player.items.push('bag-epic');
+                            player.data['torb-turret-complete'] = true;
+                            return 'Because of your donations, you have helped a local lunatic build a dangerous weapon! He hands you a bag of items as a thank you.'
+                        } else {
+                            return 'He tells you that his turrent is ' + player.data['torb-turret'] + '% complete. Bring him more scrap to complete the turret.';
+                        }
+
+                    },
+                    buttons: [
+                        {
+                            text: 'What will he use it for?'
+                        }
+                    ]
+                }
+            ]
+        },
+        'slenderman': {
+            title: 'The tall thin man',
+            description: 'He saw you.',
+            canComplete: function() {
+                return false;
+            }
         }
     };
 

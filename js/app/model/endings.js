@@ -332,6 +332,18 @@ define(['app/model/player', 'app/util/random'], function(player, random) {
         },
         {
             type: 'Defeat',
+            title: 'You have died',
+            description: 'The odds of dying from cutting yourself on scrap metal are 1 in 100. If you weren\'t dead, I\'d tell you that maybe your Overwatch Beta chances ' +
+                'weren\'t so bleak.<br/>' +
+                '<br/>' +
+                'But you are dead.',
+            score: 999,
+            isAvailable: function() {
+                return player.characterClassId == 'default' && player.data['scrap-metal-dead'];
+            }
+        },
+        {
+            type: 'Defeat',
             title: 'You have been arrested',
             description: 'For what it\'s worth you absolutely NAILED that window. Unfortunately there will be no Overwatch where you\'re heading.',
             score: 999,

@@ -184,7 +184,7 @@ function($, _, emitter, templates, modal, timer, player, attacks, items, shop, q
                     text: words.textReplace(text),
                     buttons: winningOutcome.buttons
                 }).then(function onClose() {
-                    if (player.data['beta']) {
+                    if (player.data['beta'] || player.data['game-over']) {
                         timer.stop();
                         emitter.emit('victory');
                     } else {

@@ -91,11 +91,11 @@ define(['app/util/random'], function(random) {
             if (opts.itemCount == 1) {
                 sb += "Item added to your inventory. "
             } else if (opts.itemCount > 1) {
-                sb += "Items added to your inventory. "
+                sb += opts.itemCount + " items added to your inventory. "
             } else if (opts.itemCount == -1) {
                 sb += "Item removed from your inventory. "
             } else if (opts.itemCount < -1) {
-                sb += "Items removed from your inventory. "
+                sb += opts.itemCount + " items removed from your inventory. "
             }
         }
         if (opts.beta) {

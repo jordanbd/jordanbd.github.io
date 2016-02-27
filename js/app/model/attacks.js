@@ -123,7 +123,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         }
                     ]
                 },
-                /* stumble on slenderman */
+                /* start slenderman quest */
                 {
                     chance: 0.01,
                     isAvailable: function() {
@@ -134,6 +134,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         player.changeSalt(-100);
                         player.changeSecondsRemaining(-20);
                         player.data['slender-spotted'] = true;
+                        player.quests.push('slenderman');
                         return words.buildApplyReturn({time: -20, salt: -100})
                             + 'You pretend you didn\'t see anything.';
                     },
@@ -188,7 +189,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                 },
                 /* death on walk */
                 {
-                    chance: 0.01,
+                    chance: 0.005,
                     flavourText: 'A giant orc statue collapses on you while on your walk.',
                     apply: function() {
                         player.data['deadorcstatue'] = true;
@@ -264,11 +265,33 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         player.changeSalt(-100);
                         player.items.push('dollar-sign-bag');
                         player.quests.push('roadhog-truck');
-                        return words.buildApplyReturn({time: -20, salt: -30, itemCount: 1});
+                        return words.buildApplyReturn({time: -20, salt: -30, itemCount: 1, questCountAdded: 1});
                     },
                     buttons: [
                         {
                             text: 'I don\'t think he saw me'
+                        }
+                    ]
+                },
+
+                /* start torb quest */
+                {
+                    chance: 0.3,
+                    isAvailable: function() {
+                        return !player.data['torb-quest'];
+                    },
+                    flavourText: 'You bump into a man dumpster diving in an ally. He tells you that he is an inventor and needs scrap metal. ' +
+                        'You tell him that he might be looking in the wrong place but you\'ll keep an eye out. He returns to his fossicking.',
+                    apply: function() {
+                        player.data['torb-quest'] = true;
+                        player.changeSecondsRemaining(-20);
+                        player.changeSalt(-100);
+                        player.quests.push('torb-scrap');
+                        return words.buildApplyReturn({time: -20, salt: -30, questCountAdded: 1});
+                    },
+                    buttons: [
+                        {
+                            text: 'Should I call the cops?'
                         }
                     ]
                 }

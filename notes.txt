@@ -4,6 +4,7 @@ TODO
 2. Change social media posts to be the equivalent of a magic find run - possible money, possible salt, possible beta. Needs a lot of small, one-off events. Time should be 10 seconds maybe.
 3. Work + Buy Items should be reasonable but risky strategy. Best items from adventures and randomed from MF, all items bought by money (other than simple ones) should have element of risk.
 4. Possibly change briefcase drop
+5. On battle screen exit UNBIND EVERYTHING
 
 TODO OLD
 

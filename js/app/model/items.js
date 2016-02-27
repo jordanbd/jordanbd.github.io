@@ -1,8 +1,25 @@
 'use strict';
 
-define(['app/model/player', 'app/model/words'], function(player, words) {
+define(['app/model/player', 'app/model/words', 'app/util/random'], function(player, words, random) {
 
     // TODO: Salty pants - increases your salt generation but every N seconds increase your beta chance
+    // TODO: on Tick applications
+
+
+    function spawnLootFromTable(table) {
+        if (table.length == 0) {
+            console.error('Loot table %O is empty', table);
+            return 0;
+        }
+        for (var i = 0; i < table.length; i++) {
+            var group = table[i];
+            if (group.chance && Math.random() < group.chance) {
+                var itemRef = random.randomArray(group.options);
+                player.items.push(itemRef);
+            }
+        }
+        return table.length;
+    }
 
     var items = {
         'stale-water': {
@@ -121,21 +138,6 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                             text: 'Wait, seriously?'
                         }
                     ]
-                }
-            ]
-        },
-        'mineral-water': {
-            title: 'Mineral water',
-            description: 'Lowers your saltiness by -10%. At least I think it does. Is salt a mineral? Does mineral water... contain salt? Oh god...',
-            outcomes: [
-                {
-                    chance: 1,
-                    flavourText: 'Salt is a mineral but let\'s just say this water does not have any.',
-                    apply: function() {
-                        player.changeSalt(-10);
-                        player.removeItem('mineral-water');
-                        return words.buildApplyReturn({salt: -10, itemCount: -1});
-                    }
                 }
             ]
         },
@@ -381,13 +383,29 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
             ]
         },
 
-        // TODO: on Tick applications
-
         /* new items */
         'bag-common': {
-            // TODO
-            title: 'Bag-common',
-            description: 'Bag-common'
+            title: 'A common bag of goods',
+            description: 'Open this bag to receive common, boring loot.',
+            outcomes: [
+                {
+                    chance: 1,
+                    apply: function() {
+                        var itemCount = spawnLootFromTable([
+                            {
+                                chance: 1,
+                                options: ['scrap', 'berry']
+                            },
+                            {
+                                chance: 0.5,
+                                options: ['time-berry']
+                            }
+                        ]);
+                        player.removeItem('bag-common');
+                        return words.buildApplyReturn({itemCount: itemCount})
+                    }
+                }
+            ]
         },
         'bag-rare': {
             // TODO
@@ -623,6 +641,66 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                 {
                     chance: 1,
                     flavourText: 'Oh man you have to edit config files and stuff? This looks hard.'
+                }
+            ]
+        },
+        'scrap': {
+            title: 'Scrap metal',
+            description: 'Just a useless piece of scrap metal.',
+            outcomes: [
+                {
+                    chance: 0.99,
+                    flavourText: 'This stuff is sharp. You should be careful when handling it.'
+                },
+                {
+                    chance: 0.01,
+                    flavourText: 'You cut yourself on a sharp edge while playing with the scrap metal. You bleed out and die.',
+                    apply: function() {
+                        player.data['game-over'] = true;
+                        player.data['scrap-metal-dead'] = true;
+                    },
+                    buttons: [
+                        {
+                            text: 'ARE YOU SERIOUS? THIS GAME SUCKS.'
+                        }
+                    ]
+                }
+            ]
+        },
+        'mineral-water': {
+            title: 'Mineral water',
+            description: 'Lowers your saltiness by -10%. At least I think it does. Is salt a mineral? Does mineral water... contain salt? Oh god...',
+            outcomes: [
+                {
+                    chance: 1,
+                    flavourText: 'Salt is a mineral but let\'s just say this water does not have any.',
+                    apply: function() {
+                        player.changeSalt(-10);
+                        player.removeItem('mineral-water');
+                        return words.buildApplyReturn({salt: -10, itemCount: -1});
+                    }
+                }
+            ]
+        },
+        'time-berry': {
+            title: 'Time berry',
+            description: 'Increases your time remaining by 5 seconds.',
+            outcomes: [
+                {
+                    chance: 0.8,
+                    flavourText: 'You feel reality distort around you. That is one magical berry.',
+                    apply: function() {
+                        player.changeSecondsRemaining(5);
+                        player.removeItem('time-berry');
+                        return words.buildApplyReturn({time:5});
+                    }
+                },
+                {
+                    chance: 0.2,
+                    flavourText: 'Nothing happens. This berry must have gone bad.',
+                    apply: function() {
+                        player.removeItem('time-berry');
+                    }
                 }
             ]
         }
