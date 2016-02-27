@@ -410,6 +410,25 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                     }
                 }
             ]
+        },
+        {
+            itemRef: 'blizzard-hacks',
+            cost: 60,
+            isAvailable: function() {
+                return !player.data['item-bought-blizzard-hacks'];
+            },
+            outcomes: [
+                {
+                    chance: 1,
+                    flavourText: 'Developed by Brother Chris.',
+                    apply: function() {
+                        player.changeMoney(-60);
+                        player.items.push('blizzard-hacks');
+                        player.data['item-bought-blizzard-hacks'] = true;
+                        return words.buildApplyReturn({money: -60, itemCount: 1});
+                    }
+                }
+            ]
         }
     ];
 

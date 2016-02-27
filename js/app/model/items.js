@@ -403,6 +403,28 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
             title: 'Bag-blizz gift',
             description: 'Bag-blizz gift'
         },
+        'sc2-trophy': {
+            title: 'Starcraft 2 World Champion trophy',
+            description: 'Awarded to you for defeating reigning world champion D.Va.',
+            outcomes: [
+                {
+                    chance: 1,
+                    flavourText: 'Hey, there is a hidden compartment in this trophy! Inside is a note from Blizzard which reads:<br/><br/>' +
+                        '"Congratulations on all your success. As a thank you for being better than all the other garbage ' +
+                        'that plays our games we are increasing your beta chance odds for all future games by 10%!".',
+                    apply: function() {
+                        player.removeItem('sc2-trophy');
+                        player.changeBetaChance(0.1);
+                        return words.buildApplyReturn({itemCount: -1, beta: 0.1});
+                    },
+                    buttons: [
+                        {
+                            text: 'Even world champs aren\'t guaranteed access?'
+                        }
+                    ]
+                }
+            ]
+        },
         'accelerator': {
             title: 'Miniature chronal accelerator',
             description: 'Gives you an additional 60 seconds of time and increases your beta chances by 1%.',
@@ -591,6 +613,16 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                             text: 'Now I wish I paid attention in hacker club'
                         }
                     ]
+                }
+            ]
+        },
+        'blizzard-hacks': {
+            title: 'A collection of Blizzard game hacks',
+            description: 'Now we shall see who the scrublord is!',
+            outcomes: [
+                {
+                    chance: 1,
+                    flavourText: 'Oh man you have to edit config files and stuff? This looks hard.'
                 }
             ]
         }

@@ -353,6 +353,76 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                     ]
                 }
             ]
+        },
+        'dva-scrim': {
+            title: 'D.Va needs to practice StarCraft 2',
+            description: 'SC2 pro Hana Song needs a 1v1 partner! You were once ranked Silver so you\'re pretty sure can help.',
+            canComplete: function() {
+                return true;
+            },
+            outcomes: [
+                {
+                    chance: 0.9,
+                    isAvailable: function() {
+                        return player.countItems('blizzard-hacks') == 0;
+                    },
+                    flavourText: [
+                        'You lose to a 4-pool rush in Zerg v Terran. You are defeated.',
+                        'Her scouting drone kills all of your probes. You are defeated.',
+                        'You are mauled by a 3-rax all in rush. You are defeated.'
+                    ],
+                    apply: function() {
+                        player.removeQuest('dva-scrim');
+                        player.data['beaten-by-dva'] = true;
+                        return 'She thanks you for your time but says she doesn\'t need anymore practice with you.';
+                    },
+                    buttons: [
+                        {
+                            text: 'WTF she is such a noob cheese user'
+                        }
+                    ]
+                },
+                {
+                    chance: 0.1,
+                    isAvailable: function() {
+                        return player.countItems('blizzard-hacks') == 0;
+                    },
+                    flavourText: 'D.Va disconnects from the first game you play. She apologises when she logs back in ' +
+                        'but you won\'t have a bar of it - you won that game by disconnect fair and square.<br/><br/>You announce ' +
+                        'to the world that you are the new World Champion and that you are retiring from professional ' +
+                        'StarCraft 2 play.<br/><br/>Blizzard give you a trophy in recognition of your status.',
+                    apply: function() {
+                        player.removeQuest('dva-scrim');
+                        player.data['beat-dva'] = true;
+                        player.items.push('sc2-trophy');
+                        return words.buildApplyReturn({itemCount: 1});
+                    },
+                    buttons: [
+                        {
+                            text: 'I am the champion!'
+                        }
+                    ]
+                },
+                {
+                    chance: 1,
+                    isAvailable: function() {
+                        return player.countItems('blizzard-hacks') == 1;
+                    },
+                    flavourText: 'D.Va seems confident but you have a secret weapon: a SC2 hack developed by infamous leet hacker ' +
+                        'Brother Chris!<br/><br/>Unfortunately all the maphack vision in the world can\'t make you a good player and you are ' +
+                        'obliterated by mutalisks.<br/><br/>She thanks you for your time but says she doesn\'t need any more practice ' +
+                        'with you.',
+                    apply: function() {
+                        player.removeQuest('dva-scrim');
+                        player.data['beaten-by-dva'] = true;
+                    },
+                    buttons: [
+                        {
+                            text: 'Blizzard need to remove mutalisks from the game'
+                        }
+                    ]
+                }
+            ]
         }
     };
 

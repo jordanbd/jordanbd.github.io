@@ -55,6 +55,22 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         player.data['reddit-spammer-started'] = true;
                         return words.buildApplyReturn({time: -5, questCountAdded: 1});
                     }
+                },
+
+                /* start dva quest */
+                {
+                    chance: 0.1,
+                    isAvailable: function() {
+                        return !player.data['dva-scrim-quest'];
+                    },
+                    flavourText: 'World champion Starcraft 2 player D.Va announces on Twitter that she needs 1v1 practice partners ' +
+                        'for an upcoming tournament!',
+                    apply: function() {
+                        player.changeSecondsRemaining(-5);
+                        player.quests.push('dva-scrim');
+                        player.data['dva-scrim-quest'] = true;
+                        return words.buildApplyReturn({time: -5, questCountAdded: 1});
+                    }
                 }
             ]
         },
