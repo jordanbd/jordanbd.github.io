@@ -375,7 +375,8 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         player.removeQuest('dva-scrim');
                         player.items.push('bag-common');
                         player.data['beaten-by-dva'] = true;
-                        return 'She thanks you for your time but says she doesn\'t need anymore practice with you.';
+                        return 'She thanks you for your time but says she doesn\'t need anymore practice with you.<br/><br/>' +
+                            words.buildApplyReturn({itemCount: 1});
                     },
                     buttons: [
                         {
@@ -417,6 +418,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         player.removeQuest('dva-scrim');
                         player.items.push('bag-common');
                         player.data['beaten-by-dva'] = true;
+                        return words.buildApplyReturn({itemCount: 1});
                     },
                     buttons: [
                         {

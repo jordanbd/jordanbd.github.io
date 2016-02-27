@@ -337,11 +337,15 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
             itemRef: 'blizzard-fake-id',
             description: 'This could definitely come in handy.',
             cost: 100,
+            isAvailable: function() {
+                return !player.data['item-bought-blizzard-fake-id'];
+            },
             outcomes: [
                 {
                     chance: 1,
                     apply: function() {
                         player.items.push('blizzard-fake-id');
+                        player.data['item-bought-blizzard-fake-id'] = true;
                         player.changeMoney(-100);
                         return words.buildApplyReturn({money: -100, itemCount: 1});
                     }

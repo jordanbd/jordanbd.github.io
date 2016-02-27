@@ -24,6 +24,11 @@ TODO OLD
 68) Blizz CM bonus game
 70) New items: [overwatch char's] cookbook, provides basic food to help
 71) Add twitch streaming as social activity. Can be recipient of donations or provider of them in exchange for items / beta%. Eg maybe seagull donation lands you "lucky gull" item?
+72) Item rarity [unique/quest], etc?
+73) wow gold farmer hacker social media thing?
+74) Saltiness is not a problem, maybe increase amount of saltiness gained per tick
+75) add can afford check
+76) Add common chances - HIGH, MED, LOW - for constants
 
 http://asciiflow.com/#0B6nDGcibuPdKS2hGd1RRM3FwWGc
 

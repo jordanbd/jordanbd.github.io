@@ -54,7 +54,7 @@ function($, emitter, templates, timer, player, words, items) {
     }
 
     function increaseSalt() {
-        var incr = 5;
+        var incr = 10;
         player.salt += incr;
         emitter.emit('salt-change', incr);
         checkForMaxSaltiness();

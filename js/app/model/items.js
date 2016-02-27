@@ -1,6 +1,6 @@
 'use strict';
 
-define(['app/model/player', 'app/model/words', 'app/util/random'], function(player, words, random) {
+define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/common'], function(player, words, random, common) {
 
     // TODO: Salty pants - increases your salt generation but every N seconds increase your beta chance
     // TODO: on Tick applications
@@ -385,10 +385,10 @@ define(['app/model/player', 'app/model/words', 'app/util/random'], function(play
             ]
         },
 
-        /* new items */
+
         'bag-common': {
-            title: 'A common bag of goods',
-            description: 'Open this bag to receive common, boring loot.',
+            title: 'Common bag of goods',
+            description: 'Open this bag to receive common, boring items.',
             outcomes: [
                 {
                     chance: 1,
@@ -399,8 +399,16 @@ define(['app/model/player', 'app/model/words', 'app/util/random'], function(play
                                 options: ['scrap', 'berry']
                             },
                             {
-                                chance: 0.5,
-                                options: ['time-berry']
+                                chance: 1,
+                                options: ['scrap']
+                            },
+                            {
+                                chance: 1,
+                                options: ['scrap']
+                            },
+                            {
+                                chance: 0.8,
+                                options: ['time-berry', 'beta-bite']
                             }
                         ]);
                         player.removeItem('bag-common');
@@ -410,19 +418,99 @@ define(['app/model/player', 'app/model/words', 'app/util/random'], function(play
             ]
         },
         'bag-rare': {
-            // TODO
-            title: 'Bag-rare',
-            description: 'Bag-rare'
+            title: 'Rare bag of goods',
+            description: 'Open this bag to receive rare items.',
+            outcomes: [
+                {
+                    chance: 1,
+                    apply:function() {
+                        var itemCount = spawnLootFromTable([
+                            {
+                                chance: 1,
+                                options: ['scrap']
+                            },
+                            {
+                                chance: 1,
+                                options: ['scrap']
+                            },
+                            {
+                                chance: 1,
+                                options: ['time-berry', 'four-clover', 'beta-bite']
+                            },
+                            {
+                                chance: 1,
+                                options: ['time-berry', 'four-clover', 'beta-bite']
+                            },
+                            {
+                                chance: 1,
+                                options: ['beta-bite']
+                            }
+                        ]);
+                        player.removeItem('bag-rare');
+                        return words.buildApplyReturn({itemCount: itemCount})
+                    }
+                }
+            ]
         },
         'bag-epic': {
-            // TODO
-            title: 'Bag-epic',
-            description: 'Bag-epic'
+            title: 'Epic bag of goods',
+            description: 'Open this bag to receive epic items.',
+            outcomes: [
+                {
+                    chance: 1,
+                    apply:function() {
+                        // TODO MORE
+                        var itemCount = spawnLootFromTable([
+                            {
+                                chance: 1,
+                                options: ['scrap']
+                            },
+                            {
+                                chance: 1,
+                                options: ['time-berry', 'four-clover', 'beta-bite']
+                            },
+                            {
+                                chance: 1,
+                                options: ['salt-sacrifice']
+                            },
+                        ]);
+                        player.removeItem('bag-epic');
+                        return words.buildApplyReturn({itemCount: itemCount})
+                    }
+                }
+            ]
         },
         'bag-gift': {
             title: 'Bag-blizz gift',
-            description: 'Bag-blizz gift'
+            description: 'Bag-blizz gift',
+            outcomes: [
+                {
+                    chance: 1,
+                    apply:function() {
+                        // TODO MORE
+                        var itemCount = spawnLootFromTable([
+                            {
+                                chance: 1,
+                                options: ['scrap']
+                            },
+                            {
+                                chance: 1,
+                                options: ['time-berry', 'four-clover', 'beta-bite']
+                            },
+                            {
+                                chance: 1,
+                                options: ['salt-sacrifice']
+                            },
+                        ]);
+                        player.removeItem('bag-gift');
+                        return words.buildApplyReturn({itemCount: itemCount})
+                    }
+                }
+            ]
         },
+
+        /* new items */
+
         'sc2-trophy': {
             title: 'Starcraft 2 World Champion trophy',
             description: 'Awarded to you for defeating reigning world champion D.Va.',
@@ -431,11 +519,12 @@ define(['app/model/player', 'app/model/words', 'app/util/random'], function(play
                     chance: 1,
                     flavourText: 'Hey, there is a hidden compartment in this trophy! Inside is a note from Blizzard which reads:<br/><br/>' +
                         '"Congratulations on all your success. As a thank you for being better than all the other garbage ' +
-                        'that plays our games we are increasing your beta chance odds for all future games by 10%!".',
+                        'that plays our games we are increasing your beta chance odds for all future games by ' +
+                        words.betaChanceValue(common.BETA.VERY_HIGH) + '!".',
                     apply: function() {
                         player.removeItem('sc2-trophy');
-                        player.changeBetaChance(0.1);
-                        return words.buildApplyReturn({itemCount: -1, beta: 0.1});
+                        player.changeBetaChance(common.BETA.VERY_HIGH);
+                        return words.buildApplyReturn({itemCount: -1, beta: common.BETA.VERY_HIGH});
                     },
                     buttons: [
                         {
@@ -447,7 +536,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random'], function(play
         },
         'accelerator': {
             title: 'Miniature chronal accelerator',
-            description: 'Gives you an additional 60 seconds of time and increases your beta chances by 1%.',
+            description: 'Gives you an additional 60 seconds of time and increases your beta chances by ' + words.betaChanceValue(common.BETA.LOW) + '.',
             outcomes: [
                 {
                     chance: 1,
@@ -455,8 +544,8 @@ define(['app/model/player', 'app/model/words', 'app/util/random'], function(play
                     apply: function() {
                         player.removeItem('accelerator');
                         player.changeSecondsRemaining(60);
-                        player.changeBetaChance(0.01);
-                        return words.buildApplyReturn({time: 60, itemCount: -1, beta: 0.01});
+                        player.changeBetaChance(common.BETA.LOW);
+                        return words.buildApplyReturn({time: 60, itemCount: -1, beta: common.BETA.LOW});
                     },
                     buttons: [
                         {
@@ -648,6 +737,8 @@ define(['app/model/player', 'app/model/words', 'app/util/random'], function(play
                 }
             ]
         },
+
+        /* loot items */
         'scrap': {
             title: 'Scrap metal',
             description: 'Just a useless piece of scrap metal.',
@@ -688,15 +779,15 @@ define(['app/model/player', 'app/model/words', 'app/util/random'], function(play
         },
         'time-berry': {
             title: 'Time berry',
-            description: 'Increases your time remaining by 5 seconds.',
+            description: 'Increases your time remaining by 15 seconds.',
             outcomes: [
                 {
                     chance: 0.8,
                     flavourText: 'You feel reality distort around you. That is one magical berry.',
                     apply: function() {
-                        player.changeSecondsRemaining(5);
+                        player.changeSecondsRemaining(15);
                         player.removeItem('time-berry');
-                        return words.buildApplyReturn({time:5});
+                        return words.buildApplyReturn({time: 15, itemCount: -1});
                     }
                 },
                 {
@@ -704,6 +795,78 @@ define(['app/model/player', 'app/model/words', 'app/util/random'], function(play
                     flavourText: 'Nothing happens. This berry must have gone bad.',
                     apply: function() {
                         player.removeItem('time-berry');
+                        return words.buildApplyReturn({itemCount: -1});
+                    }
+                }
+            ]
+        },
+        'cadbury-creme-egg': {
+            title: 'Cadbury Creme Egg',
+            description: 'The best chocolate egg around. Resets your saltiness to zero.',
+            outcomes: [
+                {
+                    chance: 1,
+                    flavourText: 'What does this have to do with Overwatch?',
+                    apply: function() {
+                        player.changeSalt(-100);
+                        player.removeItem('cadbury-creme-egg');
+                        return words.buildApplyReturn({salt: -100, itemCount: -1})
+                    }
+                }
+            ]
+        },
+        'four-clover': {
+            title: 'Four-leaf clover',
+            description: 'Increases your chances of getting into the beta by ' + words.betaChanceValue(common.BETA.MEDIUM) + '.',
+            outcomes: [
+                {
+                    chance: 1,
+                    flavourText: 'You eat the clover to gain its power.',
+                    apply: function() {
+                        player.changeBetaChance(common.BETA.MEDIUM);
+                        player.removeItem('four-clover');
+                        return words.buildApplyReturn({beta: common.BETA.MEDIUM, itemCount: -1});
+                    },
+                    buttons: [
+                        {
+                            text: 'You didn\'t have to eat it'
+                        }
+                    ]
+                }
+            ]
+        },
+        'beta-bite': {
+            title: 'Schmackos',
+            description: 'A yummy treat for dogs that for some reason increases your beta chances by ' + words.betaChanceValue(common.BETA.VERY_LOW) + '.',
+            outcomes: [
+                {
+                    chance: 1,
+                    flavourText: 'Dogs go whacko for schmakos!',
+                    apply: function() {
+                        player.changeBetaChance(common.BETA.VERY_LOW);
+                        player.removeItem('beta-bite');
+                        return words.buildApplyReturn({beta: common.BETA.VERY_LOW, itemCount: -1});
+                    }
+                }
+            ]
+        },
+        'salt-sacrifice': {
+            title: 'Potion of Salt Sacrifice',
+            description: 'For every 10% of saltiness you have, increase your beta chances by ' + words.betaChanceValue(common.BETA.LOW) + ' up to a maximum of ' +
+                words.betaChanceValue(common.BETA.LOW * 5) + '. Saltiness is NOT lowered by this potion.',
+            outcomes: [
+                {
+                    chance: 1,
+                    flavourText: 'Your salt gives you focus and makes you stronger.',
+                    apply: function() {
+                        var saltyPts = Math.floor(player.salt / 10);
+                        var betaChance = common.BETA.LOW * saltyPts;
+                        if (betaChance > (common.BETA.LOW * 5)) {
+                            betaChance = (common.BETA.LOW * 5);
+                        }
+                        player.changeBetaChance(betaChance);
+                        player.removeItem('salt-sacrifice');
+                        return words.buildApplyReturn({beta: betaChance, itemCount: -1});
                     }
                 }
             ]

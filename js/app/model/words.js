@@ -37,19 +37,20 @@ define(['app/util/random'], function(random) {
     }
 
     function betaChanceValue(value) {
-        if (value >= 0.5) {
-            return 'Extremely high'
-        } else if (value >= 0.3) {
-            return 'High'
-        } else if (value >= 0.1) {
-            return 'Medium'
-        } else if (value >= 0.05) {
-            return 'Low'
-        } else if (value >= 0.01) {
-            return 'Very low'
-        } else {
-            return 'No chance'
-        }
+        return value; // fixme
+        //if (value >= 0.5) {
+        //    return 'Extremely high'
+        //} else if (value >= 0.3) {
+        //    return 'High'
+        //} else if (value >= 0.1) {
+        //    return 'Medium'
+        //} else if (value >= 0.05) {
+        //    return 'Low'
+        //} else if (value >= 0.01) {
+        //    return 'Very low'
+        //} else {
+        //    return 'No chance'
+        //}
     }
 
     function betaChanceIncrement(value) {
