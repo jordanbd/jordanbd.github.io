@@ -76,7 +76,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
         },
         {
             title: 'Go for a walk',
-            description: 'Resets your saltiness. Chance to get involved in a very quick adventure.',
+            description: 'Lowers your saltiness by 30%. Chance to start a quest.',
             subDescription: 'Costs: -20 seconds',
             isAvailable: function() {
                 return player.secondsRemaining >= 20 && player.characterClassId == 'default';
@@ -96,8 +96,8 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                     ],
                     apply: function() {
                         player.changeSecondsRemaining(-20);
-                        player.changeSalt(-100);
-                        return words.buildApplyReturn({time: -20, salt: -100});
+                        player.changeSalt(-30);
+                        return words.buildApplyReturn({time: -20, salt: -30});
                     }
                 },
 
@@ -111,11 +111,11 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         ' a seven-leaf clover - looks like your luck is changing! You add the clover to your inventory.<br/><br/><em>"Here Lies ' +
                         'Philip J. Fry, named for his uncle, to carry on his spirit."</em>',
                     apply: function() {
-                        player.changeSalt(-100);
                         player.changeSecondsRemaining(-20);
+                        player.changeSalt(-30);
                         player.items.push('clover');
                         player.data['clover'] = true;
-                        return words.buildApplyReturn({time: -20, salt: -100, itemCount: 1});
+                        return words.buildApplyReturn({time: -20, salt: -30, itemCount: 1});
                     },
                     buttons: [
                         {
@@ -131,11 +131,11 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                     },
                     flavourText: 'You stop briefly to look out your office window. In the distance you spot what looks like a tall, thin gray man wearing black.',
                     apply: function() {
-                        player.changeSalt(-100);
                         player.changeSecondsRemaining(-20);
+                        player.changeSalt(-30);
                         player.data['slender-spotted'] = true;
                         player.quests.push('slenderman');
-                        return words.buildApplyReturn({time: -20, salt: -100})
+                        return words.buildApplyReturn({time: -20, salt: -30})
                             + 'You pretend you didn\'t see anything.';
                     },
                     buttons: [
@@ -155,11 +155,11 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         'A crazy-looking Australian fellow hands you a briefcase and asks you to hide it for him. He then giggles and runs off.'
                     ],
                     apply: function() {
-                        player.changeSalt(-100);
                         player.changeSecondsRemaining(-20);
+                        player.changeSalt(-30);
                         player.items.push('briefcase');
                         player.data['briefcase-found'] = true;
-                        return words.buildApplyReturn({time: -20, salt: -100, itemCount: 1})
+                        return words.buildApplyReturn({time: -20, salt: -30, itemCount: 1})
                     },
                     buttons: [
                         {
@@ -177,14 +177,14 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         'You grab a handful of berries from an unidentified bush while out walking.'
                     ],
                     apply: function() {
-                        player.changeSalt(-100);
                         player.changeSecondsRemaining(-20);
+                        player.changeSalt(-30);
                         player.items.push('berry');
                         player.items.push('berry');
                         player.items.push('berry');
                         player.items.push('berry');
                         player.data['berries'] = true;
-                        return words.buildApplyReturn({time: -20, salt: -100, itemCount: 4})
+                        return words.buildApplyReturn({time: -20, salt: -30, itemCount: 4})
                     }
                 },
                 /* death on walk */
@@ -202,6 +202,26 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         }
                     ]
                 },
+                /* find stale water */
+                {
+                    chance: 0.1,
+                    isAvailable: function() {
+                        return !player.data['stale-water-found'];
+                    },
+                    flavourText: 'On your walk you find some stale water in an old gym bag. You add the water to your inventory.',
+                    apply: function() {
+                        player.changeSecondsRemaining(-20);
+                        player.changeSalt(-30);
+                        player.items.push('stale-water');
+                        player.data['stale-water-found'] = true;
+                        return words.buildApplyReturn({time: -20, salt: -30, itemCount: 1});
+                    },
+                    buttons: [
+                        {
+                            text: 'I have never been to a gym?'
+                        }
+                    ]
+                },
 
                 /* start winston quest */
                 {
@@ -213,11 +233,11 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         'some peanut butter and that he would greatly reward anyone who gave him some.<br/><br/>' +
                         'He then sighs and trudges off. Nobody else seems to notice the magic talking gorilla.',
                     apply: function() {
-                        player.changeSalt(-100);
                         player.changeSecondsRemaining(-20);
+                        player.changeSalt(-30);
                         player.data['winston-quest'] = true;
                         player.quests.push('winston-peanut1');
-                        return words.buildApplyReturn({time: -20, salt: -100, questCountAdded: 1});
+                        return words.buildApplyReturn({time: -20, salt: -30, questCountAdded: 1});
                     },
                     buttons: [
                         {
@@ -236,11 +256,11 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         'help him see again. You imply that glasses don\'t cure blindness and that maybe he\'d prefer a ' +
                         'hot meal? No. He wants the glasses.<br/><br/>"The mission is all that matters."',
                     apply: function() {
-                        player.changeSalt(-100);
                         player.changeSecondsRemaining(-20);
+                        player.changeSalt(-30);
                         player.data['soldier76-quest'] = true;
                         player.quests.push('soldier76-glasses');
-                        return words.buildApplyReturn({time: -20, salt: -100, questCountAdded: 1});
+                        return words.buildApplyReturn({time: -20, salt: -30, questCountAdded: 1});
                     },
                     buttons: [
                         {
@@ -260,9 +280,9 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         'You take the bag... it could come in handy!'
                     ],
                     apply: function() {
-                        player.data['roadhog-quest'] = true;
                         player.changeSecondsRemaining(-20);
-                        player.changeSalt(-100);
+                        player.changeSalt(-30);
+                        player.data['roadhog-quest'] = true;
                         player.items.push('dollar-sign-bag');
                         player.quests.push('roadhog-truck');
                         return words.buildApplyReturn({time: -20, salt: -30, itemCount: 1, questCountAdded: 1});
@@ -283,9 +303,9 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                     flavourText: 'You bump into a man dumpster diving in an ally. He tells you that he is an inventor and needs scrap metal. ' +
                         'You tell him that he might be looking in the wrong place but you\'ll keep an eye out. He returns to his fossicking.',
                     apply: function() {
-                        player.data['torb-quest'] = true;
                         player.changeSecondsRemaining(-20);
-                        player.changeSalt(-100);
+                        player.changeSalt(-30);
+                        player.data['torb-quest'] = true;
                         player.quests.push('torb-scrap');
                         return words.buildApplyReturn({time: -20, salt: -30, questCountAdded: 1});
                     },
