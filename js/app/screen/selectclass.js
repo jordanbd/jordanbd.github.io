@@ -50,7 +50,7 @@ define(['jquery', 'app/ui/templates', 'app/model/classes', 'app/model/player'], 
         sm = screenManager;
         buildScreen();
         // FIXME temporary
-        selectClass(classes.getClasses()[0]);
+        //selectClass(classes.getClasses()[0]);
     }
 
     function exit() {

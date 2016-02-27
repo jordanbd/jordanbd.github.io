@@ -126,54 +126,6 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
         //    ]
         //},
         //{
-        //    itemRef: 'origins',
-        //    title: 'Pre-purchase Overwatch: Origins edition',
-        //    description: 'It doesn\'t come with beta access but surely... SURELY... it must slightly increase your chances of getting ' +
-        //    'into beta, right? Right?',
-        //    cost: 60,
-        //    canAfford: function() {
-        //        return player.money >= this.cost
-        //    },
-        //    isAvailable: function() {
-        //        return !player.data['origins'] && player.characterClassId == 'default';
-        //    },
-        //    outcomes: [
-        //        /* increases beta chance*/
-        //        {
-        //            chance: 0.6,
-        //            flavourText: 'It doesn\'t come with beta access but you can\'t help but feel luckier.',
-        //            apply: function() {
-        //                player.changeBetaChance(0.02);
-        //                player.changeMoney(-60);
-        //                player.items.push('origins');
-        //                player.data['origins'] = true;
-        //                return words.buildApplyReturn({money: -60, itemCount: 1, beta: 0.02});
-        //            },
-        //            buttons: [
-        //                {
-        //                    text: 'The luck truck drives on'
-        //                }
-        //            ]
-        //        },
-        //        /* does nothing ? */
-        //        {
-        //            chance: 0.4,
-        //            flavourText: 'You were told that it didn\'t come with beta access. Blizzard weren\'t kidding.',
-        //            apply: function() {
-        //                player.changeMoney(-60);
-        //                player.items.push('origins');
-        //                player.data['origins'] = true;
-        //                return words.buildApplyReturn({money: -60, itemCount: 1});
-        //            },
-        //            buttons: [
-        //                {
-        //                    text: 'FUCK.'
-        //                }
-        //            ]
-        //        }
-        //    ]
-        //},
-        //{
         //    itemRef: 'beard',
         //    description: 'Once thought lost, it has resurfaced. But can you really put a price on such a unique artifact? Yes. $1000.',
         //    cost: 1000,
@@ -429,7 +381,52 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                     }
                 }
             ]
-        }
+        },
+        {
+            itemRef: 'origins',
+            title: 'Pre-purchase Overwatch: Origins edition',
+            description: 'It doesn\'t come with beta access but surely... SURELY... it must slightly increase your chances of getting ' +
+                'into beta, right? Right?',
+            cost: 60,
+            isAvailable: function() {
+                return !player.data['origins'] && player.characterClassId == 'default';
+            },
+            outcomes: [
+                /* increases beta chance*/
+                {
+                    chance: 0.6,
+                    flavourText: 'It doesn\'t come with beta access but you can\'t help but feel luckier.',
+                    apply: function() {
+                        player.changeBetaChance(0.02);
+                        player.changeMoney(-60);
+                        player.items.push('origins');
+                        player.data['origins'] = true;
+                        return words.buildApplyReturn({money: -60, itemCount: 1, beta: 0.02});
+                    },
+                    buttons: [
+                        {
+                            text: 'The luck truck drives on'
+                        }
+                    ]
+                },
+                /* does nothing ? */
+                {
+                    chance: 0.4,
+                    flavourText: 'You were told that it didn\'t come with beta access. Blizzard weren\'t kidding.',
+                    apply: function() {
+                        player.changeMoney(-60);
+                        player.items.push('origins');
+                        player.data['origins'] = true;
+                        return words.buildApplyReturn({money: -60, itemCount: 1});
+                    },
+                    buttons: [
+                        {
+                            text: 'FUCK.'
+                        }
+                    ]
+                }
+            ]
+        },
     ];
 
     function getItemsForSale() {

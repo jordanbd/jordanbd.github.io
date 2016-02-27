@@ -11,14 +11,16 @@ define(['app/model/player', 'app/model/words', 'app/util/random'], function(play
             console.error('Loot table %O is empty', table);
             return 0;
         }
+        var count = 0;
         for (var i = 0; i < table.length; i++) {
             var group = table[i];
             if (group.chance && Math.random() < group.chance) {
                 var itemRef = random.randomArray(group.options);
                 player.items.push(itemRef);
+                count++;
             }
         }
-        return table.length;
+        return count;
     }
 
     var items = {
@@ -592,13 +594,15 @@ define(['app/model/player', 'app/model/words', 'app/util/random'], function(play
             title: 'An executable program that spams /r/overwatch',
             description: 'Seems pretty easy to use - double click the exe and watch it go!',
             onTick10: function() {
-                if (!player.data['self-spammer-count']) {
-                    player.data['self-spammer-count'] = 0;
-                }
-                player.data['self-spammer-count']++;
-                if (Number(player.data['self-spammer-count']) >= 3) {
-                    player.data['self-spammer-banned'] = true;
-                    player.data['game-over'] = true;
+                if (player.data['self-spammer']) {
+                    if (!player.data['self-spammer-count']) {
+                        player.data['self-spammer-count'] = 0;
+                    }
+                    player.data['self-spammer-count']++;
+                    if (Number(player.data['self-spammer-count']) >= 3) {
+                        player.data['self-spammer-banned'] = true;
+                        player.data['game-over'] = true;
+                    }
                 }
             },
             outcomes: [

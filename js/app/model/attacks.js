@@ -1,6 +1,6 @@
 'use strict';
 
-define(['app/model/player', 'app/model/words'], function(player, words) {
+define(['app/model/player', 'app/model/words', 'app/util/random'], function(player, words, random) {
 
     var attacks = [
         /* Default class attacks */
@@ -19,6 +19,8 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                 return player.secondsRemaining >= 5 && player.characterClassId == 'default';
             },
             outcomes: [
+                // TODO : remember - social media is "MF%"
+
                 /* start blizzard pizza quest */
                 {
                     chance: 0.1,
@@ -27,10 +29,10 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                     },
                     flavourText: 'You notice $$CM mention that she is hungry on Twitter...',
                     apply: function() {
-                        player.changeSecondsRemaining(-5);
+                        player.changeSecondsRemaining(-10);
                         player.quests.push('blizzard-pizza');
                         player.data['blizzard-pizza-quest'] = true;
-                        return words.buildApplyReturn({time: -5, questCountAdded: 1});
+                        return words.buildApplyReturn({time: -10, questCountAdded: 1});
                     },
                     buttons: [
                         {
@@ -49,11 +51,11 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         'I am sick of missing out on beta! I am going to make them all pay!"<br/><br/>Looks like someone has fallen to the dark ' +
                         'side of the salt.',
                     apply: function() {
-                        player.changeSecondsRemaining(-5);
+                        player.changeSecondsRemaining(-10);
                         player.quests.push('reddit-spammer');
                         player.data['reddit-spammer-quest'] = true;
                         player.data['reddit-spammer-started'] = true;
-                        return words.buildApplyReturn({time: -5, questCountAdded: 1});
+                        return words.buildApplyReturn({time: -10, questCountAdded: 1});
                     }
                 },
 
@@ -66,11 +68,154 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                     flavourText: 'World champion Starcraft 2 player D.Va announces on Twitter that she needs 1v1 practice partners ' +
                         'for an upcoming tournament!',
                     apply: function() {
-                        player.changeSecondsRemaining(-5);
+                        player.changeSecondsRemaining(-10);
                         player.quests.push('dva-scrim');
                         player.data['dva-scrim-quest'] = true;
-                        return words.buildApplyReturn({time: -5, questCountAdded: 1});
+                        return words.buildApplyReturn({time: -10, questCountAdded: 1});
                     }
+                },
+
+                /* lower beta */
+                {
+                    chance: 0.01,
+                    isAvailable: function() {
+                        return player.salt >= 50 && player.betaChance > 0;
+                    },
+                    flavourText: [
+                        'Posting on social media when you are salty is never a good idea. You send some creepy, desperate messages to $$CM ' +
+                        'on Twitter. They do not appreciate it.'
+                    ],
+                    apply: function() {
+                        player.changeBetaChance(-0.03);
+                        player.changeSecondsRemaining(-10);
+                        return words.buildApplyReturn({time: -10, beta: -0.03});
+                    },
+                    buttons: [
+                        {
+                            text: 'It was just a prank!'
+                        }
+                    ]
+                },
+
+                /* raise beta */
+                {
+                    chance: 0.05,
+                    flavourText: [
+                        'Your desperate, obnoxious sounding posts have somehow caught the sympathetic eye of $$CM.'
+                    ],
+                    apply: function() {
+                        player.changeBetaChance(0.01);
+                        player.changeSecondsRemaining(-10);
+                        return words.buildApplyReturn({time: -10, beta: 0.01});
+                    },
+                    buttons: [
+                        {
+                            text: 'Praise JKapp!'
+                        }
+                    ]
+                },
+
+                /* find money */
+                {
+                    chance: 0.30,
+                    flavourText: [
+                        'You post a video to Youtube demanding that Blizzard nerf McCree.',
+                        'You spend an evening counting the number of rockets Pharah launches during her ultimate and post a video to Youtube about it.',
+                        'You post a video to Youtube announcing that you will soon post a video to Youtube with some actual content.',
+                        'You receive an anonymous donation while streaming yourself playing games on Twitch to 2 viewers.',
+                        'You stream your Battle.net launcher screen showing the Overwatch PLAY button ghosted out for 16 hours and receive an anonymous pity donation.',
+                        'You build a dev tracker for Overwatch, which is literally the easiest type of application to build for anything. Ad revenue pays handsomely!'
+                    ],
+                    apply: function() {
+                        var money = 5 + random.nextInt(35);
+                        player.changeMoney(money);
+                        player.changeSecondsRemaining(-10);
+                        return words.buildApplyReturn({time: -10, money: money});
+                    },
+                    buttons: [
+                        {
+                            text: 'I\'m rich!'
+                        }
+                    ]
+                },
+
+                /* me being a loser */
+                {
+                    chance: 0.01,
+                    isAvailable: function() {
+                        return player.salt >= 50;
+                    },
+                    flavourText: [
+                        'You make a childish comment on reddit lamenting that you missed out on the Beta stress test weekend. ' +
+                        '"Fuck me for believing in your Blizzard!" you shout (type) to the heavens. It literally gets you no where.'
+                    ],
+                    apply: function() {
+                        player.changeSecondsRemaining(-10);
+                        return words.buildApplyReturn({time: -10});
+                    }
+                },
+
+                /* completely reset saltiness */
+                {
+                    chance: 0.05,
+                    isAvailable: function() {
+                        return !player.data['saltreset'];
+                    },
+                    flavourText: '$$CM responds to one of your dumb Twitter questions that you could\'ve found the answer to yourself if you spent ' +
+                    'literally any time googling it. You are so stupid, but you are happy that senpai has noticed you.',
+                    apply: function() {
+                        player.changeSalt(-100);
+                        player.changeSecondsRemaining(-10);
+                        player.data['saltreset'] = true;
+                        return words.buildApplyReturn({time: -10}) + 'Your saltiness has reset to zero.';
+                    },
+                    buttons: [
+                        {
+                            text: 'I bet they give beta to people who ask good questions'
+                        }
+                    ]
+                },
+
+                /* raise saltiness */
+                {
+                    chance: 0.1,
+                    flavourText: [
+                        'You comment on reddit, "Good luck everyone, I hope we all get in!". <br/><br/>You are downvoted to -23.',
+                        'You venture into a salt thread on Reddit and say something that is not salty. <br/><br/>You are downvoted to -18.',
+                        'You make a comment on Reddit that vaguely implies that you have Beta. <br/><br/>You are downvoted to -482.'
+                    ],
+                    apply: function() {
+                        player.changeSalt(5);
+                        player.changeSecondsRemaining(-10);
+                        return words.buildApplyReturn({salt: 5, time: -10});
+                    },
+                    buttons: [
+                        {
+                            text: 'Pricks'
+                        }
+                    ]
+                },
+
+                /* lower saltiness */
+                {
+                    chance: 0.30,
+                    flavourText: [
+                        'You get in on a "FUCK" chain in the reddit comments. Those things are so stupid. <br/><br/>You are upvoted +239 times.',
+                        'You post on reddit demanding more invite ways get sent out.  Your post is littered with spelling mistakes, ' +
+                        'grammatical errors and a significant misunderstanding of the way software development works. <br/><br/>You are upvoted +588 times.',
+                        'You see some exceptional fanart posts on Twitter get attention from $$CM - those sneaky (junk) rats, I bet she gave them beta. You draw ' +
+                        'an awful picture of Tracer using MSPaint and post it on reddit. <br/><br/>You inexplicably gets +100 upvotes.'
+                    ],
+                    apply: function() {
+                        player.changeSalt(-5);
+                        player.changeSecondsRemaining(-10);
+                        return words.buildApplyReturn({salt: -5, time: -10});
+                    },
+                    buttons: [
+                        {
+                            text: 'I am a quality contributor to this subreddit'
+                        }
+                    ]
                 }
             ]
         },

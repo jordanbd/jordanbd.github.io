@@ -373,6 +373,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                     ],
                     apply: function() {
                         player.removeQuest('dva-scrim');
+                        player.items.push('bag-common');
                         player.data['beaten-by-dva'] = true;
                         return 'She thanks you for your time but says she doesn\'t need anymore practice with you.';
                     },
@@ -414,6 +415,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         'with you.',
                     apply: function() {
                         player.removeQuest('dva-scrim');
+                        player.items.push('bag-common');
                         player.data['beaten-by-dva'] = true;
                     },
                     buttons: [
