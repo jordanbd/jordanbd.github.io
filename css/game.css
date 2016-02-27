@@ -158,6 +158,10 @@ p strong {
     margin-bottom: 1em;
 }
 
+.panel-actions-buttons button {
+    width: 19%;
+}
+
 .action-option {
     cursor: pointer;
     margin-bottom: 1em;

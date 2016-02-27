@@ -1,5 +1,5 @@
 
-
+[DONE]
 Dollar sign bag dropped
  - Open
    - Find some money, ink explodes
@@ -19,19 +19,20 @@ Overgrown, broken bastion
  - Kit
    - Beta chance
 
+[DONE]
 Slenderman
 
+[DONE]
 Sad gorilla
  - 1 peanut butter
   - Grateful
  - 2 peanut butter
   - Tracer item
-  - Visor (lower salt increasewhile in inventory)
 
 Soldier 76, the blind man
  - No visor
   - :(
- - Visor
+ - Visor (given away by random social media contest) ["i hope he doesnt realise its fake"]
   - beta chance (my organisation, maybe you have a shot)
 
 Briefcase ??

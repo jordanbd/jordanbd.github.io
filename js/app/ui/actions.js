@@ -9,10 +9,11 @@ define(['jquery', 'underscore',
     'app/model/attacks',
     'app/model/items',
     'app/model/shop',
+    'app/model/quests',
     'app/model/words',
     'app/util/random'],
 
-function($, _, emitter, templates, modal, timer, player, attacks, items, shop, words, random) {
+function($, _, emitter, templates, modal, timer, player, attacks, items, shop, quests, words, random) {
 
     var $actionsPanel;
     var $optionsPanel;
@@ -75,6 +76,31 @@ function($, _, emitter, templates, modal, timer, player, attacks, items, shop, w
         }
     }
 
+    function showQuestOptions() {
+        unselectAction();
+        $('#action-quests').addClass('active');
+        if (player.quests.length > 0) {
+            for (var i = 0; i < player.quests.length; i++) {
+                var quest = quests.getQuest(player.quests[i]);
+
+                var $opt = $(templates.getTemplate('actionOptionTmpl')({
+                    title: quest.title,
+                    description: quest.description
+                }));
+
+                var click = function (quest) {
+                    useAction(quest);
+                    showQuestOptions();
+                }.bind(this, quest);
+                $opt.click(click);
+
+                $optionsPanel.append($opt);
+            }
+        } else {
+            $optionsPanel.append($('<p>You have no quests</p>'));
+        }
+    }
+
     function showShopOptions() {
         unselectAction();
         $('#action-shop').addClass('active');
@@ -124,7 +150,12 @@ function($, _, emitter, templates, modal, timer, player, attacks, items, shop, w
                 modal.open({
                     text: 'You cannot afford this.'
                 }).then(function() {
-                    //unselectAction();
+                    timer.start();
+                });
+            } else if (action.canComplete && !action.canComplete()) {
+                modal.open({
+                    text: 'You do not meet the requirements to complete this quest.'
+                }).then(function() {
                     timer.start();
                 });
             } else {
@@ -143,13 +174,16 @@ function($, _, emitter, templates, modal, timer, player, attacks, items, shop, w
                 emitter.emit('character-refresh');
                 var flavourText = random.randomArray(winningOutcome.flavourText);
 
+                var text = flavourText != null ? flavourText : "";
+                if (output != null) {
+                    if (flavourText != null) text += "<br/><br/>";
+                    text += output;
+                }
+
                 modal.open({
-                    text: words.textReplace(flavourText + (output != null ? '<br/><br/>' + output : '')),
+                    text: words.textReplace(text),
                     buttons: winningOutcome.buttons
                 }).then(function onClose() {
-
-
-
                     if (player.data['beta']) {
                         timer.stop();
                         emitter.emit('victory');
@@ -181,6 +215,9 @@ function($, _, emitter, templates, modal, timer, player, attacks, items, shop, w
         });
         $(document).on('click', '#action-shop', function() {
             showShopOptions();
+        });
+        $(document).on('click', '#action-quests', function() {
+            showQuestOptions();
         });
         $(document).on('click', '#action-run', function() {
             player.data['run'] = true;

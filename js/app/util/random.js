@@ -14,6 +14,11 @@ define([], function() {
     }
 
     function randomOutcome(outcomes) {
+        if (outcomes == null || outcomes.length == 0) {
+            console.error('No outcomes available!');
+            return null;
+        }
+
         // Sort outcomes so that lowest chance are first, otherwise high chance outcomes will occur too frequently.
         // Additionally sort on score if it exists
         outcomes.sort(function compareFunction(a, b) {

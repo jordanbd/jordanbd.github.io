@@ -5,16 +5,28 @@ define(['app/util/random'], function(random) {
     var classes = [
         {
             identifier: 'default',
+            title: 'GOD',
+            description: 'The developer',
+            subDescription: '',
+            name: function() {
+                return 'Ben';
+            },
+            salt: 0,
+            money: 9999,
+            secondsRemaining: 9999,
+            betaChance: 1
+        },
+        {
+            identifier: 'default',
             title: 'A typical Blizzard fan',
-            description: 'PICK THIS CLASS TO PLAY THE ACTUAL GAME<br/>' +
-                'The <strong>Blizzard Fan</strong> has no friends at Blizzard, no connections and no hope at getting into Beta.',
+            description: 'The <strong>Blizzard Fan</strong> has no friends at Blizzard, no connections and no hope at getting into Beta.',
             subDescription: 'Difficulty: Hard',
             name: function() {
                 return 'TODO';
             },
             salt: 0,
             money: 40,
-            secondsRemaining: 999,
+            secondsRemaining: 240,
             betaChance: 0
         },
         {

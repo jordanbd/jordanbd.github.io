@@ -1,8 +1,8 @@
 'use strict';
 
-define(['jquery', 'emitter', 'app/ui/templates', 'app/ui/timer', 'app/model/player', 'app/model/words'],
+define(['jquery', 'emitter', 'app/ui/templates', 'app/ui/timer', 'app/model/player', 'app/model/words', 'app/model/items'],
 
-function($, emitter, templates, timer, player, words) {
+function($, emitter, templates, timer, player, words, items) {
 
     var $ele;
 
@@ -100,6 +100,21 @@ function($, emitter, templates, timer, player, words) {
             });
     }
 
+    function itemTick10() {
+        if (player.items.length > 0) {
+            for (var i = 0; i < player.items.length; i++) {
+                var item = items.get[player.items[i]];
+                if (item.onTick10) {
+                    item.onTick10();
+                }
+            }
+        }
+        if (player.data['game-over']) {
+            timer.stop();
+            emitter.emit('victory');
+        }
+    }
+
     function setup($parent) {
         $ele = $(templates.getTemplate('characterStatsTmpl')({
             name: player.name,
@@ -131,6 +146,8 @@ function($, emitter, templates, timer, player, words) {
         emitter.on('money-change', updateUI);
 
         emitter.on('character-refresh', updateUI);
+
+        emitter.on('timer-tick10', itemTick10);
     }
 
     return {

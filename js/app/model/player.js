@@ -26,6 +26,15 @@ define(['emitter'], function(emitter) {
             }
             return count;
         },
+        quests: [],
+        removeQuest: function(code) {
+            for (var i = 0; i < this.quests.length; i++) {
+                if (this.quests[i] == code) {
+                    this.quests.splice(i, 1);
+                    break;
+                }
+            }
+        },
         salt: 0,
         changeSalt: function(amt) {
             this.salt += amt;

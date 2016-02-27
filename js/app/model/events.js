@@ -48,6 +48,40 @@ define(['app/model/player'], function(player) {
                 }
             ]
         },
+        /* Reddit spammer */
+        {
+            chance: 1,
+            isAvailable: function() {
+                return player.data['reddit-spammer-started'];
+            },
+            type: 'reddit',
+            flavourText: [
+                {
+                    user: 'The spammer',
+                    text: '-( ͡° ͜ʖ ͡°)╯╲___卐卐卐卐 Don\'t mind me just taking my mods for a walk'
+                },
+                {
+                    user: 'The spammer',
+                    text: 'ヽ༼ຈل͜ຈ༽ﾉ raise your dongers ヽ༼ຈل͜ຈ༽ﾉ'
+                },
+                {
+                    user: 'The spammer',
+                    text: 'GIVE BETA GIVE BETA GIVE BETA GIVE BETA GIVE BETA'
+                },
+                {
+                    user: 'The spammer',
+                    text: 'BLIZZ SUCKSSSSS GIVE BETA'
+                },
+                {
+                    user: 'The spammer',
+                    text: 'DAE DED GAME?'
+                },
+                {
+                    user: 'The spammer',
+                    text: 'MODS ARE ASLEEP POST PICTURES OF TF2 LOLxd'
+                }
+            ]
+        },
         /* Reddit salty posts */
         {
             chance: 0.4,

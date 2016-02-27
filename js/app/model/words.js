@@ -119,6 +119,13 @@ define(['app/util/random'], function(random) {
                 sb += "You have lost $" + opts.money + ". "
             }
         }
+        if (opts.questCountAdded) {
+            if (opts.questCountAdded == 1) {
+                sb += opts.questCountAdded + " new quest added to your quest log. ";
+            } else if (opts.questCountAdded >= 2) {
+                sb += opts.questCountAdded + " new quests added to your quest log. ";
+            }
+        }
         return sb;
     }
 

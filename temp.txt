@@ -1,5 +1,207 @@
 
 
+
+
+
+
+
+
+                /* reduce time */
+                {
+                    chance: 0.01,
+                    flavourText: 'Midway through a debate with $$MOD on why your content was not technically shitposting you are enveloped in a blinding white light. ' +
+                        'When you open your eyes you realise that you have travelled back in time exactly 60 seconds. This stuff probably happens all the time?',
+                    isAvailable: function() {
+                        return !player.data['timetravelled'];
+                    },
+                    apply: function() {
+                        player.changeSecondsRemaining(60);
+                        player.data['timetravelled'] = true;
+                        return words.buildApplyReturn({time: 60});
+                    },
+                    buttons: [
+                        {
+                            text: 'Dude I saw someone in the light, wtf?'
+                        }
+                    ]
+                },
+                /* raise saltiness */
+                {
+                    chance: 0.1,
+                    flavourText: [
+                        'You comment on reddit, "Good luck everyone, I hope we all get in!". <br/><br/>You are downvoted to -23.',
+                        'You venture into a salt thread on Reddit and say something that is not salty. <br/><br/>You are downvoted to -18.',
+                        'You make a comment on Reddit that vaguely implies that you have Beta. <br/><br/>You are downvoted to -482.'
+                    ],
+                    apply: function() {
+                        player.changeSalt(5);
+                        player.changeSecondsRemaining(-5);
+                        return words.buildApplyReturn({salt: 5, time: -5});
+                    },
+                    buttons: [
+                        {
+                            text: 'Pricks'
+                        }
+                    ]
+                },
+                /* lower saltiness */
+                {
+                    chance: 0.15,
+                    flavourText: [
+                        'You get in on a "FUCK" chain in the reddit comments. Those things are so stupid. <br/><br/>You are upvoted +239 times.',
+                        'You post on reddit demanding more invite ways get sent out.  Your post is littered with spelling mistakes, ' +
+                        'grammatical errors and a significant misunderstanding of the way software development works. <br/><br/>You are upvoted +588 times.',
+                        'You see some exceptional fanart posts on Twitter get attention from $$CM - those sneaky (junk) rats, I bet she gave them beta. You draw ' +
+                        'an awful picture of Tracer using MSPaint and post it on reddit. <br/><br/>You inexplicably gets +100 upvotes.'
+                    ],
+                    apply: function() {
+                        player.changeSalt(-5);
+                        player.changeSecondsRemaining(-5);
+                        return words.buildApplyReturn({salt: -5, time: -5});
+                    },
+                    buttons: [
+                        {
+                            text: 'I am a quality contributor to this subreddit'
+                        }
+                    ]
+                },
+                /* completely reset saltiness */
+                {
+                    chance: 0.08,
+                    isAvailable: function() {
+                        return !player.data['saltreset'];
+                    },
+                    flavourText: '$$CM responds to one of your dumb Twitter questions that you could\'ve found the answer to yourself if you spent ' +
+                        'literally any time googling it. You are so stupid, but you are happy that senpai has noticed you.',
+                    apply: function() {
+                        player.changeSalt(-100);
+                        player.changeSecondsRemaining(-5);
+                        player.data['saltreset'] = true;
+                        return words.buildApplyReturn({time: -5}) + 'Your saltiness has reset to zero.';
+                    },
+                    buttons: [
+                        {
+                            text: 'I bet they give beta to people who ask good questions'
+                        }
+                    ]
+                },
+                /* find money */
+                {
+                    chance: 0.1,
+                    flavourText: [
+                        'You post a video to Youtube demanding that Blizzard nerf McCree.',
+                        'You spend an evening counting the number of rockets Pharah launches during her ultimate and post a video to Youtube about it.',
+                        'You post a video to Youtube announcing that you will soon post a video to Youtube with some actual content.'
+                    ],
+                    apply: function() {
+                        player.data['socialmoney'] = true;
+                        player.changeMoney(200);
+                        player.changeSecondsRemaining(-5);
+                        return words.buildApplyReturn({time: -5}) + 'Ad revenue pays out a crisp $200.'
+                    },
+                    isAvailable: function() {
+                        return !player.data['socialmoney'];
+                    },
+                    buttons: [
+                        {
+                            text: 'I will release my next video in the fall of 2017'
+                        }
+                    ]
+                },
+                /* raise beta */
+                {
+                    chance: 0.1,
+                    flavourText: [
+                        'Your desperate, obnoxious sounding posts have somehow caught the sympathetic eye of $$CM.'
+                    ],
+                    apply: function() {
+                        player.changeBetaChance(0.01);
+                        player.changeSecondsRemaining(-5);
+                        return words.buildApplyReturn({time: -5, beta: 0.01});
+                    },
+                    buttons: [
+                        {
+                            text: 'Praise JKapp!'
+                        }
+                    ]
+                },
+                /* lower beta */
+                {
+                    chance: 0.01,
+                    isAvailable: function() {
+                        return player.salt >= 50 && player.betaChance > 0;
+                    },
+                    flavourText: [
+                        'Posting on social media when you are salty is never a good idea. You send some creepy, desperate messages to $$CM ' +
+                        'on Twitter. They do not appreciate it.'
+                    ],
+                    apply: function() {
+                        player.changeBetaChance(-0.03);
+                        player.changeSecondsRemaining(-10);
+                        return words.buildApplyReturn({time: -5, beta: -0.03});
+                    },
+                    buttons: [
+                        {
+                            text: 'It was just a prank!'
+                        }
+                    ]
+                },
+                /* me being a loser */
+                {
+                    chance: 0.01,
+                    isAvailable: function() {
+                        return player.salt >= 50;
+                    },
+                    flavourText: [
+                        'You make a childish comment on reddit lamenting that you missed out on the Beta stress test weekend. ' +
+                        '"Fuck me for believing in your Blizzard!" you shout (type) to the heavens. It literally gets you no where.'
+                    ],
+                    apply: function() {
+                        player.changeSecondsRemaining(-5);
+                        return words.buildApplyReturn({time: -5});
+                    }
+                }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                /* reverse - increase salt */
+                {
+                    chance: 0.05,
+                    flavourText: 'As you return from your walk you stub your toe on your Soldier: 76 collector\'s edition statue.',
+                    apply: function() {
+                        player.changeSalt(10);
+                        player.changeSecondsRemaining(-20);
+                        return words.buildApplyReturn({time: -20, salt: 10})
+                    },
+                    buttons: [
+                        {
+                            text: 'Why is this on the floor?'
+                        }
+                    ]
+                },
+
                 /* increase time */
                 {
                     chance: 0.01,
@@ -78,6 +280,168 @@
                                 player.data['helpedman'] = false;
                                 player.data['seenman'] = true;
                             }
+                        }
+                    ]
+                },
+
+                /* sad gorilla, no peanut butter */
+                {
+                    chance: 0.3,
+                    isAvailable: function() {
+                        return !player.data['sadgorilla-nopeanutbutter']
+                            && player.countItems('peanut') == 0;
+                    },
+                    flavourText: 'You encounter a sad looking gorilla on your walk. He tells you that he wished he had ' +
+                        'some peanut butter and that he would greatly reward anyone who gave him some.<br/><br/>' +
+                        'He then sighs and trudges off. Nobody else seems to notice the magic talking gorilla.',
+                    apply: function() {
+                        player.changeSalt(-100);
+                        player.changeSecondsRemaining(-20);
+                        player.data['sadgorilla-nopeanutbutter'] = true;
+                        return words.buildApplyReturn({time: -20, salt: -100})
+                    },
+                    buttons: [
+                        {
+                            text: 'The poor monkey'
+                        }
+                    ]
+                },
+                /* sad gorilla, havent met before, have 1x peanut butter */
+                {
+                    chance: 0.4,
+                    isAvailable: function() {
+                        return !player.data['sadgorilla-nopeanutbutter']
+                            && player.countItems('peanut') == 1;
+                    },
+                    flavourText: 'You encounter a sad looking gorilla on your walk. He tells you that he wished he had ' +
+                        'some peanut butter and that he would greatly reward anyone who gave him some.<br/><br/>' +
+                        'After giving the weird magic gorilla your peanut butter, he sighs again. He tells you he wishes ' +
+                        'he had more peanut butter.',
+                    apply: function() {
+                        player.changeSalt(-100);
+                        player.changeSecondsRemaining(-20);
+                        player.data['sadgorilla-nopeanutbutter'] = true;
+                        player.data['sadgorilla-onepeanutbutter'] = true;
+                        player.removeItem('peanut');
+                        return words.buildApplyReturn({time: -20, salt: -100, itemCount: -1})
+                    },
+                    buttons: [
+                        {
+                            text: 'What a greedy jerk'
+                        }
+                    ]
+                },
+                /* sad gorilla, havent met before, have 2x peanut butter */
+                {
+                    chance: 0.4,
+                    isAvailable: function() {
+                        return !player.data['sadgorilla-nopeanutbutter']
+                            && !player.data['sadgorilla-twopeanutbutter']
+                            && player.countItems('peanut') >= 2;
+                    },
+                    flavourText: 'You encounter a sad looking gorilla on your walk. He tells you that he wished he had ' +
+                        'some peanut butter and that he would greatly reward anyone who gave him some.<br/><br/>' +
+                        'The greedy monkey takes two jars of your peanut butter. He then hands you a weird looking gadget before ' +
+                        'leaping away while mumbling about launching a satellite.',
+                    apply: function() {
+                        player.changeSalt(-100);
+                        player.changeSecondsRemaining(-20);
+                        player.data['sadgorilla-nopeanutbutter'] = true;
+                        player.data['sadgorilla-onepeanutbutter'] = true;
+                        player.data['sadgorilla-twopeanutbutter'] = true;
+                        player.removeItem('peanut');
+                        player.removeItem('peanut');
+                        player.items.push('accelerator');
+                        return words.buildApplyReturn({time: -20, salt: -100, itemCount: 2})
+                    },
+                    buttons: [
+                        {
+                            text: 'I\'m sure he knows what he\'s doing'
+                        }
+                    ]
+                },
+                /* sad gorilla, have met before, have 1x peanut butter*/
+                {
+                    chance: 1,
+                    score: 2,
+                    isAvailable: function() {
+                        return player.data['sadgorilla-nopeanutbutter']
+                            && !player.data['sadgorilla-onepeanutbutter']
+                            && player.countItems('peanut') == 1;
+                    },
+                    flavourText: 'You bump into that magical gorilla again. He still looks sad.<br/><br/>' +
+                        'After giving him your peanut butter, he sighs again. He tells you he wishes ' +
+                        'he had more peanut butter.',
+                    apply: function() {
+                        player.changeSalt(-100);
+                        player.changeSecondsRemaining(-20);
+                        player.data['sadgorilla-nopeanutbutter'] = true;
+                        player.data['sadgorilla-onepeanutbutter'] = true;
+                        player.removeItem('peanut');
+                        return words.buildApplyReturn({time: -20, salt: -100, itemCount: -1})
+                    },
+                    buttons: [
+                        {
+                            text: 'The cheek of this guy?'
+                        }
+                    ]
+                },
+                /* sad gorilla, have met before, have given 1 peanut butter already, have 1x peanut butter*/
+                {
+                    chance: 1,
+                    score: 2,
+                    isAvailable: function() {
+                        return player.data['sadgorilla-nopeanutbutter']
+                            && player.data['sadgorilla-onepeanutbutter']
+                            && !player.data['sadgorilla-twopeanutbutter']
+                            && player.countItems('peanut') >= 1;
+                    },
+                    flavourText: 'You find the gorilla again. He looks at you expectantly.<br/><br/>' +
+                        'You give the greedy jerk another jar of your peanut butter. He hands you a weird looking gadget before ' +
+                        'leaping away while mumbling about launching a satellite.',
+                    apply: function() {
+                        player.changeSalt(-100);
+                        player.changeSecondsRemaining(-20);
+                        player.data['sadgorilla-nopeanutbutter'] = true;
+                        player.data['sadgorilla-onepeanutbutter'] = true;
+                        player.data['sadgorilla-twopeanutbutter'] = true;
+                        player.items.push('accelerator');
+                        player.removeItem('peanut');
+                        return words.buildApplyReturn({time: -20, salt: -100, itemCount: 1})
+                    },
+                    buttons: [
+                        {
+                            text: 'This better be worth it'
+                        }
+                    ]
+                },
+                /* sad gorilla, have met before, have 2x peanut butter*/
+                {
+                    chance: 1,
+                    score: 2,
+                    isAvailable: function() {
+                        return player.data['sadgorilla-nopeanutbutter']
+                            && !player.data['sadgorilla-onepeanutbutter']
+                            && !player.data['sadgorilla-twopeanutbutter']
+                            && player.countItems('peanut') >= 2;
+                    },
+                    flavourText: 'You find the gorilla again, looking sad. Don\'t worry magical gorilla; you are here to brighten his day.<br/><br/>' +
+                    'You offer him one of your peanut butter jars but he demands both and snatches them away before you can do anything. ' +
+                    'He finally hands you a weird looking gadget then leaps away mumbling about launching a satellite.',
+                    apply: function() {
+                        player.changeSalt(-100);
+                        player.changeSecondsRemaining(-20);
+                        player.data['sadgorilla-nopeanutbutter'] = true;
+                        player.data['sadgorilla-onepeanutbutter'] = true;
+                        player.data['sadgorilla-twopeanutbutter'] = true;
+                        player.items.push('accelerator');
+                        player.removeItem('peanut');
+                        player.removeItem('peanut');
+                        return words.buildApplyReturn({time: -20, salt: -100, itemCount: 1})
+                    },
+                    buttons: [
+                        {
+                            text: 'You\'re welcome you stupid greedy gorilla'
                         }
                     ]
                 },

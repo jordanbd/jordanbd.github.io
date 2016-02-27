@@ -1,5 +1,12 @@
 TODO
 
+1. Keep working on changing "Go for a walk" to being adventures. Four-Five adventures should be enough, as long as they all can't happen in one game.
+2. Change social media posts to be the equivalent of a magic find run - possible money, possible salt, possible beta. Needs a lot of small, one-off events. Time should be 10 seconds maybe.
+3. Work + Buy Items should be reasonable but risky strategy. Best items from adventures and randomed from MF, all items bought by money (other than simple ones) should have element of risk.
+4. Possibly change briefcase drop
+
+TODO OLD
+
 43) Name
 44) Credits
 46) More news stream events
@@ -8,26 +15,14 @@ TODO
 53) tribute to the twitters (maybe an ending related to overstalk or twitter)
 55) some reference to fall tenth, maybe a news article
 56) tassadar ending -> random event, salt plague hits world, record levels of saltiness, you absorb it all to save everyone
-57) If preorder fails you can get lost
 59) if overwatch preorder fails you can get lost and not know how to get into beta
 60) no time decrement
 61) tips on home screen
 62) way to trigger slender (random chance when working - add item to summon?)
 67) Finish twitch streamer class
 68) Blizz CM bonus game
-69) Accelerator adds a LOT of time, makes it very easy
 70) New items: [overwatch char's] cookbook, provides basic food to help
-71) People don't realise they have to use the item after they buy it?
-
-- why go for a walk straight away?  you basically have social media or work options. walk is SO USELESS as work + buy is more efficient.
- - walk costs no time if salt < 10
- - check battlenet account should be more punishing on time, salt levels are OK though
-
-FROM IPHONE
-
-Overpowered items should be hard to come by, or require planning.
-Social media should be wildcard / "magic find run."
-Add twitch streaming as social activity. Can be recipient of donations or provider of them in exchange for items / beta%. Eg maybe seagull donation lands you "lucky gull" item?
+71) Add twitch streaming as social activity. Can be recipient of donations or provider of them in exchange for items / beta%. Eg maybe seagull donation lands you "lucky gull" item?
 
 http://asciiflow.com/#0B6nDGcibuPdKS2hGd1RRM3FwWGc
 

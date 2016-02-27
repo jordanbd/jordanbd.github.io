@@ -199,63 +199,6 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                 }
             ]
         },
-        'accelerator': {
-            title: 'Miniature chronal accelerator',
-            description: 'Gives you an additional 40 seconds of time and increases your beta chances by 5%.',
-            outcomes: [
-                {
-                    chance: 1,
-                    flavourText: 'Let\'s try that again!',
-                    apply: function() {
-                        player.removeItem('accelerator');
-                        player.changeSecondsRemaining(40);
-                        player.changeBetaChance(0.05);
-                        return words.buildApplyReturn({time: 40, itemCount: -1, beta: 0.05});
-                    },
-                    buttons: [
-                        {
-                            text: 'Whee!'
-                        }
-                    ]
-                }
-            ]
-        },
-        'visor': {
-            title: 'Tactical visor',
-            description: 'If you were a soldier it would help you lock on to targets. In your case it helps you lock on to ' +
-                'the Beta (???). I am not a good game designer.',
-            outcomes: [
-                {
-                    chance: 1,
-                    flavourText: 'You\'ve got the beta in your sights!',
-                    apply: function() {
-                        player.removeItem('visor');
-                        player.changeBetaChance(0.04);
-                        return words.buildApplyReturn({beta: 0.04, itemCount: -1});
-                    },
-                    buttons: [
-                        {
-                            text: 'I am a soldier now'
-                        }
-                    ]
-                }
-            ]
-        },
-        'peanut': {
-            title: 'Peanut butter',
-            description: 'Lower\'s your salt by -15% and makes gorillas happy.',
-            outcomes: [
-                {
-                    chance: 1,
-                    flavourText: 'Did someone say peanut butter?',
-                    apply: function() {
-                        player.removeItem('peanut');
-                        player.changeSalt(-15);
-                        return words.buildApplyReturn({salt: -15, itemCount: -1});
-                    }
-                }
-            ]
-        },
         'deadbook': {
             title: 'Book of the salt',
             description: 'It is a salt cookbook by the looks of it.',
@@ -437,7 +380,122 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                 }
             ]
         },
-        'dollarsignbag': {
+
+        // TODO: on Tick applications
+
+        /* new items */
+        'bag-common': {
+            // TODO
+            title: 'Bag-common',
+            description: 'Bag-common'
+        },
+        'bag-rare': {
+            // TODO
+            title: 'Bag-rare',
+            description: 'Bag-rare'
+        },
+        'bag-epic': {
+            // TODO
+            title: 'Bag-epic',
+            description: 'Bag-epic'
+        },
+        'bag-gift': {
+            title: 'Bag-blizz gift',
+            description: 'Bag-blizz gift'
+        },
+        'accelerator': {
+            title: 'Miniature chronal accelerator',
+            description: 'Gives you an additional 60 seconds of time and increases your beta chances by 1%.',
+            outcomes: [
+                {
+                    chance: 1,
+                    flavourText: 'Let\'s try that again!',
+                    apply: function() {
+                        player.removeItem('accelerator');
+                        player.changeSecondsRemaining(60);
+                        player.changeBetaChance(0.01);
+                        return words.buildApplyReturn({time: 60, itemCount: -1, beta: 0.01});
+                    },
+                    buttons: [
+                        {
+                            text: 'Whee!'
+                        }
+                    ]
+                }
+            ]
+        },
+        'visor-data': {
+            title: 'A novelty visor',
+            description: 'It is a visor from a costume to dress up as Data from Star Trek: The Next Generation.',
+            outcomes: [
+                {
+                    chance: 1,
+                    flavourText: '"Danger, Will Robinson!"'
+                }
+            ]
+        },
+        'glasses': {
+            title: 'Stylish glasses',
+            description: 'You feel like you\'re gonna get lucky wearing these glasses.',
+            outcomes: [
+                {
+                    chance: 1,
+                    flavourText: 'Oh yeah bro those are sweet.',
+                    buttons: [
+                        {
+                            text: 'You PC bro?'
+                        }
+                    ]
+                }
+            ]
+        },
+        'pistol': {
+            title: 'P228 Pistol',
+            description: 'It\'s a simple little pistol. It is also magic, so you don\'t have to buy bullets.',
+            outcomes: [
+                {
+                    chance: 1,
+                    flavourText: 'No one is going to mess with you anymore! Pchew pchew pchew! Zzzzap!'
+                }
+            ]
+        },
+        'gun-license': {
+            title: 'Gun license',
+            description: 'Gives you permission to carry a gun. It also comes with a handy instruction manual on how to use guns.',
+            outcomes: [
+                {
+                    chance: 1,
+                    flavourText: '"Step 1: Pull trigger". That\'s all the manual says?'
+                }
+            ]
+        },
+        'pizza': {
+            title: 'Ham and pineapple pizza',
+            description: 'Good pizza from a local pizza store. Lowers your saltiness by -5%.',
+            outcomes: [
+                {
+                    chance: 1,
+                    flavourText: 'Pizzacapers in Australia > all',
+                    apply: function() {
+                        player.removeItem('pizza');
+                        player.changeSalt(-5);
+                        return words.buildApplyReturn({itemCount: -1, salt: -5});
+                    }
+                }
+            ]
+        },
+        'blizzard-fake-id': {
+            title: 'Fake Blizzard ID badge',
+            description: 'Someone has cleary just photocopied a real badge and sticky-taped it to a piece of plastic. I don\'t think ' +
+                'anyone will believe this.',
+            outcomes: [
+                {
+                    chance: 1,
+                    flavourText: 'The badge name says David Clyde. That doesn\'t even sound like a real name!'
+                }
+            ]
+        },
+        'dollar-sign-bag': {
             title: 'A bag with a dollar sign on it',
             description: 'Kind of inconspicuous isn\'t it?',
             outcomes: [
@@ -446,10 +504,10 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                     flavourText: 'A dye pack explodes in your face. Most of the money still seems OK! But you can\'t help feel salty at being covered ' +
                         'in paint.',
                     apply: function() {
-                        player.removeItem('dollarsignbag');
+                        player.removeItem('dollar-sign-bag');
                         player.changeSalt(20);
                         player.changeMoney(130);
-                        player.data['dollarsignbag-open'] = true;
+                        player.data['dollar-sign-bag-open'] = true;
                         return words.buildApplyReturn({itemCount: -1, salt: 20, money: 130});
                     },
                     buttons: [
@@ -462,14 +520,75 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                     chance: 0.5,
                     flavourText: 'Wow it actually is full of money.',
                     apply: function() {
-                        player.removeItem('dollarsignbag');
+                        player.removeItem('dollar-sign-bag');
                         player.changeMoney(150);
-                        player.data['dollarsignbag-open'] = true;
+                        player.data['dollar-sign-bag-open'] = true;
                         return words.buildApplyReturn({itemCount: -1, money: 150});
                     },
                     buttons: [
                         {
                             text: 'Yay free money'
+                        }
+                    ]
+                }
+            ]
+        },
+        'peanut': {
+            title: 'Peanut butter',
+            description: 'Lower\'s your saltiness by -5% and makes gorillas happy.',
+            outcomes: [
+                {
+                    chance: 1,
+                    flavourText: 'Why would a gorilla eat this?',
+                    apply: function() {
+                        player.removeItem('peanut');
+                        player.changeSalt(-5);
+                        return words.buildApplyReturn({salt: -5, itemCount: -1});
+                    }
+                }
+            ]
+        },
+        'spam-script': {
+            title: 'An executable program that spams /r/overwatch',
+            description: 'Seems pretty easy to use - double click the exe and watch it go!',
+            onTick10: function() {
+                if (!player.data['self-spammer-count']) {
+                    player.data['self-spammer-count'] = 0;
+                }
+                player.data['self-spammer-count']++;
+                if (Number(player.data['self-spammer-count']) >= 3) {
+                    player.data['self-spammer-banned'] = true;
+                    player.data['game-over'] = true;
+                }
+            },
+            outcomes: [
+                {
+                    chance: 1,
+                    isAvailable: function() {
+                        return !player.data['self-spammer'];
+                    },
+                    flavourText: 'Let\'s just give it a little test...',
+                    apply: function() {
+                        player.data['reddit-spammer-started'] = true;
+                        player.data['self-spammer'] = true;
+                    },
+                    buttons: [
+                        {
+                            text: 'Oh crap how do I stop it'
+                        }
+                    ]
+                },
+                {
+                    chance: 1,
+                    isAvailable: function() {
+                        return player.data['self-spammer'];
+                    },
+                    flavourText: 'Oh god how do I turn it off?!?',
+                    apply: function() {
+                    },
+                    buttons: [
+                        {
+                            text: 'Now I wish I paid attention in hacker club'
                         }
                     ]
                 }
