@@ -35,7 +35,13 @@ define(['jquery', 'app/ui/templates', 'app/model/endings', 'app/model/words'], f
                         }.bind(this, ending.nextEnding);
                         $continue.click(click);
                     } else {
-                        $('#restart').show();
+                        var url = 'index.html';
+                        if (location.search.indexOf( 'ignorebrowser=true' ) > 0) {
+                            url += '?ignorebrowser=true';
+                        }
+                        $('#restart')
+                            .attr('href', url)
+                            .show();
                     }
                 });
             });

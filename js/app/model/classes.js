@@ -14,7 +14,8 @@ define(['app/util/random'], function(random) {
             salt: 0,
             money: 9999,
             secondsRemaining: 9999,
-            betaChance: 1
+            betaChance: 1,
+            items: ['scrap', 'scrap', 'money-with-salt']
         },
         {
             identifier: 'default',
@@ -22,7 +23,7 @@ define(['app/util/random'], function(random) {
             description: 'The <strong>Blizzard Fan</strong> has no friends at Blizzard, no connections and no hope at getting into Beta.',
             subDescription: 'Difficulty: Hard',
             name: function() {
-                return 'TODO';
+                return random.randomArray(['BlizzFan84', 'TracerFanBoy63', 'WIN_son', 'TheCavalry', 'BetaPlsBlizz', 'Soldier84', 'LuckTruck']);
             },
             salt: 0,
             money: 40,

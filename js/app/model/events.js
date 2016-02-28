@@ -18,19 +18,22 @@ define(['app/model/player'], function(player) {
                 'if you were accepted."'
             ]
         },
-        //{
-        //    chance: 1,
-        //    isAvailable: function() {
-        //        return player.secondsRemaining < 180 && !player.data['event-blizz2'];
-        //    },
-        //    apply: function() {
-        //        player.data['event-blizz2'] = true;
-        //    },
-        //    type: 'twitter',
-        //    flavourText: [
-        //        // FIXME
-        //    ]
-        //},
+        {
+            chance: 0.1,
+            isAvailable: function() {
+                return !player.data['blizz-dc-warn'];
+            },
+            apply: function() {
+                player.data['blizz-dc-warn'] = true;
+            },
+            type: 'twitter',
+            flavourText: [
+                {
+                    user: 'David Clyde',
+                    text: 'I cannot flag your account for beta access. Please stop spamming me!'
+                }
+            ]
+        },
         /* Warning about slender */
         {
             chance: 1,

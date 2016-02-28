@@ -389,6 +389,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
         'bag-common': {
             title: 'Common bag of goods',
             description: 'Open this bag to receive common, boring items.',
+            rarity: 'common',
             outcomes: [
                 {
                     chance: 1,
@@ -420,6 +421,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
         'bag-rare': {
             title: 'Rare bag of goods',
             description: 'Open this bag to receive rare items.',
+            rarity: 'rare',
             outcomes: [
                 {
                     chance: 1,
@@ -435,11 +437,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                             },
                             {
                                 chance: 1,
-                                options: ['time-berry', 'four-clover', 'beta-bite']
-                            },
-                            {
-                                chance: 1,
-                                options: ['time-berry', 'four-clover', 'beta-bite']
+                                options: ['time-berry', 'time-berry', 'time-berry', 'beta-bite']
                             },
                             {
                                 chance: 1,
@@ -455,6 +453,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
         'bag-epic': {
             title: 'Epic bag of goods',
             description: 'Open this bag to receive epic items.',
+            rarity: 'epic',
             outcomes: [
                 {
                     chance: 1,
@@ -467,11 +466,11 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                             },
                             {
                                 chance: 1,
-                                options: ['time-berry', 'four-clover', 'beta-bite']
+                                options: ['time-berry', 'time-berry', 'time-berry', 'beta-bite']
                             },
                             {
                                 chance: 1,
-                                options: ['salt-sacrifice']
+                                options: ['salt-sacrifice', 'four-clover']
                             },
                         ]);
                         player.removeItem('bag-epic');
@@ -483,6 +482,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
         'bag-gift': {
             title: 'Bag-blizz gift',
             description: 'Bag-blizz gift',
+            rarity: 'epic',
             outcomes: [
                 {
                     chance: 1,
@@ -495,11 +495,11 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                             },
                             {
                                 chance: 1,
-                                options: ['time-berry', 'four-clover', 'beta-bite']
+                                options: ['time-berry', 'time-berry', 'time-berry', 'beta-bite']
                             },
                             {
                                 chance: 1,
-                                options: ['salt-sacrifice']
+                                options: ['salt-sacrifice', 'four-clover']
                             },
                         ]);
                         player.removeItem('bag-gift');
@@ -514,6 +514,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
         'sc2-trophy': {
             title: 'Starcraft 2 World Champion trophy',
             description: 'Awarded to you for defeating reigning world champion D.Va.',
+            rarity: 'epic',
             outcomes: [
                 {
                     chance: 1,
@@ -537,6 +538,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
         'accelerator': {
             title: 'Miniature chronal accelerator',
             description: 'Gives you an additional 60 seconds of time and increases your beta chances by ' + words.betaChanceValue(common.BETA.LOW) + '.',
+            rarity: 'epic',
             outcomes: [
                 {
                     chance: 1,
@@ -558,6 +560,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
         'visor-data': {
             title: 'A novelty visor',
             description: 'It is a visor from a costume to dress up as Data from Star Trek: The Next Generation.',
+            rarity: 'common',
             outcomes: [
                 {
                     chance: 1,
@@ -568,6 +571,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
         'glasses': {
             title: 'Stylish glasses',
             description: 'You feel like you\'re gonna get lucky wearing these glasses.',
+            rarity: 'common',
             outcomes: [
                 {
                     chance: 1,
@@ -583,6 +587,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
         'pistol': {
             title: 'P228 Pistol',
             description: 'It\'s a simple little pistol. It is also magic, so you don\'t have to buy bullets.',
+            rarity: 'quest',
             outcomes: [
                 {
                     chance: 1,
@@ -593,6 +598,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
         'gun-license': {
             title: 'Gun license',
             description: 'Gives you permission to carry a gun. It also comes with a handy instruction manual on how to use guns.',
+            rarity: 'common',
             outcomes: [
                 {
                     chance: 1,
@@ -603,6 +609,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
         'pizza': {
             title: 'Ham and pineapple pizza',
             description: 'Good pizza from a local pizza store. Lowers your saltiness by -5%.',
+            rarity: 'common',
             outcomes: [
                 {
                     chance: 1,
@@ -619,6 +626,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
             title: 'Fake Blizzard ID badge',
             description: 'Someone has cleary just photocopied a real badge and sticky-taped it to a piece of plastic. I don\'t think ' +
                 'anyone will believe this.',
+            rarity: 'common',
             outcomes: [
                 {
                     chance: 1,
@@ -629,6 +637,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
         'dollar-sign-bag': {
             title: 'A bag with a dollar sign on it',
             description: 'Kind of inconspicuous isn\'t it?',
+            rarity: 'quest',
             outcomes: [
                 {
                     chance: 0.5,
@@ -667,6 +676,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
         'peanut': {
             title: 'Peanut butter',
             description: 'Lower\'s your saltiness by -5% and makes gorillas happy.',
+            rarity: 'common',
             outcomes: [
                 {
                     chance: 1,
@@ -682,6 +692,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
         'spam-script': {
             title: 'An executable program that spams /r/overwatch',
             description: 'Seems pretty easy to use - double click the exe and watch it go!',
+            rarity: 'rare',
             onTick10: function() {
                 if (player.data['self-spammer']) {
                     if (!player.data['self-spammer-count']) {
@@ -730,6 +741,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
         'blizzard-hacks': {
             title: 'A collection of Blizzard game hacks',
             description: 'Now we shall see who the scrublord is!',
+            rarity: 'common',
             outcomes: [
                 {
                     chance: 1,
@@ -742,6 +754,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
         'scrap': {
             title: 'Scrap metal',
             description: 'Just a useless piece of scrap metal.',
+            rarity: 'common',
             outcomes: [
                 {
                     chance: 0.99,
@@ -765,6 +778,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
         'mineral-water': {
             title: 'Mineral water',
             description: 'Lowers your saltiness by -10%. At least I think it does. Is salt a mineral? Does mineral water... contain salt? Oh god...',
+            rarity: 'common',
             outcomes: [
                 {
                     chance: 1,
@@ -780,6 +794,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
         'time-berry': {
             title: 'Time berry',
             description: 'Increases your time remaining by 15 seconds.',
+            rarity: 'common',
             outcomes: [
                 {
                     chance: 0.8,
@@ -803,6 +818,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
         'cadbury-creme-egg': {
             title: 'Cadbury Creme Egg',
             description: 'The best chocolate egg around. Resets your saltiness to zero.',
+            rarity: 'rare',
             outcomes: [
                 {
                     chance: 1,
@@ -818,6 +834,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
         'four-clover': {
             title: 'Four-leaf clover',
             description: 'Increases your chances of getting into the beta by ' + words.betaChanceValue(common.BETA.MEDIUM) + '.',
+            rarity: 'rare',
             outcomes: [
                 {
                     chance: 1,
@@ -838,6 +855,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
         'beta-bite': {
             title: 'Schmackos',
             description: 'A yummy treat for dogs that for some reason increases your beta chances by ' + words.betaChanceValue(common.BETA.VERY_LOW) + '.',
+            rarity: 'rare',
             outcomes: [
                 {
                     chance: 1,
@@ -854,6 +872,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
             title: 'Potion of Salt Sacrifice',
             description: 'For every 10% of saltiness you have, increase your beta chances by ' + words.betaChanceValue(common.BETA.LOW) + ' up to a maximum of ' +
                 words.betaChanceValue(common.BETA.LOW * 5) + '. Saltiness is NOT lowered by this potion.',
+            rarity: 'rare',
             outcomes: [
                 {
                     chance: 1,
@@ -870,6 +889,25 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     }
                 }
             ]
+        },
+        'money-with-salt': {
+            title: 'Wallet of Salt',
+            description: 'While you have this item in your inventory every time you increase in saltiness you gain the same amount of money.',
+            rarity: 'epic',
+            onSaltChange: function(amt) {
+                if (amt > 0) {
+                    player.changeMoney(amt);
+                }
+            },
+            outcomes: [
+                {
+                    chance: 1,
+                    flavourText: 'Even wallets can be salty.'
+                }
+            ]
+        },
+        'beta-with-time': {
+            title: ''
         }
     };
 

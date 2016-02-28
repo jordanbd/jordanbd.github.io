@@ -1,11 +1,10 @@
 'use strict';
 
-define(['jquery', 'app/util/browser', 'app/screen/home', 'app/screen/set.name', 'app/screen/battle', 'app/screen/gameover', 'app/screen/selectclass'],
-function($, browser, home, setName, battle, gameover, selectClass) {
+define(['jquery', 'app/util/browser', 'app/screen/home', 'app/screen/battle', 'app/screen/gameover', 'app/screen/selectclass'],
+function($, browser, home, battle, gameover, selectClass) {
 
     var screens = {
         'home': home,
-        'setName': setName,
         'selectClass': selectClass,
         'battle': battle,
         'gameover': gameover
@@ -41,6 +40,9 @@ function($, browser, home, setName, battle, gameover, selectClass) {
         });
 
         if (currentScreen != null) {
+            if (screens[currentScreen].beforeExit) {
+                screens[currentScreen].beforeExit();
+            }
             $canvas.animate({opacity: 0}, 1000, 'linear', function() {
                 screens[currentScreen].exit();
                 deferred.resolve();

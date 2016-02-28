@@ -1,6 +1,6 @@
 'use strict';
 
-define(['jquery', 'underscore'], function($, _) {
+define(['jquery', 'underscore', 'app/model/statistics'], function($, _, statistics) {
 
     var sm;
 

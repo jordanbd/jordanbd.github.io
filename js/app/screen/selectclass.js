@@ -42,6 +42,9 @@ define(['jquery', 'app/ui/templates', 'app/model/classes', 'app/model/player'], 
         player.secondsRemaining = characterClass.secondsRemaining;
         player.betaChance = characterClass.betaChance;
         player.characterClassId = characterClass.identifier;
+        if (characterClass.items) {
+            player.items = characterClass.items;
+        }
 
         sm.enterScreen('battle');
     }
