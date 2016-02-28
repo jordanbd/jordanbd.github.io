@@ -56,10 +56,12 @@ function($, _, emitter, templates, modal, timer, player, attacks, items, shop, q
 
         if (player.items.length > 0) {
             for (var i = 0; i < player.items.length; i++) {
-                var item = items.get[player.items[i]]; // FIXME weird, inconsistent syntax
+                var item = items.get[player.items[i]]; // weird syntax, I am awful
+
+                var title = item.title + ' <span class="rarity ' + item.rarity + '">[' + item.rarity + ']</span>';
 
                 var $opt = $(templates.getTemplate('actionOptionTmpl')({
-                    title: item.title,
+                    title: title,
                     description: item.description
                 }));
 
@@ -146,7 +148,7 @@ function($, _, emitter, templates, modal, timer, player, attacks, items, shop, q
             });
         } else {
 
-            if (action.canAfford && !action.canAfford()) {
+            if (action.cost && action.cost > player.money) {
                 modal.open({
                     text: 'You cannot afford this.'
                 }).then(function() {

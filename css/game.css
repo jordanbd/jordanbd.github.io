@@ -195,6 +195,35 @@ p strong {
     margin-top: 3px;
 }
 
+.rarity {
+    font-weight: normal;
+    text-transform: lowercase;
+}
+
+.common {
+    color: #ffffff;
+}
+
+.uncommon {
+    color: #1eff00
+}
+
+.rare {
+    color: #0070dd;
+}
+
+.epic {
+    color: #a335ee;
+}
+
+.legendary {
+    color: #ff8000;
+}
+
+.quest {
+    color: #e6cc80
+}
+
 /** Game over **/
 
 .game-over-title, .game-over-description {

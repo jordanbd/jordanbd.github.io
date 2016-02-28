@@ -115,6 +115,17 @@ function($, emitter, templates, timer, player, words, items) {
         }
     }
 
+    function itemSaltChange(amt) {
+        if (player.items.length > 0) {
+            for (var i = 0; i < player.items.length; i++) {
+                var item = items.get[player.items[i]];
+                if (item.onSaltChange) {
+                    item.onSaltChange(amt);
+                }
+            }
+        }
+    }
+
     function setup($parent) {
         $ele = $(templates.getTemplate('characterStatsTmpl')({
             name: player.name,
@@ -138,6 +149,7 @@ function($, emitter, templates, timer, player, words, items) {
 
         emitter.on('salt-change', showSaltChange); // prepares the +salt value for the screen
         emitter.on('salt-change', updateUI);
+        emitter.on('salt-change', itemSaltChange);
 
         emitter.on('beta-chance-change', showBetaChanceChange);
         emitter.on('beta-chance-change', updateUI);
