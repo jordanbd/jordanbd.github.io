@@ -18,6 +18,7 @@ TODO
 75) berry and scrap spam
 76) more true MF options for social media
 77) make sure its clear - on use vs keep in inventory
+78) During fade to next screen transition you can still click events
 
 http://asciiflow.com/#0B6nDGcibuPdKS2hGd1RRM3FwWGc
 

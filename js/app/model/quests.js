@@ -36,12 +36,12 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
             outcomes: [
                 {
                     chance: 1,
-                    flavourText: 'You give the cheeky prick another jar of your peanut butter. He hands you a weird looking gadget before ' +
+                    flavourText: 'You give the cheeky prick another jar of your peanut butter. He hands you a bag of items before ' +
                         'leaping away while mumbling about launching a satellite.',
                     apply: function() {
                         player.removeItem('peanut');
                         player.removeQuest('winston-peanut2');
-                        player.items.push('accelerator');
+                        player.items.push('bag-epic');
                         return words.buildApplyReturn({itemCount: 1});
                     },
                     buttons: [
@@ -288,6 +288,10 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                 }
             ]
         },
+        'blizzard-button': {
+            title: 'Invites aren\'t working!',
+
+        },
         'reddit-spammer': {
             title: 'Stop the reddit spammer',
             description: 'The Overwatch subreddit is being spammed and the mods are asleep! Your friend Adrian182 is the culprit - he is very salty.',
@@ -429,13 +433,14 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
             ]
         },
         'torb-scrap': {
-            title: 'Torbjörn needs scrap!',
+            title: 'Crazy man needs scrap!',
             description: 'The local mad scientist wants you to collect scrap metal for him so he can build a turret or a ' +
                 'delorean time machine or something; you weren\'t really paying attention.',
             canComplete: function() {
                 return player.countItems('scrap') > 0;
             },
             outcomes: [
+                // TODO: split into two outcomes?
                 {
                     chance: 1,
                     flavourText: 'The crazy scientist thanks you for your donation of scrap.',
@@ -444,13 +449,15 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                             player.data['torb-turret'] = 0;
                         }
 
+                        var scrapMod = 20; // 10 == need 10, 20 == need 5
+
                         var scrapCount = player.countItems('scrap');
-                        var scrapNeeded = (100 - Number(player.data['torb-turret'])) / 10;
+                        var scrapNeeded = (100 - Number(player.data['torb-turret'])) / scrapMod;
                         //console.debug('scrapCount = %s', scrapCount);
                         //console.debug('scrapNeeded = %s', scrapNeeded);
 
                         // Update turret %
-                        player.data['torb-turret'] += (scrapCount * 10);
+                        player.data['torb-turret'] += (scrapCount * scrapMod);
                         if (Number(player.data['torb-turret']) > 100) {
                             player.data['torb-turret'] = 100;
                         }
@@ -472,7 +479,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                             player.removeQuest('torb-scrap');
                             player.items.push('bag-epic');
                             player.data['torb-turret-complete'] = true;
-                            return 'Because of your donations, you have helped a local lunatic build a dangerous weapon! He hands you a bag of items as a thank you.'
+                            return 'Because of your donations you have helped a local lunatic build a dangerous weapon! He hands you a bag of items as a thank you.'
                         } else {
                             return 'He tells you that his turrent is ' + player.data['torb-turret'] + '% complete. Bring him more scrap to complete the turret.';
                         }
@@ -492,6 +499,41 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
             canComplete: function() {
                 return false;
             }
+        },
+        'bastion-broken': {
+            title: 'The broken robot',
+            description: 'The (possibly criminally-) insane mad scientist wants to try and fix a "robot" he "found". He says it needs a bird to make it work again. ' +
+                'You think he needs to be institutionalised.',
+            canComplete: function() {
+                return player.countItems('bird') == 1;
+            },
+            outcomes: [
+                {
+                    chance: 1,
+                    flavourText: 'You place the bird you found on top of the "robot". Nothing happens.<br/><br/>The scientist gets mad, calls it a "damn machine" and starts ' +
+                        'hitting it with a wrench while the bird flies to the rafters for safety.<br/><br/>None the less, as a thank you he throws a pack of items on the floor, ' +
+                        'announcing it as "armor here."',
+                    apply: function() {
+                        player.removeQuest('bastion-broken');
+                        player.removeItem('bird');
+                        player.items.push('bag-epic');
+                        return words.buildApplyReturn({itemCount: 1});
+                    }
+                }
+            ]
+        },
+        'widow-reaper-bossfight': {
+            title: 'Attack on the museum',
+            description: 'Some purple lady and the grim reaper are trying to steal something from the local museum! Any heroes you have assisted in previous quests will ' +
+                'join you on this quest.',
+            canComplete: function() {
+                return true
+            },
+            outcomes: [
+                {
+
+                }
+            ]
         }
     };
 

@@ -47,7 +47,7 @@ define(['app/model/player'], function(player) {
             flavourText: [
                 {
                     user: 'Alex',
-                    text: player.name + '! CHECK YOUR EMAIL!! YOU ARE IN DANGER.'
+                    text: 'HEY YOU! CHECK YOUR EMAIL!! YOU ARE IN DANGER.'
                 }
             ]
         },

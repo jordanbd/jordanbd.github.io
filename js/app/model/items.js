@@ -66,9 +66,9 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     chance: 1,
                     flavourText: 'You eat the clover to gain its power.',
                     apply: function() {
-                        player.changeBetaChance(0.1);
+                        player.changeBetaChance(common.BETA.VERY_HIGH);
                         player.removeItem('clover');
-                        return words.buildApplyReturn({beta: 0.1, itemCount: -1});
+                        return words.buildApplyReturn({beta: common.BETA.VERY_HIGH, itemCount: -1});
                     },
                     buttons: [
                         {
@@ -472,6 +472,10 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                                 chance: 1,
                                 options: ['salt-sacrifice', 'four-clover']
                             },
+                            {
+                                chance: 1,
+                                options: ['accelerator', 'money-with-salt']
+                            }
                         ]);
                         player.removeItem('bag-epic');
                         return words.buildApplyReturn({itemCount: itemCount})
@@ -641,33 +645,69 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
             outcomes: [
                 {
                     chance: 0.5,
-                    flavourText: 'A dye pack explodes in your face. Most of the money still seems OK! But you can\'t help feel salty at being covered ' +
+                    flavourText: 'A dye pack explodes in your face. Most of the items still seem OK! But you can\'t help feel salty at being covered ' +
                         'in paint.',
                     apply: function() {
                         player.removeItem('dollar-sign-bag');
                         player.changeSalt(20);
-                        player.changeMoney(130);
                         player.data['dollar-sign-bag-open'] = true;
-                        return words.buildApplyReturn({itemCount: -1, salt: 20, money: 130});
+
+                        var itemCount = spawnLootFromTable([
+                            {
+                                chance: 1,
+                                options: ['scrap']
+                            },
+                            {
+                                chance: 1,
+                                options: ['time-berry', 'time-berry', 'time-berry', 'beta-bite']
+                            },
+                            {
+                                chance: 1,
+                                options: ['salt-sacrifice', 'four-clover']
+                            },
+                            {
+                                chance: 1,
+                                options: ['accelerator', 'money-with-salt']
+                            }
+                        ]);
+
+                        return words.buildApplyReturn({itemCount: itemCount, salt: 20});
                     },
                     buttons: [
                         {
-                            text: 'I am sure no one is looking for this money'
+                            text: 'I am sure no one is looking for this'
                         }
                     ]
                 },
                 {
                     chance: 0.5,
-                    flavourText: 'Wow it actually is full of money.',
+                    flavourText: 'Oooh! Items!',
                     apply: function() {
                         player.removeItem('dollar-sign-bag');
-                        player.changeMoney(150);
+                        var itemCount = spawnLootFromTable([
+                            {
+                                chance: 1,
+                                options: ['scrap']
+                            },
+                            {
+                                chance: 1,
+                                options: ['time-berry', 'time-berry', 'time-berry', 'beta-bite']
+                            },
+                            {
+                                chance: 1,
+                                options: ['salt-sacrifice', 'four-clover']
+                            },
+                            {
+                                chance: 1,
+                                options: ['accelerator', 'money-with-salt']
+                            }
+                        ]);
                         player.data['dollar-sign-bag-open'] = true;
-                        return words.buildApplyReturn({itemCount: -1, money: 150});
+                        return words.buildApplyReturn({itemCount: itemCount});
                     },
                     buttons: [
                         {
-                            text: 'Yay free money'
+                            text: 'Yay free items'
                         }
                     ]
                 }
@@ -908,6 +948,22 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
         },
         'beta-with-time': {
             title: ''
+        },
+        'bird': {
+            title: 'Annoying bird',
+            description: 'A bird has followed you home. It won\'t leave you alone.',
+            rarity: 'quest',
+            outcomes: [
+                {
+                    chance: 1,
+                    flavourText: '*chirp*',
+                    buttons: [
+                        {
+                            text: 'SHUT UP BIRD'
+                        }
+                    ]
+                }
+            ]
         }
     };
 

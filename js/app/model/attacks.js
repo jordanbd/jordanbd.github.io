@@ -117,7 +117,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
 
                 /* find money */
                 {
-                    chance: 0.30,
+                    chance: 0.05,
                     flavourText: [
                         'You post a video to Youtube demanding that Blizzard nerf McCree.',
                         'You spend an evening counting the number of rockets Pharah launches during her ultimate and post a video to Youtube about it.',
@@ -127,7 +127,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                         'You build a dev tracker for Overwatch, which is literally the easiest type of application to build for anything. Ad revenue pays handsomely!'
                     ],
                     apply: function() {
-                        var money = 5 + random.nextInt(35);
+                        var money = 1 + random.nextInt(100);
                         player.changeMoney(money);
                         player.changeSecondsRemaining(-10);
                         return words.buildApplyReturn({time: -10, money: money});
@@ -216,6 +216,32 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                             text: 'I am a quality contributor to this subreddit'
                         }
                     ]
+                },
+
+                /* item drop: bag-rare */
+                {
+                    chance: 0.15,
+                    flavourText: [
+                        'You win a Twitch giveaway by using a view bot to stack the odds in your favour.'
+                    ],
+                    apply: function() {
+                        player.items.push('bag-rare');
+                        player.changeSecondsRemaining(-10);
+                        return words.buildApplyReturn({time: -10, itemCount: 1});
+                    }
+                },
+
+                /* item drop: bag-epic */
+                {
+                    chance: 0.03,
+                    flavourText: [
+                        'A blinking pop-up congratulates you for being viewer one million. You are apparently the first person ever to claim the prize.'
+                    ],
+                    apply: function() {
+                        player.items.push('bag-epic');
+                        player.changeSecondsRemaining(-10);
+                        return words.buildApplyReturn({time: -10, itemCount: 1});
+                    }
                 }
             ]
         },
@@ -232,7 +258,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     isAvailable: function() {
                         return true;
                     },
-                    chance: 0.3,
+                    chance: 0.1,
                     flavourText: [
                         'You take a brisk walk around the building to clear your head.',
                         'A brief respite from the beta frenzy helps prevent the build up of salt.',
@@ -314,7 +340,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                 },
                 /* find a handful of berries */
                 {
-                    chance: 0.2,
+                    chance: 0.1,
                     isAvailable: function() {
                         return !player.data['berries'];
                     },
@@ -459,7 +485,31 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                             text: 'Should I call the cops?'
                         }
                     ]
+                },
+
+                /* start bastion quest */
+                {
+                    chance: 0.9,
+                    isAvailable: function() {
+                        return player.data['torb-turret-complete']
+                            && !player.data['bastion-quest'];
+                    },
+                    flavourText: 'You find that idiot scientist again chasing birds in the park. He says he needs one to fix a robot he found in the forest. ' +
+                        'Right.',
+                    apply: function() {
+                        player.changeSecondsRemaining(-common.TIME.WALK_COST);
+                        player.changeSalt(-common.SALT.WALK_DECREASE);
+                        player.data['bastion-quest'] = true;
+                        player.quests.push('bastion-broken');
+                        return words.buildApplyReturn({time: -common.TIME.WALK_COST, salt: -common.SALT.WALK_DECREASE, questCountAdded: 1});
+                    },
+                    buttons: [
+                        {
+                            text: 'Why does he need a bird?'
+                        }
+                    ]
                 }
+
             ]
         },
         {
