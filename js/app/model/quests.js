@@ -480,6 +480,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                             player.items.push('bag-epic');
                             player.data['torb-turret-complete'] = true;
                             return 'Because of your donations you have helped a local lunatic build a dangerous weapon! He hands you a bag of items as a thank you.'
+                                + words.buildApplyReturn({itemCount: 1});
                         } else {
                             return 'He tells you that his turrent is ' + player.data['torb-turret'] + '% complete. Bring him more scrap to complete the turret.';
                         }

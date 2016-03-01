@@ -85,9 +85,10 @@ function($, _, emitter, templates, modal, timer, player, attacks, items, shop, q
             for (var i = 0; i < player.quests.length; i++) {
                 var quest = quests.getQuest(player.quests[i]);
 
-                var $opt = $(templates.getTemplate('actionOptionTmpl')({
+                var $opt = $(templates.getTemplate('questOptionTmpl')({
                     title: quest.title,
-                    description: quest.description
+                    description: quest.description,
+                    completeCssClass: quest.canComplete() ? 'quest-complete' : 'quest-incomplete'
                 }));
 
                 var click = function (quest) {

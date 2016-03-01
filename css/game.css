@@ -30,7 +30,6 @@ a, a:hover, a:active, a:visited {
 button, a.button {
     border: 1px solid #9d9d9d;
     border-radius: 7px;
-    /*font-family: "Big Noodle", serif;*/
     font-family: Verdana, sans-serif;
     text-transform: uppercase;
     font-weight: bold;
@@ -160,6 +159,7 @@ p strong {
 
 .panel-actions-buttons button {
     width: 19%;
+    font-size: 1.5em;
 }
 
 .action-option {
@@ -179,6 +179,10 @@ p strong {
     content: '> ';
 }
 
+.action-option.quest-option > .title:before {
+    content: '';
+}
+
 .action-option:hover {
     color: yellow;
 }
@@ -193,6 +197,18 @@ p strong {
     display: block;
     margin-left: 1.2em;
     margin-top: 3px;
+}
+
+.quest-option.quest-incomplete > .title:before {
+    background-size: 1em 1em;
+    background: url('../img/Quest_Avail_Inside_16x16.png') no-repeat;
+    padding-left: 1.2em;
+}
+
+.quest-option.quest-complete > .title:before {
+    background-size: 1em 1em;
+    background: url('../img/Quest_Complete_Inside_16x16.png') no-repeat;
+    padding-left: 1.2em;
 }
 
 .rarity {
@@ -290,4 +306,45 @@ p strong {
     font-weight: bold;
     text-shadow: 1px 1px 1px rgba(0,0,0,.5);
     text-transform: uppercase;
+}
+
+/* Words */
+
+.word {
+    padding-left: 1.2em;
+    display:block;
+    margin-bottom: 1em;
+}
+
+.word:after {
+}
+
+.word-salt {
+    background: url('../img/Holy_dust.png') no-repeat;
+    background-size: 1em;
+}
+
+.word-time {
+    background: url('../img/Inngossipicon.png') no-repeat;
+    background-size: 1em;
+}
+
+.word-quest {
+    background: url('../img/Quest_Avail_Inside_16x16.png') no-repeat;
+    background-size: 1em;
+}
+
+.word-money {
+    background: url('../img/MiniIcon_Auctioneer.png') no-repeat;
+    background-size: 1em;
+}
+
+.word-item {
+    background: url('../img/MiniIcon_Repair.png') no-repeat;
+    background-size: 1em;
+}
+
+.word-beta {
+    background: url('../img/blizzIcon.gif') no-repeat;
+    background-size: 1em;
 }

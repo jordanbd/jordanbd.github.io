@@ -18,6 +18,7 @@ define(['jquery', 'underscore'], function($, _) {
         templates['shopItemTmpl'] = _.template($('#template-battle-action-shop-item').html());
         templates['newsTmpl'] = _.template($('#template-news').html());
         templates['selectClassTmpl'] = _.template($('#template-select-class').html());
+        templates['questOptionTmpl'] = _.template($('#template-quest-action-option').html());
 
         console.debug('templates compiled');
     }

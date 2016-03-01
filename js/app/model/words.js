@@ -83,48 +83,48 @@ define(['app/util/random'], function(random) {
         var sb = "";
         if (opts.salt) {
             if (opts.salt > 0) {
-                sb += "Your saltiness has increased by " + opts.salt + "%. "
+                sb += "<span class='word word-salt'>Your saltiness has increased by " + opts.salt + "%.</span> "
             } else if (opts.salt < 0) {
-                sb += "Your saltiness has decreased by " + opts.salt + "%. "
+                sb += "<span class='word word-salt'>Your saltiness has decreased by " + opts.salt + "%.</span> "
             }
         }
         if (opts.itemCount) {
             if (opts.itemCount == 1) {
-                sb += "Item added to your inventory. "
+                sb += "<span class='word word-item'>Item added to your inventory.</span> "
             } else if (opts.itemCount > 1) {
-                sb += opts.itemCount + " items added to your inventory. "
+                sb += "<span class='word word-item'>" + opts.itemCount + " items added to your inventory.</span> "
             } else if (opts.itemCount == -1) {
-                sb += "Item removed from your inventory. "
+                sb += "<span class='word word-item'>Item removed from your inventory.</span> "
             } else if (opts.itemCount < -1) {
-                sb += opts.itemCount + " items removed from your inventory. "
+                sb += "<span class='word word-item'>" + opts.itemCount + " items removed from your inventory.</span> "
             }
         }
         if (opts.beta) {
             if (opts.beta > 0) {
-                sb += "Your beta chances have increased by " + Math.round(opts.beta * 100) + "%. "
+                sb += "<span class='word word-beta'>Your beta chances have increased by " + Math.round(opts.beta * 100) + "%.</span> "
             } else if (opts.beta < 0) {
-                sb += "Your beta chances have decreased by " + Math.round(opts.beta * 100) + "%. "
+                sb += "<span class='word word-beta'>Your beta chances have decreased by " + Math.round(opts.beta * 100) + "%.</span> "
             }
         }
         if (opts.time) {
             if (opts.time > 0) {
-                sb += "Your time remaining has increased by " + opts.time + " seconds. "
+                sb += "<span class='word word-time'>Your time remaining has increased by " + opts.time + " seconds.</span> "
             } else if (opts.time < 0) {
-                sb += "Your time remaining has decreased by " + opts.time + " seconds. "
+                sb += "<span class='word word-time'>Your time remaining has decreased by " + opts.time + " seconds.</span> "
             }
         }
         if (opts.money) {
             if (opts.money > 0) {
-                sb += "You have gained $" + opts.money + ". "
+                sb += "<span class='word word-money'>You have gained $" + opts.money + ".</span> "
             } else if (opts.money < 0) {
-                sb += "You have lost $" + opts.money + ". "
+                sb += "<span class='word word-money'>You have lost $" + opts.money + ".</span> "
             }
         }
         if (opts.questCountAdded) {
             if (opts.questCountAdded == 1) {
-                sb += opts.questCountAdded + " new quest added to your quest log. ";
+                sb += "<span class='word word-quest'>" + opts.questCountAdded + " new quest added to your quest log.</span> ";
             } else if (opts.questCountAdded >= 2) {
-                sb += opts.questCountAdded + " new quests added to your quest log. ";
+                sb += "<span class='word word-quest'>" + opts.questCountAdded + " new quests added to your quest log.</span> ";
             }
         }
         return sb;
