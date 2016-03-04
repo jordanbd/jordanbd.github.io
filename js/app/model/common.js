@@ -16,7 +16,8 @@ define([], function() {
         },
 
         TIME: {
-            WALK_COST: 10
+            WALK_COST: 10,
+            ACCOUNT_COST: 10
         }
     }
 

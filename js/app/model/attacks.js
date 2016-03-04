@@ -75,6 +75,22 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     }
                 },
 
+                /* start button quest */
+                {
+                    chance: 0.1,
+                    isAvailable: function() {
+                        return !player.data['blizzard-button-quest'];
+                    },
+                    flavourText: 'Blizzard have a problem! Their Beta inviting machine - the Beta-Inviter-9000 - has broken down! For some reason they built a ' +
+                    'machine to do this? Anyway, they need scrap metal because the stupid thing is all rusted and broken because it hasn\'t been used in ages.',
+                    apply: function() {
+                        player.changeSecondsRemaining(-10);
+                        player.quests.push('blizzard-button');
+                        player.data['blizzard-button-quest'] = true;
+                        return words.buildApplyReturn({time: -10, questCountAdded: 1});
+                    }
+                },
+
                 /* lower beta */
                 {
                     chance: 0.01,
@@ -218,9 +234,27 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     ]
                 },
 
+                /* item drop: bag-common */
+                {
+                    chance: 0.1,
+                    flavourText: [
+                        'For filling in one of Blizzard\'s surveys they send you a bag of junk. There are no Beta keys in this bag.'
+                    ],
+                    apply: function() {
+                        player.items.push('bag-common');
+                        player.changeSecondsRemaining(-10);
+                        return words.buildApplyReturn({time: -10, itemCount: 1});
+                    },
+                    buttons: [
+                        {
+                            text: 'Gee, thanks'
+                        }
+                    ]
+                },
+
                 /* item drop: bag-rare */
                 {
-                    chance: 0.15,
+                    chance: 0.05,
                     flavourText: [
                         'You win a Twitch giveaway by using a view bot to stack the odds in your favour.'
                     ],
@@ -228,12 +262,17 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                         player.items.push('bag-rare');
                         player.changeSecondsRemaining(-10);
                         return words.buildApplyReturn({time: -10, itemCount: 1});
-                    }
+                    },
+                    buttons: [
+                        {
+                            text: 'No dude someone sent those bots to me'
+                        }
+                    ]
                 },
 
                 /* item drop: bag-epic */
                 {
-                    chance: 0.03,
+                    chance: 0.01,
                     flavourText: [
                         'A blinking pop-up congratulates you for being viewer one million. You are apparently the first person ever to claim the prize.'
                     ],
@@ -241,7 +280,12 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                         player.items.push('bag-epic');
                         player.changeSecondsRemaining(-10);
                         return words.buildApplyReturn({time: -10, itemCount: 1});
-                    }
+                    },
+                    buttons: [
+                        {
+                            text: 'Does this mean the Nigerian prince was telling the truth?'
+                        }
+                    ]
                 }
             ]
         },
@@ -258,7 +302,15 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     isAvailable: function() {
                         return true;
                     },
-                    chance: 0.1,
+                    chance: function() {
+                        if (player.questHistory.length < 2) {
+                            return 0.1;
+                        } else {
+                            // As the user finishes more and more quests the probability that the "low chance" outcomes will
+                            // occur increases. Make sure this does not happen so easily.
+                            return 0.3;
+                        }
+                    },
                     flavourText: [
                         'You take a brisk walk around the building to clear your head.',
                         'A brief respite from the beta frenzy helps prevent the build up of salt.',
@@ -296,7 +348,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                 },
                 /* start slenderman quest */
                 {
-                    chance: 0.01,
+                    chance: 0.002,
                     isAvailable: function() {
                         return !player.data['slender-spotted'];
                     },
@@ -508,6 +560,28 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                             text: 'Why does he need a bird?'
                         }
                     ]
+                },
+
+                /* find bird */
+                {
+                    chance: 0.5,
+                    isAvailable: function() {
+                        return player.data['bastion-quest']
+                            && !player.data['bastion-bird-found'];
+                    },
+                    flavourText: 'While on your walk a bird decides to land on your shoulder and start singing. You immediately hate this bird.',
+                    apply: function() {
+                        player.changeSecondsRemaining(-common.TIME.WALK_COST);
+                        player.changeSalt(-common.SALT.WALK_DECREASE);
+                        player.data['bastion-bird-found'] = true;
+                        player.items.push('bird');
+                        return words.buildApplyReturn({time: -common.TIME.WALK_COST, salt: -common.SALT.WALK_DECREASE, itemCount: 1});
+                    },
+                    buttons: [
+                        {
+                            text: 'ITS IN MY HAIR'
+                        }
+                    ]
                 }
 
             ]
@@ -650,7 +724,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     apply: function() {
                         player.changeSalt(5);
                         player.changeSecondsRemaining(-5);
-                        return words.buildApplyReturn({salt: 5, time: -5})
+                        return words.buildApplyReturn({salt: 5, time: -common.TIME.ACCOUNT_COST})
                     },
                     buttons: [
                         {
@@ -676,7 +750,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     apply: function() {
                         player.changeSalt(5);
                         player.changeSecondsRemaining(-5);
-                        return words.buildApplyReturn({salt: 5, time: -5})
+                        return words.buildApplyReturn({salt: 5, time: -common.TIME.ACCOUNT_COST})
                     },
                     buttons: [
                         {
@@ -700,7 +774,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     apply: function() {
                         player.changeSalt(5);
                         player.changeSecondsRemaining(-5);
-                        return words.buildApplyReturn({salt: 5, time: -5})
+                        return words.buildApplyReturn({salt: 5, time: -common.TIME.ACCOUNT_COST})
                     },
                     buttons: [
                         {

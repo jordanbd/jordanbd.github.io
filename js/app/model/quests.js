@@ -289,7 +289,58 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
             ]
         },
         'blizzard-button': {
-            title: 'Invites aren\'t working!',
+            title: 'The Beta-Inviter-9000 has broken down!',
+            description: 'Apparently Blizzard have created a complicated machine to send out Beta invites and it has broken ' +
+                'down due to lack of use. They are appealing for anyone who can send in spare scrap metal so they can "patch it up", ' +
+                'whatever that means.',
+            canComplete: function() {
+                return player.countItems('scrap') > 0;
+            },
+            outcomes: [
+                {
+                    chance: 1,
+                    flavourText: 'Blizzard, a billion dollar company, thanks you for your donation of scrap metal.',
+                    apply: function() {
+                        if (!player.data['blizzard-invite-machine']) {
+                            player.data['blizzard-invite-machine'] = 0;
+                        }
+                        var scrapMod = 20; // 10 == need 10, 20 == need 5
+                        var scrapCount = player.countItems('scrap');
+                        var scrapNeeded = (100 - Number(player.data['blizzard-invite-machine'])) / scrapMod;
+
+                        player.data['blizzard-invite-machine'] += (scrapCount * scrapMod);
+                        if (Number(player.data['blizzard-invite-machine']) > 100) {
+                            player.data['blizzard-invite-machine'] = 100;
+                        }
+
+                        var scrapUsed = 0;
+                        if (scrapCount >= scrapNeeded) {
+                            scrapUsed = scrapNeeded;
+                        } else {
+                            scrapUsed = scrapCount;
+                        }
+
+                        for (var i = 0; i < scrapUsed; i++) {
+                            player.removeItem('scrap');
+                        }
+
+                        if (Number(player.data['blizzard-invite-machine']) == 100) {
+                            player.removeQuest('blizzard-button');
+                            player.items.push('bag-epic');
+                            player.data['blizzard-invite-machine-complete'] = true;
+                            return 'Because of your donation you have allowed Blizzard to fix their Beta-Inviter-9000 machine. But you do not get a Beta invite ' +
+                                'for helping... that might be a little unfair to everyone who did not get to donate scrap.<br/><br/>' + words.buildApplyReturn({itemCount: 1});
+                        } else {
+                            return 'Their Beta-Inviter-9000 machine is currently ' + player.data['blizzard-invite-machine'] + '% repaired. Bring Blizzard more scrap to complete the turret.';
+                        }
+                    },
+                    buttons: [
+                        {
+                            text: 'They should buy their own scrap...'
+                        }
+                    ]
+                }
+            ]
 
         },
         'reddit-spammer': {
@@ -479,7 +530,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                             player.removeQuest('torb-scrap');
                             player.items.push('bag-epic');
                             player.data['torb-turret-complete'] = true;
-                            return 'Because of your donations you have helped a local lunatic build a dangerous weapon! He hands you a bag of items as a thank you.'
+                            return 'Because of your donations you have helped a local lunatic build a dangerous weapon! He hands you a bag of items as a thank you.<br/><br/>'
                                 + words.buildApplyReturn({itemCount: 1});
                         } else {
                             return 'He tells you that his turrent is ' + player.data['torb-turret'] + '% complete. Bring him more scrap to complete the turret.';

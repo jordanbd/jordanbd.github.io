@@ -27,10 +27,12 @@ define(['emitter'], function(emitter) {
             return count;
         },
         quests: [],
+        questHistory: [],
         removeQuest: function(code) {
             for (var i = 0; i < this.quests.length; i++) {
                 if (this.quests[i] == code) {
                     this.quests.splice(i, 1);
+                    this.questHistory.push(code);
                     break;
                 }
             }
