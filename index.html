@@ -259,7 +259,12 @@
 
 <script id="template-battle-action-option" type="text/html">
     <div class="action-option">
-        <span class="title"><%= title %></span>
+        <span class="title">
+            <% if (typeof(count) !== "undefined") { %>
+                (<%= count %>)
+            <% } %>
+            <%= title %>
+        </span>
         <span class="description"><%= description %></span>
         <% if (typeof(subDescription) !== "undefined") { %>
             <span class="sub-description"><%= subDescription %></span>

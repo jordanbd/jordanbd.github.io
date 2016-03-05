@@ -55,14 +55,30 @@ function($, _, emitter, templates, modal, timer, player, attacks, items, shop, q
         $('#action-item').addClass('active');
 
         if (player.items.length > 0) {
+
+            var groupedItems = {};
             for (var i = 0; i < player.items.length; i++) {
-                var item = items.get[player.items[i]]; // weird syntax, I am awful
+                if (!groupedItems[player.items[i]]) {
+                    groupedItems[player.items[i]] = {
+                        count: 0
+                    }
+                }
+                groupedItems[player.items[i]].count++;
+            }
+
+            for (var code in groupedItems) {
+                var item = items.get[code]; // weird syntax, I am awful
 
                 var title = item.title + ' <span class="rarity ' + item.rarity + '">[' + item.rarity + ']</span>';
+                var count = undefined;
+                if (groupedItems[code].count > 1) {
+                    count = groupedItems[code].count;
+                }
 
                 var $opt = $(templates.getTemplate('actionOptionTmpl')({
                     title: title,
-                    description: item.description
+                    description: item.description,
+                    count: count
                 }));
 
                 var click = function (a) {
