@@ -3,119 +3,110 @@
 define(['app/model/player', 'app/model/words'], function(player, words) {
 
     var items = [
-        //{
-        //    itemRef: 'puppet',
-        //    description: 'Wow this thing is ugly.',
-        //    cost: 80,
-        //    isAvailable: function() {
-        //        return player.data['socialmediacount'] != null && player.data['socialmediacount'] >= 4 && !player.data['puppet'];
-        //    },
-        //    canAfford: function() {
-        //        return player.money >= this.cost;
-        //    },
-        //    outcomes: [
-        //        {
-        //            chance: 1,
-        //            flavourText: 'It\'s just a stupid puppet?',
-        //            apply: function() {
-        //                player.changeMoney(-80);
-        //                player.items.push('puppet');
-        //                player.data['puppet'] = true;
-        //                return words.buildApplyReturn({money: -80, itemCount: 1});
-        //            }
-        //        }
-        //    ]
-        //},
+        {
+            itemRef: 'puppet',
+            description: 'Wow this thing is ugly.',
+            cost: 80,
+            isAvailable: function() {
+                return player.data['socialmediacount'] != null && player.data['socialmediacount'] >= 4 && !player.data['puppet'];
+            },
+            outcomes: [
+                {
+                    chance: 1,
+                    flavourText: 'It\'s just a stupid puppet?',
+                    apply: function() {
+                        player.changeMoney(-80);
+                        player.items.push('puppet');
+                        player.data['puppet'] = true;
+                        return words.buildApplyReturn({money: -80, itemCount: 1});
+                    }
+                }
+            ]
+        },
 
-        //{
-        //    itemRef: 'deadbook',
-        //    cost: 200,
-        //    canAfford: function() {
-        //        return player.money >= this.cost
-        //    },
-        //    isAvailable: function() {
-        //        return !player.data['deadbook'] && player.characterClassId == 'default';
-        //    },
-        //    outcomes: [
-        //        {
-        //            chance: 1,
-        //            flavourText: 'Is this, like, some kind of cookbook?',
-        //            apply: function() {
-        //                player.changeMoney(-200);
-        //                player.items.push('deadbook');
-        //                player.data['deadbook'] = true;
-        //                player.data['darkness'] = 0;
-        //                return words.buildApplyReturn({money: -200, itemCount: 1});
-        //            }
-        //        }
-        //    ]
-        //},
-        //{
-        //    itemRef: 'spell-increasemoney',
-        //    description: 'It would make things so easy.',
-        //    cost: 400,
-        //    canAfford: function() {
-        //        return player.money >= this.cost
-        //    },
-        //    isAvailable: function() {
-        //        return player.data['deadbookread'];
-        //    },
-        //    outcomes: [
-        //        {
-        //            chance: 1,
-        //            flavourText: 'The voice cackles.',
-        //            apply: function() {
-        //                player.changeMoney(-400);
-        //                player.items.push('spell-increasemoney');
-        //                return words.buildApplyReturn({money: -400, itemCount: 1});
-        //            }
-        //        }
-        //    ]
-        //},
-        //{
-        //    itemRef: 'spell-increasechance',
-        //    description: 'You deserve this luck.',
-        //    cost: 400,
-        //    canAfford: function() {
-        //        return player.money >= this.cost
-        //    },
-        //    isAvailable: function() {
-        //        return player.data['deadbookread'];
-        //    },
-        //    outcomes: [
-        //        {
-        //            chance: 1,
-        //            flavourText: 'The voice grows louder.',
-        //            apply: function() {
-        //                player.changeMoney(-400);
-        //                player.items.push('spell-increasechance');
-        //                return words.buildApplyReturn({money: -400, itemCount: 1});
-        //            }
-        //        }
-        //    ]
-        //},
-        //{
-        //    itemRef: 'spell-mindcontrol',
-        //    description: 'The voice commands you, "DO IT."',
-        //    cost: 1000,
-        //    canAfford: function() {
-        //        return player.money >= this.cost
-        //    },
-        //    isAvailable: function() {
-        //        return player.data['deadbookread'];
-        //    },
-        //    outcomes: [
-        //        {
-        //            chance: 1,
-        //            flavourText: 'The voice cackles.',
-        //            apply: function() {
-        //                player.changeMoney(-1000);
-        //                player.items.push('spell-mindcontrol');
-        //                return words.buildApplyReturn({money: -1000, itemCount: 1});
-        //            }
-        //        }
-        //    ]
-        //},
+        {
+            itemRef: 'deadbook',
+            cost: 400,
+            isAvailable: function() {
+                return !player.data['deadbook'] && player.characterClassId == 'default';
+            },
+            outcomes: [
+                {
+                    chance: 1,
+                    flavourText: 'Is this, like, some kind of cookbook?',
+                    apply: function() {
+                        player.changeMoney(-400);
+                        player.items.push('deadbook');
+                        player.data['deadbook'] = true;
+                        player.data['darkness'] = 0;
+                        return words.buildApplyReturn({money: -400, itemCount: 1});
+                    }
+                }
+            ]
+        },
+        {
+            itemRef: 'spell-increasemoney',
+            description: 'It would make things so easy.',
+            cost: 200,
+            isAvailable: function() {
+                return player.data['deadbookread'];
+            },
+            outcomes: [
+                {
+                    chance: 1,
+                    flavourText: 'The voice cackles.',
+                    apply: function() {
+                        player.changeMoney(-200);
+                        player.items.push('spell-increasemoney');
+                        return words.buildApplyReturn({money: -200, itemCount: 1});
+                    }
+                }
+            ]
+        },
+        {
+            itemRef: 'spell-increasechance',
+            description: 'You deserve this luck.',
+            cost: 400,
+            canAfford: function() {
+                return player.money >= this.cost
+            },
+            isAvailable: function() {
+                return player.data['deadbookread'];
+            },
+            outcomes: [
+                {
+                    chance: 1,
+                    flavourText: 'The voice grows louder.',
+                    apply: function() {
+                        player.changeMoney(-400);
+                        player.items.push('spell-increasechance');
+                        return words.buildApplyReturn({money: -400, itemCount: 1});
+                    }
+                }
+            ]
+        },
+        {
+            itemRef: 'spell-mindcontrol',
+            description: 'The voice commands you, "DO IT."',
+            cost: 1000,
+            canAfford: function() {
+                return player.money >= this.cost
+            },
+            isAvailable: function() {
+                return player.data['deadbookread'];
+            },
+            outcomes: [
+                {
+                    chance: 1,
+                    flavourText: 'The voice cackles.',
+                    apply: function() {
+                        player.changeMoney(-1000);
+                        player.items.push('spell-mindcontrol');
+                        return words.buildApplyReturn({money: -1000, itemCount: 1});
+                    }
+                }
+            ]
+        },
 
         /* Updated items */
 

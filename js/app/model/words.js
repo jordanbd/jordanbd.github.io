@@ -127,6 +127,9 @@ define(['app/util/random'], function(random) {
                 sb += "<span class='word word-quest'>" + opts.questCountAdded + " new quests added to your quest log.</span> ";
             }
         }
+        if (opts.miscText) {
+            sb += "<span class='word'>" + opts.miscText + "</span> ";
+        }
         return sb;
     }
 

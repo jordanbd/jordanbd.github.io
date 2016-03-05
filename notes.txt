@@ -3,18 +3,16 @@ TODO
 
 > Stats on home page
 > Tips on home page
-> Credits page
-> Re-add "Dark Lord of Salt" storyline
 > More items for bags
 > Consolidate +/- increments into one field
-> Re-add "Lich King" storyline
 > Keep briefcase in game?
 > Class - twitch streamer
 > Group duplicate items
-> Prevent events during screen transitions
 > Titan.exe quest
 > Final battle quest
 > Fix front page time description
+> Make sure all items have rarity modifier
+> Rebalance winston questcost
 
 TODO OLD
 

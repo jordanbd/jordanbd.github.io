@@ -193,12 +193,12 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     flavourText: 'You have endeared yourself to the Overwatch CMs.',
                     apply: function() {
                         player.removeItem('puppet');
-                        player.changeBetaChance(0.05);
-                        return words.buildApplyReturn({beta: 0.05, itemCount: -1});
+                        player.changeBetaChance(common.BETA.LOW);
+                        return words.buildApplyReturn({beta: common.BETA.LOW, itemCount: -1});
                     },
                     buttons: [
                         {
-                            text: 'On Solace is actually pretty funny.'
+                            text: 'The trick is to make content before the beta comes out'
                         }
                     ]
                 }
@@ -207,6 +207,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
         'deadbook': {
             title: 'Book of the salt',
             description: 'It is a salt cookbook by the looks of it.',
+            rarity: 'legendary',
             outcomes: [
                 {
                     chance: 1,
@@ -215,7 +216,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                         player.data['darkness'] += 10;
                         player.data['deadbookread'] = true;
                         player.removeItem('deadbook');
-                        return words.buildApplyReturn({itemCount: -1}) + 'New items for sale at shop.'
+                        return words.buildApplyReturn({itemCount: -1, miscText: 'New items for sale at shop.'});
                     },
                     buttons: [
                         {
@@ -228,6 +229,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
         'spell-increasechance': {
             title: 'Salt spell of chance',
             description: 'Increases your Beta chances...',
+            rarity: 'epic',
             outcomes: [
                 {
                     chance: 1,
@@ -235,9 +237,9 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     apply: function() {
                         player.data['darkness'] += 10;
                         player.removeItem('spell-increasechance');
-                        player.changeBetaChance(0.2);
+                        player.changeBetaChance(common.BETA.MEDIUM);
                         player.changeSalt(40);
-                        return words.buildApplyReturn({itemCount: -1, beta: 0.2, salt: 40});
+                        return words.buildApplyReturn({itemCount: -1, beta: common.BETA.MEDIUM, salt: 40});
                     },
                     buttons: [
                         {
@@ -250,6 +252,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
         'spell-increasemoney': {
             title: 'Salt spell of currency',
             description: 'Increases your money...',
+            rarity: 'epic',
             outcomes: [
                 {
                     chance: 1,
@@ -272,6 +275,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
         'spell-mindcontrol': {
             title: 'Salt spell of control',
             description: 'Attempt to mind-control a Blizzard CM...',
+            rarity: 'epic',
             outcomes: [
                 {
                     chance: 0.1,
@@ -282,7 +286,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                         player.data['beta'] = true;
                         player.data['mindcontrol'] = true;
                         player.data['mindcontrolpass'] = true;
-                        return 'Using your dark powers of salt you command her to give you Beta.'
+                        return 'Using your dark powers of salt you command the CM to give you Beta.'
                     },
                     buttons: [
                         {
@@ -298,8 +302,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                         player.removeItem('spell-mindcontrol');
                         player.changeSalt(40);
                         player.data['mindcontrol'] = true;
-                        return words.buildApplyReturn({itemCount: -1, salt: 40}) + 'Your spell fails to control the ' +
-                            'strong-willed CM. You have gone too far.';
+                        return words.buildApplyReturn({itemCount: -1, salt: 40, miscText: 'Your spell fails to control the strong-willed CM. You have gone too far.'});
                     },
                     buttons: [
                         {
