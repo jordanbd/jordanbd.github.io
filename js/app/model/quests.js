@@ -400,6 +400,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                     flavourText: 'You arrive at Adrian182\'s house to try and defuse the spammer situation.<br/><br/>He is far too salty for any meaningful discussion and ' +
                         'slams the door in your face.',
                     apply: function() {
+                        player.removeQuest('reddit-spammer');
                     },
                     buttons: [
                         {
@@ -571,6 +572,105 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         player.items.push('bag-epic');
                         return words.buildApplyReturn({itemCount: 1});
                     }
+                }
+            ]
+        },
+        'lucio-party': {
+            title: 'DJ needed for dancy party',
+            description: 'Some famous DJ has bailed on his commitments to perform at a local dance party. Organisers are looking for a replacement, and you have heard ' +
+                'Blizzard employees will be in attendance. What better way to guilt them into giving you Beta access?! You do not know what DJs do and what equipment they ' +
+                'need though... you might need to do some research.',
+            canComplete: function() {
+                return true;
+            },
+            outcomes: [
+                {
+                    /* Did not buy anything */
+                    chance: 1,
+                    isAvailable: function() {
+                        return !player.data['djset'];
+                    },
+                    flavourText: 'You arrive at the dance party without any training as a DJ or any equipment but declare yourself as the greatest DJ who has ever lived.<br/><br/> ' +
+                        'The organisers foolishly let you on stage where you use the ten minutes allocated to your set to ask over the loud speakers if anyone from Blizzard ' +
+                        'can give you a beta invite. <br/><br/>No one can hear your begging over the booing.',
+                    apply: function() {
+                        player.removeQuest('lucio-party');
+                    },
+                    buttons: [
+                        {
+                            text: 'That was off the hook'
+                        }
+                    ]
+                },
+                {
+                    /* Bought dj equipment and nothing else */
+                    chance: 1,
+                    isAvailable: function() {
+                        return player.data['djset']
+                            && !player.data['djpractice1'];
+                    },
+                    flavourText: 'You arrive at the party with your DJ equipment and are ushered onto stage by the organisers. Things take a turn when you can\'t figure ' +
+                        'out how to plug anything in, let alone actually use your equipment. <br/><br/>After a few awkward minutes you try to end your "set" with a big finale where you ' +
+                        'smash your equipment like you saw some rock stars do once. No one is impressed.<br/><br/>As security drags you off stage you demand a beta invite from ' +
+                        'any Blizzard employees in the crowd. No one can hear you over the booing.',
+                    apply: function() {
+                        player.removeQuest('lucio-party');
+                        player.removeItem('djset');
+                        return words.buildApplyReturn({itemCount: -1});
+                    },
+                    buttons: [
+                        {
+                            text: 'I broke it down!'
+                        }
+                    ]
+                },
+                {
+                    /* Bought dj equipment and practice equipment but no songs */
+                    chance: 1,
+                    isAvailable: function() {
+                        return player.data['djset']
+                            && player.data['djpractice1']
+                            && !player.data['djbeta'];
+                    },
+                    flavourText: 'You arrive at the party with your DJ equipment and a firm grasp of how to put it all together. As the organisers usher you onto stage you realise ' +
+                        'that you have made a fatal error: you do not have any songs to play. A salty rage overcomes you and you trash your equipment in front of a clearly uncomfortable ' +
+                        'crowd.<br/><br/>Security drags you off the stage when you turn your rage on the crowd and start screaming about Overwatch beta invites.',
+                    apply: function() {
+                        player.removeQuest('lucio-party');
+                        player.removeItem('djset');
+                        player.changeSalt(20);
+                        return words.buildApplyReturn({itemCount: -1, salt: 20});
+                    },
+                    buttons: [
+                        {
+                            text: 'Idiots! Savages! I am legend!'
+                        }
+                    ]
+                },
+                {
+                    /* Have everything */
+                    chance: 1,
+                    isAvailable: function() {
+                        return player.data['djset']
+                            && player.data['djpractice1']
+                            && player.data['djbeta'];
+                    },
+                    flavourText: 'You arrive at the party and are ushered onto stage by the organisers. You press PLAY and pretend to fiddle with the dials and ' +
+                        'knobs while awkwardly flailing about to show off your sick dance moves. An electronic voice you set up shouts your Battle.net ID every few seconds, ' +
+                        'practically ruining the song.<br/><br/>A muted reception from the crowd causes your saltiness to overcome you - you kick over your equipment and trash the stage. ' +
+                        'Organisers drag you off stage and give you a gift bag and make you promise you never tell anyone they let you DJ for them at one of their parties.',
+                    apply: function() {
+                        player.removeQuest('lucio-party');
+                        player.removeItem('djset');
+                        player.items.push('bag-epic');
+                        player.changeSalt(20);
+                        return words.buildApplyReturn({itemCount: 1, salt: 20});
+                    },
+                    buttons: [
+                        {
+                            text: 'Woo! You feel that? Anyone?'
+                        }
+                    ]
                 }
             ]
         },

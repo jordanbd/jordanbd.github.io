@@ -28,6 +28,14 @@ define(['emitter'], function(emitter) {
         },
         quests: [],
         questHistory: [],
+        hasQuest: function(code) {
+            for (var i = 0; i < this.quests.length; i++) {
+                if (this.quests[i] == code) {
+                    return true;
+                }
+            }
+            return false;
+        },
         removeQuest: function(code) {
             for (var i = 0; i < this.quests.length; i++) {
                 if (this.quests[i] == code) {

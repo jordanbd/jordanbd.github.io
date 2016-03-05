@@ -310,23 +310,24 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
         },
         'djset': {
             title: 'Lucio\'s DJ Tabletop Player',
-            description: 'It will be off the hook when you awkwardly use this thing.',
+            description: 'Apparently "Lucio" is the brand? That\'s probably good right? It will be off the hook when you awkwardly use this thing.',
+            rarity: 'quest',
             outcomes: [
                 {
                     chance: 1,
-                    flavourText: 'You own it! Now you must buy some songs to use on it!',
-                    apply: function() {}
+                    flavourText: 'How hard could it be to use this?'
                 }
             ]
         },
         'djbricks': {
             title: 'A box full of bricks',
             description: 'A permanent reminder of a poor decision.',
+            rarity: 'quest',
             outcomes: [
                 {
                     chance: 1,
-                    flavourText: 'Blinded by rage, you throw the bricks through the windows of a local Brazilian restaurant ' +
-                        'that you assume Lucio owns because you are a racist.',
+                    flavourText: 'Blinded by salty rage, you throw the bricks through the windows of a local Brazilian restaurant ' +
+                        'that you assume is affiliated with this "Lucio" DJ brand.<br/><br/>Because you are a racist.',
                     apply: function() {
                         player.removeItem('djbricks');
                         player.data['brickrage'] = true;
@@ -342,8 +343,9 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
             ]
         },
         'djpractice1': {
-            title: '[SONG] Learning to Pretend to Play A DJ Tabletop Player',
-            description: 'Mandatory practice before you can get stuck into pretending to play real songs! This song is 30 seconds in length.',
+            title: 'My First Rave: How to use a tabletop player',
+            description: 'Teaches you how to use a tabletop player so you don\'t make a complete moron of yourself.',
+            rarity: 'quest',
             outcomes: [
                 {
                     chance: 1,
@@ -351,8 +353,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     apply: function() {
                         player.removeItem('djpractice1');
                         player.data['djpractice1'] = true;
-                        player.changeSecondsRemaining(-30);
-                        return words.buildApplyReturn({itemCount: -1, time: -30});
+                        return words.buildApplyReturn({itemCount: -1});
                     },
                     buttons: [
                         {
@@ -363,24 +364,13 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
             ]
         },
         'djbeta': {
-            title: '[SONG] We Are Salty Together As One',
-            description: 'Let\'s drop the beat or something? This song is 30 seconds in length and will increase your beta chances by 10%.',
+            title: 'Song - We Are Salty As One',
+            description: 'It\'s a USB stick with an MP3 on it.',
+            rarity: 'quest',
             outcomes: [
                 {
                     chance: 1,
-                    flavourText: 'You press PLAY and pretend to fiddle with the dials and knobs. Everyone around you is distracted by the loud music ' +
-                        'you are obnoxiously playing at your desk.<br/><br/>Hopefully someone from Blizzard hears this... somehow.',
-                    apply: function() {
-                        player.removeItem('djbeta');
-                        player.changeBetaChance(0.10);
-                        player.changeSecondsRemaining(-30);
-                        return words.buildApplyReturn({itemCount: -1, beta: 0.10, time: -30});
-                    },
-                    buttons: [
-                        {
-                            text: 'Woo, you feel that? Anyone?'
-                        }
-                    ]
+                    flavourText: 'The USB also has an executable on it named "Titan". What the?', // fixme
                 }
             ]
         },

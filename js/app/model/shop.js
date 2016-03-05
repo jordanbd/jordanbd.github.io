@@ -27,105 +27,6 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
         //    ]
         //},
         //{
-        //    itemRef: 'djset',
-        //    cost: 100,
-        //    isAvailable: function() {
-        //        return player.characterClassId == 'default' && !player.data['djset-bought'];
-        //    },
-        //    canAfford: function() {
-        //        return player.money >= this.cost;
-        //    },
-        //    outcomes: [
-        //        {
-        //            chance: 0.6,
-        //            flavourText: 'You can\'t wait to plug your Macbook into this and press PLAY.',
-        //            apply: function() {
-        //                player.changeMoney(-100);
-        //                player.items.push('djset');
-        //                player.data['djset'] = true;
-        //                player.data['djset-bought'] = true;
-        //                return words.buildApplyReturn({money: -100, itemCount: 1});
-        //            }
-        //        },
-        //        {
-        //            chance: 0.4,
-        //            flavourText: 'Oh what the hell - this is just a box full of bricks!',
-        //            apply: function() {
-        //                player.changeMoney(-100);
-        //                player.items.push('djbricks');
-        //                player.data['djset-bought'] = true;
-        //                return words.buildApplyReturn({money: -100, itemCount: 1});
-        //            },
-        //            buttons: [
-        //                {
-        //                    text: 'I\'ve been scammed! Lucio you rat!'
-        //                }
-        //            ]
-        //        }
-        //    ]
-        //},
-        //{
-        //    itemRef: 'djpractice1',
-        //    description: 'One-time license to listen to a song that apparently teaches you how to use a Tabletop player.',
-        //    cost: 30,
-        //    isAvailable: function() {
-        //        return player.characterClassId == 'default'
-        //            && player.data['djset']
-        //            && !player.data['djpractice1-bought'];
-        //    },
-        //    canAfford: function() {
-        //        return player.money >= this.cost;
-        //    },
-        //    outcomes: [
-        //        {
-        //            chance: 1,
-        //            flavourText: 'This better be worth it',
-        //            apply: function() {
-        //                player.changeMoney(-60);
-        //                player.items.push('djpractice1');
-        //                player.data['djpractice1-bought'] = true;
-        //                return words.buildApplyReturn({money: -30, itemCount: 1});
-        //            },
-        //            buttons: [
-        //                {
-        //                    text: 'Don\'t let me down Lucio!'
-        //                }
-        //            ]
-        //        }
-        //    ]
-        //},
-        //{
-        //    itemRef: 'djbeta',
-        //    description: 'One-time license to play a sick jam for 40 seconds of time.',
-        //    cost: 30,
-        //    isAvailable: function() {
-        //        return player.characterClassId == 'default'
-        //            && player.data['djset']
-        //            && player.data['djpractice1']
-        //            && !player.data['djbeta'];
-        //    },
-        //    canAfford: function() {
-        //        return player.money >= this.cost;
-        //    },
-        //    outcomes: [
-        //        {
-        //            chance: 1,
-        //            flavourText: 'Hey! It\'s just an MP3 file on USB!',
-        //            apply: function() {
-        //                player.changeMoney(-30);
-        //                player.items.push('djbeta');
-        //                player.data['djbeta'] = true;
-        //                return words.buildApplyReturn({money: -30, itemCount: 1});
-        //            },
-        //            buttons: [
-        //                {
-        //                    text: 'Why did I need the expensive Tabletop player?'
-        //                }
-        //            ]
-        //        }
-        //    ]
-        //},
-        //{
         //    itemRef: 'beard',
         //    description: 'Once thought lost, it has resurfaced. But can you really put a price on such a unique artifact? Yes. $1000.',
         //    cost: 1000,
@@ -148,28 +49,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
         //        }
         //    ]
         //},
-        //{
-        //    itemRef: 'visor',
-        //    cost: 80,
-        //    canAfford: function() {
-        //        return player.money >= this.cost
-        //    },
-        //    isAvailable: function() {
-        //        return player.data['helpedman-items'] && !player.data['visor'];
-        //    },
-        //    outcomes: [
-        //        {
-        //            chance: 1,
-        //            flavourText: 'The same visor worn by Data from Star Wars.',
-        //            apply: function() {
-        //                player.changeMoney(-20);
-        //                player.items.push('visor');
-        //                player.data['visor'] = true;
-        //                return words.buildApplyReturn({money: -80, itemCount: 1});
-        //            }
-        //        }
-        //    ]
-        //},
+
         //{
         //    itemRef: 'deadbook',
         //    cost: 200,
@@ -431,6 +311,100 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                 }
             ]
         },
+        {
+            itemRef: 'djset',
+            cost: 200,
+            isAvailable: function() {
+                return player.characterClassId == 'default'
+                    && !player.data['djset-bought']
+                    && player.hasQuest('lucio-party');
+            },
+            outcomes: [
+                {
+                    chance: 0.1,
+                    flavourText: 'You can\'t wait to plug your Macbook into this and press PLAY.',
+                    apply: function() {
+                        player.changeMoney(-200);
+                        player.items.push('djset');
+                        player.data['djset'] = true;
+                        player.data['djset-bought'] = true;
+                        return words.buildApplyReturn({money: -200, itemCount: 1});
+                    }
+                },
+                {
+                    chance: 0.99,
+                    flavourText: 'Oh what the hell - this is just a box full of bricks!',
+                    apply: function() {
+                        player.changeMoney(-200);
+                        player.items.push('djbricks');
+                        player.data['djset-bought'] = true;
+                        return words.buildApplyReturn({money: -200, itemCount: 1});
+                    },
+                    buttons: [
+                        {
+                            text: 'I\'ve been scammed! Lucio you rat!'
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            itemRef: 'djpractice1',
+            description: 'Teaches you how to use a tabletop player.',
+            cost: 80,
+            isAvailable: function() {
+                return player.characterClassId == 'default'
+                    && player.data['djset']
+                    && !player.data['djpractice1-bought']
+                    && player.hasQuest('lucio-party');
+            },
+            outcomes: [
+                {
+                    chance: 1,
+                    flavourText: 'This better be worth it',
+                    apply: function() {
+                        player.changeMoney(-80);
+                        player.items.push('djpractice1');
+                        player.data['djpractice1-bought'] = true;
+                        return words.buildApplyReturn({money: -80, itemCount: 1});
+                    },
+                    buttons: [
+                        {
+                            text: 'Don\'t let me down Lucio!'
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            itemRef: 'djbeta',
+            description: 'Teaches you how to play a sick jam.',
+            cost: 80,
+            isAvailable: function() {
+                return player.characterClassId == 'default'
+                    && player.data['djset']
+                    && player.data['djpractice1']
+                    && !player.data['djbeta']
+                    && player.hasQuest('lucio-party');
+            },
+            outcomes: [
+                {
+                    chance: 1,
+                    flavourText: 'Hey! It\'s just an MP3 file on USB!',
+                    apply: function() {
+                        player.changeMoney(-80);
+                        player.items.push('djbeta');
+                        player.data['djbeta'] = true;
+                        return words.buildApplyReturn({money: -80, itemCount: 1});
+                    },
+                    buttons: [
+                        {
+                            text: 'Why did I need the expensive Tabletop player?'
+                        }
+                    ]
+                }
+            ]
+        }
     ];
 
     function getItemsForSale() {

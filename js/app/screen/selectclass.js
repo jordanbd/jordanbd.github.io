@@ -45,6 +45,9 @@ define(['jquery', 'app/ui/templates', 'app/model/classes', 'app/model/player'], 
         if (characterClass.items) {
             player.items = characterClass.items;
         }
+        if (characterClass.quests) {
+            player.quests = characterClass.quests;
+        }
 
         sm.enterScreen('battle');
     }

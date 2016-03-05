@@ -12,10 +12,12 @@ define([], function() {
         },
 
         SALT: {
-            WALK_DECREASE: 30
+            WALK_DECREASE: 30,
+            ACCOUNT_INCREASE: 5
         },
 
         TIME: {
+            SOCIAL_COST: 10,
             WALK_COST: 10,
             ACCOUNT_COST: 10
         }

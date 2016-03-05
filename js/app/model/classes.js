@@ -15,6 +15,7 @@ define(['app/util/random'], function(random) {
             money: 9999,
             secondsRemaining: 9999,
             betaChance: 1,
+            quests: ['lucio-party'],
             items: ['scrap', 'scrap', 'money-with-salt']
         },
         {

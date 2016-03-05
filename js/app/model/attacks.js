@@ -8,7 +8,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
             title: 'Post to social media',
             description: 'Discuss the current ongoing wave on social media. Let\'s not kid around though - you are hoping that someone at Blizzard ' +
                 'notices your desperation and gives you beta. You are so transparent. Maybe stay away if you are very salty...',
-            subDescription: 'Costs: -5 seconds, May increase: Money, May increase: Beta chance, May increase: Salt',
+            subDescription: 'Costs: -' + common.TIME.SOCIAL_COST + ' seconds, May increase: Money, May increase: Beta chance, May increase: Salt',
             beforeOutcome: function() {
                 if (!player.data['socialmediacount']) {
                     player.data['socialmediacount'] = 0;
@@ -16,7 +16,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                 player.data['socialmediacount']++;
             },
             isAvailable: function() {
-                return player.secondsRemaining >= 5 && player.characterClassId == 'default';
+                return player.secondsRemaining >= common.TIME.SOCIAL_COST && player.characterClassId == 'default';
             },
             outcomes: [
                 // TODO : remember - social media is "MF%"
@@ -32,7 +32,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                         player.changeSecondsRemaining(-10);
                         player.quests.push('blizzard-pizza');
                         player.data['blizzard-pizza-quest'] = true;
-                        return words.buildApplyReturn({time: -10, questCountAdded: 1});
+                        return words.buildApplyReturn({time: -common.TIME.SOCIAL_COST, questCountAdded: 1});
                     },
                     buttons: [
                         {
@@ -51,11 +51,11 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                         'I am sick of missing out on beta! I am going to make them all pay!"<br/><br/>Looks like someone has fallen to the dark ' +
                         'side of the salt.',
                     apply: function() {
-                        player.changeSecondsRemaining(-10);
+                        player.changeSecondsRemaining(-common.TIME.SOCIAL_COST);
                         player.quests.push('reddit-spammer');
                         player.data['reddit-spammer-quest'] = true;
                         player.data['reddit-spammer-started'] = true;
-                        return words.buildApplyReturn({time: -10, questCountAdded: 1});
+                        return words.buildApplyReturn({time: -common.TIME.SOCIAL_COST, questCountAdded: 1});
                     }
                 },
 
@@ -68,10 +68,10 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     flavourText: 'World champion Starcraft 2 player D.Va announces on Twitter that she needs 1v1 practice partners ' +
                         'for an upcoming tournament!',
                     apply: function() {
-                        player.changeSecondsRemaining(-10);
+                        player.changeSecondsRemaining(-common.TIME.SOCIAL_COST);
                         player.quests.push('dva-scrim');
                         player.data['dva-scrim-quest'] = true;
-                        return words.buildApplyReturn({time: -10, questCountAdded: 1});
+                        return words.buildApplyReturn({time: -common.TIME.SOCIAL_COST, questCountAdded: 1});
                     }
                 },
 
@@ -84,10 +84,10 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     flavourText: 'Blizzard have a problem! Their Beta inviting machine - the Beta-Inviter-9000 - has broken down! For some reason they built a ' +
                     'machine to do this? Anyway, they need scrap metal because the stupid thing is all rusted and broken because it hasn\'t been used in ages.',
                     apply: function() {
-                        player.changeSecondsRemaining(-10);
+                        player.changeSecondsRemaining(-common.TIME.SOCIAL_COST);
                         player.quests.push('blizzard-button');
                         player.data['blizzard-button-quest'] = true;
-                        return words.buildApplyReturn({time: -10, questCountAdded: 1});
+                        return words.buildApplyReturn({time: -common.TIME.SOCIAL_COST, questCountAdded: 1});
                     }
                 },
 
@@ -103,8 +103,8 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     ],
                     apply: function() {
                         player.changeBetaChance(-common.BETA.LOW);
-                        player.changeSecondsRemaining(-10);
-                        return words.buildApplyReturn({time: -10, beta: -common.BETA.LOW});
+                        player.changeSecondsRemaining(-common.TIME.SOCIAL_COST);
+                        return words.buildApplyReturn({time: -common.TIME.SOCIAL_COST, beta: -common.BETA.LOW});
                     },
                     buttons: [
                         {
@@ -121,8 +121,8 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     ],
                     apply: function() {
                         player.changeBetaChance(common.BETA.LOW);
-                        player.changeSecondsRemaining(-10);
-                        return words.buildApplyReturn({time: -10, beta: common.BETA.LOW});
+                        player.changeSecondsRemaining(-common.TIME.SOCIAL_COST);
+                        return words.buildApplyReturn({time: -common.TIME.SOCIAL_COST, beta: common.BETA.LOW});
                     },
                     buttons: [
                         {
@@ -145,8 +145,8 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     apply: function() {
                         var money = 1 + random.nextInt(100);
                         player.changeMoney(money);
-                        player.changeSecondsRemaining(-10);
-                        return words.buildApplyReturn({time: -10, money: money});
+                        player.changeSecondsRemaining(-common.TIME.SOCIAL_COST);
+                        return words.buildApplyReturn({time: -common.TIME.SOCIAL_COST, money: money});
                     },
                     buttons: [
                         {
@@ -166,8 +166,8 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                         '"Fuck me for believing in your Blizzard!" you shout (type) to the heavens. It literally gets you no where.'
                     ],
                     apply: function() {
-                        player.changeSecondsRemaining(-10);
-                        return words.buildApplyReturn({time: -10});
+                        player.changeSecondsRemaining(-common.TIME.SOCIAL_COST);
+                        return words.buildApplyReturn({time: -common.TIME.SOCIAL_COST});
                     }
                 },
 
@@ -181,9 +181,9 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     'literally any time googling it. You are so stupid, but you are happy that senpai has noticed you.',
                     apply: function() {
                         player.changeSalt(-100);
-                        player.changeSecondsRemaining(-10);
+                        player.changeSecondsRemaining(-common.TIME.SOCIAL_COST);
                         player.data['saltreset'] = true;
-                        return words.buildApplyReturn({time: -10}) + 'Your saltiness has reset to zero.';
+                        return words.buildApplyReturn({time: -common.TIME.SOCIAL_COST}) + 'Your saltiness has reset to zero.';
                     },
                     buttons: [
                         {
@@ -202,8 +202,8 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     ],
                     apply: function() {
                         player.changeSalt(5);
-                        player.changeSecondsRemaining(-10);
-                        return words.buildApplyReturn({salt: 5, time: -10});
+                        player.changeSecondsRemaining(-common.TIME.SOCIAL_COST);
+                        return words.buildApplyReturn({salt: 5, time: -common.TIME.SOCIAL_COST});
                     },
                     buttons: [
                         {
@@ -224,8 +224,8 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     ],
                     apply: function() {
                         player.changeSalt(-5);
-                        player.changeSecondsRemaining(-10);
-                        return words.buildApplyReturn({salt: -5, time: -10});
+                        player.changeSecondsRemaining(-common.TIME.SOCIAL_COST);
+                        return words.buildApplyReturn({salt: -5, time: -common.TIME.SOCIAL_COST});
                     },
                     buttons: [
                         {
@@ -242,8 +242,8 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     ],
                     apply: function() {
                         player.items.push('bag-common');
-                        player.changeSecondsRemaining(-10);
-                        return words.buildApplyReturn({time: -10, itemCount: 1});
+                        player.changeSecondsRemaining(-common.TIME.SOCIAL_COST);
+                        return words.buildApplyReturn({time: -common.TIME.SOCIAL_COST, itemCount: 1});
                     },
                     buttons: [
                         {
@@ -260,8 +260,8 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     ],
                     apply: function() {
                         player.items.push('bag-rare');
-                        player.changeSecondsRemaining(-10);
-                        return words.buildApplyReturn({time: -10, itemCount: 1});
+                        player.changeSecondsRemaining(-common.TIME.SOCIAL_COST);
+                        return words.buildApplyReturn({time: -common.TIME.SOCIAL_COST, itemCount: 1});
                     },
                     buttons: [
                         {
@@ -278,8 +278,8 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     ],
                     apply: function() {
                         player.items.push('bag-epic');
-                        player.changeSecondsRemaining(-10);
-                        return words.buildApplyReturn({time: -10, itemCount: 1});
+                        player.changeSecondsRemaining(-common.TIME.SOCIAL_COST);
+                        return words.buildApplyReturn({time: -common.TIME.SOCIAL_COST, itemCount: 1});
                     },
                     buttons: [
                         {
@@ -368,7 +368,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     ]
                 },
 
-                /* find briefcase */
+                /* find briefcase */ // fixme what is this crap
                 {
                     chance: 0.01,
                     isAvailable: function() {
@@ -535,6 +535,26 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     buttons: [
                         {
                             text: 'Should I call the cops?'
+                        }
+                    ]
+                },
+
+                /* start lucio quest */
+                {
+                    chance: 0.3,
+                    isAvailable: function() {
+                        return !player.data['lucio-quest'];
+                    },
+                    flavourText: 'You find a flyer for a dance party that needs a DJ. You could do that?',
+                    apply: function() {
+                        player.changeSecondsRemaining(-common.TIME.WALK_COST);
+                        player.changeSalt(-common.SALT.WALK_DECREASE);
+                        player.data['lucio-quest'] = true;
+                        player.quests.push('lucio-party');
+                    },
+                    buttons: [
+                        {
+                            text: 'Is this an excuse to do a Lucio-related quest?'
                         }
                     ]
                 },
@@ -722,8 +742,8 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     },
                     flavourText: 'YES... wait... no!! The Origins edition tricked you again... AGAIN. Your grip on your sanity loosens...',
                     apply: function() {
-                        player.changeSalt(5);
-                        player.changeSecondsRemaining(-5);
+                        player.changeSalt(common.SALT.ACCOUNT_INCREASE);
+                        player.changeSecondsRemaining(-common.TIME.ACCOUNT_COST);
                         return words.buildApplyReturn({salt: 5, time: -common.TIME.ACCOUNT_COST})
                     },
                     buttons: [
@@ -748,8 +768,8 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                         'The excitement rises then quickly falls as you are momentarily tricked by the Origins edition icon.'
                     ],
                     apply: function() {
-                        player.changeSalt(5);
-                        player.changeSecondsRemaining(-5);
+                        player.changeSalt(common.SALT.ACCOUNT_INCREASE);
+                        player.changeSecondsRemaining(-common.TIME.ACCOUNT_COST);
                         return words.buildApplyReturn({salt: 5, time: -common.TIME.ACCOUNT_COST})
                     },
                     buttons: [
@@ -772,8 +792,8 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                         'Nothing. If you try again it might show up?'
                     ],
                     apply: function() {
-                        player.changeSalt(5);
-                        player.changeSecondsRemaining(-5);
+                        player.changeSalt(common.SALT.ACCOUNT_INCREASE);
+                        player.changeSecondsRemaining(-common.TIME.ACCOUNT_COST);
                         return words.buildApplyReturn({salt: 5, time: -common.TIME.ACCOUNT_COST})
                     },
                     buttons: [
