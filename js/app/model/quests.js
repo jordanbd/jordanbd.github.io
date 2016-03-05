@@ -146,7 +146,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                     },
                     buttons: [
                         {
-                            text: 'I did good'
+                            text: 'This gun makes me feel like a big man'
                         }
                     ]
                 },

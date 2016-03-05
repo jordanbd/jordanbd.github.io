@@ -114,7 +114,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
             itemRef: 'visor-data',
             cost: 80,
             isAvailable: function() {
-                return !player.data['item-bought-visor-data'];
+                return !player.data['item-bought-visor-data'] && player.hasQuest('soldier76-glasses');
             },
             outcomes: [
                 {
@@ -132,7 +132,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
             itemRef: 'glasses',
             cost: 80,
             isAvailable: function() {
-                return !player.data['item-bought-glasses'];
+                return !player.data['item-bought-glasses'] && player.hasQuest('soldier76-glasses');
             },
             outcomes: [
                 {

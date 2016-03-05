@@ -32,6 +32,7 @@ define(['jquery', 'emitter', 'app/ui/templates', 'app/model/player'], function($
 
     function update() {
         player.secondsRemaining--;
+        player.changeSecondsElapsed(1);
         if (player.secondsRemaining < 0) {
             player.secondsRemaining = 0;
         }

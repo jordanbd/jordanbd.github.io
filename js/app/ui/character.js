@@ -115,6 +115,21 @@ function($, emitter, templates, timer, player, words, items) {
         }
     }
 
+    function itemTick30() {
+        if (player.items.length > 0) {
+            for (var i = 0; i < player.items.length; i++) {
+                var item = items.get[player.items[i]];
+                if (item.onTick30) {
+                    item.onTick30();
+                }
+            }
+        }
+        if (player.data['game-over']) {
+            timer.stop();
+            emitter.emit('victory');
+        }
+    }
+
     function itemSaltChange(amt) {
         if (player.items.length > 0) {
             for (var i = 0; i < player.items.length; i++) {
@@ -159,7 +174,8 @@ function($, emitter, templates, timer, player, words, items) {
 
         emitter.on('character-refresh', updateUI);
 
-        emitter.on('timer-tick10', itemTick10);
+        emitter.on('global-timer-tick10', itemTick10);
+        emitter.on('global-timer-tick30', itemTick30);
     }
 
     return {

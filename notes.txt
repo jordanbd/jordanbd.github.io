@@ -9,8 +9,11 @@ TODO
 > Class - twitch streamer
 > Final battle quest
 > Fix front page time description
-> Make sure all items have rarity modifier
-> Rebalance winston questcost
+> Rebalance winston quest cost
+> Add "Corruption" meter for book of salt story
+> Fix beta chance descriptions
+> Berries: something needs to be done with them
+> Sammy's idea: If you walk around with gun and without license you get arrested
 
 TODO OLD
 

@@ -59,6 +59,22 @@ define(['emitter'], function(emitter) {
             if (this.secondsRemaining < 0) {
                 this.secondsRemaining = 0;
             }
+            if (amt < 0) {
+                this.changeSecondsElapsed(Math.abs(amt));
+            }
+        },
+        // A second hidden clock for events I dont want to be affected by movements in time
+        secondsElapsed: 0,
+        changeSecondsElapsed: function(amt) {
+            for (var t = 0; t < amt; t++) {
+                this.secondsElapsed++;
+                if (this.secondsElapsed % 30 == 0) {
+                    emitter.emit('global-timer-tick30');
+                }
+                if (this.secondsElapsed % 10 == 0) {
+                    emitter.emit('global-timer-tick10');
+                }
+            }
         },
         money: 40,
         changeMoney: function(amt) {
