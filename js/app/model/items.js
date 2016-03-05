@@ -701,7 +701,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
         },
         'peanut': {
             title: 'Peanut butter',
-            description: 'Lower\'s your saltiness by -5% and makes gorillas happy.',
+            description: 'Lower\'s your saltiness by -15% and makes gorillas happy.',
             rarity: 'common',
             outcomes: [
                 {
@@ -709,8 +709,8 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     flavourText: 'Why would a gorilla eat this?',
                     apply: function() {
                         player.removeItem('peanut');
-                        player.changeSalt(-5);
-                        return words.buildApplyReturn({salt: -5, itemCount: -1});
+                        player.changeSalt(-15);
+                        return words.buildApplyReturn({salt: -15, itemCount: -1});
                     }
                 }
             ]

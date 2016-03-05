@@ -202,15 +202,15 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
         },
         {
             itemRef: 'peanut',
-            cost: 20,
+            cost: 60,
             outcomes: [
                 {
                     chance: 1,
                     flavourText: 'This is salt-free peanut butter.',
                     apply: function() {
-                        player.changeMoney(-20);
+                        player.changeMoney(-60);
                         player.items.push('peanut');
-                        return words.buildApplyReturn({money: -20, itemCount: 1});
+                        return words.buildApplyReturn({money: -60, itemCount: 1});
                     }
                 }
             ]
