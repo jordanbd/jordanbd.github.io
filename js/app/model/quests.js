@@ -676,7 +676,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
         },
         'widow-reaper-bossfight': {
             title: 'Attack on the museum',
-            description: 'Some purple lady and the grim reaper are trying to steal something from the local museum! Any heroes you have assisted in previous quests will ' +
+            description: 'A purple alien and the grim reaper are trying to steal something from the local museum! Any heroes you have assisted in previous quests will ' +
                 'join you on this quest.',
             canComplete: function() {
                 return true
