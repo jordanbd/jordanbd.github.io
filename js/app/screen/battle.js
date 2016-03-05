@@ -43,8 +43,6 @@ function($, ui, _, emitter, templates, actions, news, character, modal, timer) {
     }
 
     function beforeExit() {
-        var $canvas = $('#canvas');
-        $canvas.off(); // turn off all event handlers
     }
 
     function exit() {

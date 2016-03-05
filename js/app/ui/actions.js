@@ -248,7 +248,8 @@ function($, _, emitter, templates, modal, timer, player, attacks, items, shop, q
 
 
     return {
-        setup: setup
+        setup: setup,
+        destroy: destroy
     }
 
 });

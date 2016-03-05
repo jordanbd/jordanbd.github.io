@@ -22,6 +22,17 @@ function($, browser, home, battle, gameover, selectClass) {
         enterScreen('home');
     }
 
+    function addOverlay() {
+        var $overlay = $('<div/>')
+            .attr('id', 'transition-overlay')
+            .addClass('ui-widget-overlay');
+        $('body').append($overlay);
+    }
+
+    function removeOverlay() {
+        $('#transition-overlay').remove();
+    }
+
     function enterScreen(name) {
         console.log('entering screen %s', name);
 
@@ -43,8 +54,10 @@ function($, browser, home, battle, gameover, selectClass) {
             if (screens[currentScreen].beforeExit) {
                 screens[currentScreen].beforeExit();
             }
+            addOverlay();
             $canvas.animate({opacity: 0}, 1000, 'linear', function() {
                 screens[currentScreen].exit();
+                removeOverlay();
                 deferred.resolve();
             });
         } else {
