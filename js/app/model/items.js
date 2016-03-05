@@ -146,6 +146,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
         'beard': {
             title: 'Beard of Jeff Kaplan',
             description: 'Return the beard. Complete the circle. Release me from this prison!',
+            rarity: 'legendary',
             outcomes: [
                 {
                     chance: 1,
@@ -157,7 +158,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     },
                     buttons: [
                         {
-                            text: 'NOW WE ARE ONE'
+                            text: '...'
                         }
                     ]
                 }

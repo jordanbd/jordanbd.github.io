@@ -26,29 +26,6 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
         //        }
         //    ]
         //},
-        //{
-        //    itemRef: 'beard',
-        //    description: 'Once thought lost, it has resurfaced. But can you really put a price on such a unique artifact? Yes. $1000.',
-        //    cost: 1000,
-        //    canAfford: function() {
-        //        return player.money >= this.cost
-        //    },
-        //    isAvailable: function() {
-        //        return !player.data['beard'] && player.characterClassId == 'default';
-        //    },
-        //    outcomes: [
-        //        {
-        //            chance: 1,
-        //            flavourText: 'A voice calls to you...',
-        //            apply: function() {
-        //                player.changeMoney(-1000);
-        //                player.items.push('beard');
-        //                player.data['beard'] = true;
-        //                return words.buildApplyReturn({money: -1000, itemCount: 1});
-        //            }
-        //        }
-        //    ]
-        //},
 
         //{
         //    itemRef: 'deadbook',
@@ -404,7 +381,27 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                     ]
                 }
             ]
-        }
+        },
+        {
+            itemRef: 'beard',
+            description: 'Once thought lost, it has resurfaced. But can you really put a price on such a unique artifact? Yes. $1000.',
+            cost: 1000,
+            isAvailable: function() {
+                return !player.data['beard'] && player.characterClassId == 'default';
+            },
+            outcomes: [
+                {
+                    chance: 1,
+                    flavourText: 'A voice calls to you...',
+                    apply: function() {
+                        player.changeMoney(-1000);
+                        player.items.push('beard');
+                        player.data['beard'] = true;
+                        return words.buildApplyReturn({money: -1000, itemCount: 1});
+                    }
+                }
+            ]
+        },
     ];
 
     function getItemsForSale() {
