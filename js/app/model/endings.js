@@ -344,6 +344,16 @@ define(['app/model/player', 'app/util/random'], function(player, random) {
         },
         {
             type: 'Defeat',
+            title: 'Your computer has been infected',
+            description: 'Yep, a random USB you bought from a shady shop that had an executable called "titan.exe" was a leaked version of Blizzard\'s abandoned ' +
+                'MMO. <br/><br/>That\'s quite a stretch there buddy.',
+            score: 999,
+            isAvailable: function() {
+                return player.characterClassId == 'default' && player.data['virus'];
+            }
+        },
+        {
+            type: 'Defeat',
             title: 'You have been arrested',
             description: 'For what it\'s worth you absolutely NAILED that window. Unfortunately there will be no Overwatch where you\'re heading.',
             score: 999,

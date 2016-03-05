@@ -374,7 +374,19 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
             outcomes: [
                 {
                     chance: 1,
-                    flavourText: 'The USB also has an executable on it named "Titan". What the?', // fixme
+                    score: 2,
+                    isAvailable: function() {
+                        return player.countItems('titan') == 0;
+                    },
+                    flavourText: 'The USB also has an executable on it named "Titan". What the?',
+                    apply: function() {
+                        player.items.push('titan');
+                        return words.buildApplyReturn({itemCount: 1});
+                    }
+                },
+                {
+                    chance: 1,
+                    flavourText: 'The USB only has the song on it.'
                 }
             ]
         },
@@ -774,12 +786,32 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
         },
         'blizzard-hacks': {
             title: 'A collection of Blizzard game hacks',
-            description: 'Now we shall see who the scrublord is!',
+            description: 'Now we shall see who the scrublord is, Lightknight69!!!',
             rarity: 'common',
             outcomes: [
                 {
                     chance: 1,
                     flavourText: 'Oh man you have to edit config files and stuff? This looks hard.'
+                }
+            ]
+        },
+        'titan': {
+            title: 'An executable program that simply says "titan.exe"',
+            description: 'Could it be? Have I got my hands on a build of the abandoned Blizzard MMO? The very project that eventually lead to Overwatch?',
+            rarity: 'legendary',
+            outcomes: [
+                {
+                    chance: 1,
+                    flavourText: 'Nope; it\'s a virus.',
+                    apply: function() {
+                        player.data['virus'] = true;
+                        player.data['beta'] = true;
+                    },
+                    buttons: [
+                        {
+                            text: 'Crap'
+                        }
+                    ]
                 }
             ]
         },

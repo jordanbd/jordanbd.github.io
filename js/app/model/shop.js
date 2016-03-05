@@ -289,7 +289,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
             },
             outcomes: [
                 {
-                    chance: 0.1,
+                    chance: 0.99,
                     flavourText: 'You can\'t wait to plug your Macbook into this and press PLAY.',
                     apply: function() {
                         player.changeMoney(-200);
@@ -300,7 +300,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                     }
                 },
                 {
-                    chance: 0.99,
+                    chance: 0.01,
                     flavourText: 'Oh what the hell - this is just a box full of bricks!',
                     apply: function() {
                         player.changeMoney(-200);
