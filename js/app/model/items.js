@@ -16,6 +16,9 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
             var group = table[i];
             if (group.chance && Math.random() < group.chance) {
                 var itemRef = random.randomArray(group.options);
+                if (items[itemRef].unique && !player.countItems(itemRef) > 0) {
+                    continue;
+                }
                 player.items.push(itemRef);
                 count++;
             }
@@ -81,6 +84,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
         'origins': {
             title: 'Overwatch: Origins edition',
             description: 'You have prepurchased Overwatch. This item literally does nothing. It certainly doesn\'t guarantee Beta access, right Blizzard? :(',
+            rarity: 'legendary',
             outcomes: [
                 {
                     chance: 1,
@@ -480,39 +484,10 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                             },
                             {
                                 chance: 1,
-                                options: ['accelerator', 'money-with-salt']
+                                options: ['accelerator', 'money-with-salt', 'account-salt-free']
                             }
                         ]);
                         player.removeItem('bag-epic');
-                        return words.buildApplyReturn({itemCount: itemCount})
-                    }
-                }
-            ]
-        },
-        'bag-gift': {
-            title: 'Bag-blizz gift',
-            description: 'Bag-blizz gift',
-            rarity: 'epic',
-            outcomes: [
-                {
-                    chance: 1,
-                    apply:function() {
-                        // TODO MORE
-                        var itemCount = spawnLootFromTable([
-                            {
-                                chance: 1,
-                                options: ['scrap']
-                            },
-                            {
-                                chance: 1,
-                                options: ['time-berry', 'time-berry', 'time-berry', 'beta-bite']
-                            },
-                            {
-                                chance: 1,
-                                options: ['salt-sacrifice', 'four-clover']
-                            },
-                        ]);
-                        player.removeItem('bag-gift');
                         return words.buildApplyReturn({itemCount: itemCount})
                     }
                 }
@@ -958,11 +933,12 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
         },
         'money-with-salt': {
             title: 'Wallet of Salt',
-            description: 'While you have this item in your inventory every time you increase in saltiness you gain the same amount of money.',
+            description: 'While you have this item in your inventory every time you increase in saltiness your money is increased by that amount times two.',
             rarity: 'epic',
+            unique: true,
             onSaltChange: function(amt) {
                 if (amt > 0) {
-                    player.changeMoney(amt);
+                    player.changeMoney(amt * 2);
                 }
             },
             outcomes: [
@@ -972,8 +948,17 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                 }
             ]
         },
-        'beta-with-time': {
-            title: ''
+        'account-salt-free': {
+            title: 'Battle.net Account protective goggles',
+            description: 'Prevents you from gaining salt when checking your Battle.net Account for Beta access and halves the time it takes to perform this action.',
+            rarity: 'epic',
+            unique: true,
+            outcomes: [
+                {
+                    chance: 1,
+                    flavourText: 'My eyes! The goggles do something.'
+                }
+            ]
         },
         'bird': {
             title: 'Annoying bird',

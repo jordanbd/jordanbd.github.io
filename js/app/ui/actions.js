@@ -31,10 +31,17 @@ function($, _, emitter, templates, modal, timer, player, attacks, items, shop, q
         for (var i = 0; i < availableAttacks.length; i++) {
             var attack = availableAttacks[i];
 
+            var subDescription = null;
+            if (typeof attack.subDescription === 'function') {
+                subDescription = attack.subDescription();
+            } else {
+                subDescription = attack.subDescription;
+            }
+
             var $opt = $(templates.getTemplate('actionOptionTmpl')({
                 title: attack.title,
                 description: attack.description,
-                subDescription: attack.subDescription
+                subDescription: subDescription
             }));
 
             var click = function(a) {

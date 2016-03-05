@@ -7,8 +7,6 @@ TODO
 > Consolidate +/- increments into one field
 > Keep briefcase in game?
 > Class - twitch streamer
-> Group duplicate items
-> Titan.exe quest
 > Final battle quest
 > Fix front page time description
 > Make sure all items have rarity modifier

@@ -14,9 +14,9 @@ define(['app/util/random'], function(random) {
             salt: 0,
             money: 9999,
             secondsRemaining: 9999,
-            betaChance: 1,
+            betaChance: 0,
             quests: ['lucio-party'],
-            items: ['scrap', 'scrap', 'money-with-salt']
+            items: ['scrap', 'scrap', 'money-with-salt', 'account-salt-free']
         },
         {
             identifier: 'default',

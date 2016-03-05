@@ -260,7 +260,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         player.removeItem('pizza');
                         player.removeItem('blizzard-fake-id');
                         player.removeQuest('blizzard-pizza');
-                        player.items.push('bag-gift');
+                        player.items.push('bag-epic');
                         return words.buildApplyReturn({itemCount: 1});
                     },
                     buttons: [

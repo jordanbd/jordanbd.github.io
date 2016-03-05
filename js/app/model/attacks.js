@@ -551,6 +551,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                         player.changeSalt(-common.SALT.WALK_DECREASE);
                         player.data['lucio-quest'] = true;
                         player.quests.push('lucio-party');
+                        return words.buildApplyReturn({questCountAdded: 1});
                     },
                     buttons: [
                         {
@@ -711,9 +712,21 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
             title: 'Check your Battle.net account',
             description: 'Log in to Account Management and check to see if you have been invited into the Beta. This is the only way ' +
             'to confirm you are in beta. Be warned: if you have not yet been invited into the beta your salt will increase.',
-            subDescription:  'Costs: -5 seconds, Increases: Salt, Chance to finish game',
+            subDescription: function() {
+                var timeCost = -common.TIME.ACCOUNT_COST;
+                if (player.countItems('account-salt-free') > 0) {
+                    console.debug('reducing = %s', timeCost);
+                    timeCost /= 2;
+                    console.debug('reduced = %s', timeCost);
+                }
+                return 'Costs: ' + timeCost + ' seconds, Increases: Salt, Chance to finish game'
+            },
             isAvailable: function() {
-                return player.secondsRemaining >= 5 && player.characterClassId == 'default';
+                var timeCost = -common.TIME.ACCOUNT_COST;
+                if (player.countItems('account-salt-free') > 0) {
+                    timeCost /= 2;
+                }
+                return player.secondsRemaining >= Math.abs(timeCost) && player.characterClassId == 'default';
             },
             outcomes: [
                 //TODO slow internet connection costs you time
@@ -742,9 +755,18 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     },
                     flavourText: 'YES... wait... no!! The Origins edition tricked you again... AGAIN. Your grip on your sanity loosens...',
                     apply: function() {
-                        player.changeSalt(common.SALT.ACCOUNT_INCREASE);
-                        player.changeSecondsRemaining(-common.TIME.ACCOUNT_COST);
-                        return words.buildApplyReturn({salt: 5, time: -common.TIME.ACCOUNT_COST})
+                        var timeCost = -common.TIME.ACCOUNT_COST;
+                        if (player.countItems('account-salt-free') > 0) {
+                            timeCost /= 2;
+                        }
+                        var saltCost = common.SALT.ACCOUNT_INCREASE;
+                        if (player.countItems('account-salt-free') > 0) {
+                            saltCost = 0;
+                        }
+
+                        player.changeSalt(saltCost);
+                        player.changeSecondsRemaining(timeCost);
+                        return words.buildApplyReturn({salt: saltCost, time: timeCost})
                     },
                     buttons: [
                         {
@@ -768,9 +790,18 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                         'The excitement rises then quickly falls as you are momentarily tricked by the Origins edition icon.'
                     ],
                     apply: function() {
-                        player.changeSalt(common.SALT.ACCOUNT_INCREASE);
-                        player.changeSecondsRemaining(-common.TIME.ACCOUNT_COST);
-                        return words.buildApplyReturn({salt: 5, time: -common.TIME.ACCOUNT_COST})
+                        var timeCost = -common.TIME.ACCOUNT_COST;
+                        if (player.countItems('account-salt-free') > 0) {
+                            timeCost /= 2;
+                        }
+                        var saltCost = common.SALT.ACCOUNT_INCREASE;
+                        if (player.countItems('account-salt-free') > 0) {
+                            saltCost = 0;
+                        }
+
+                        player.changeSalt(saltCost);
+                        player.changeSecondsRemaining(timeCost);
+                        return words.buildApplyReturn({salt: saltCost, time: timeCost})
                     },
                     buttons: [
                         {
@@ -792,9 +823,18 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                         'Nothing. If you try again it might show up?'
                     ],
                     apply: function() {
-                        player.changeSalt(common.SALT.ACCOUNT_INCREASE);
-                        player.changeSecondsRemaining(-common.TIME.ACCOUNT_COST);
-                        return words.buildApplyReturn({salt: 5, time: -common.TIME.ACCOUNT_COST})
+                        var timeCost = -common.TIME.ACCOUNT_COST;
+                        if (player.countItems('account-salt-free') > 0) {
+                            timeCost /= 2;
+                        }
+                        var saltCost = common.SALT.ACCOUNT_INCREASE;
+                        if (player.countItems('account-salt-free') > 0) {
+                            saltCost = 0;
+                        }
+
+                        player.changeSalt(saltCost);
+                        player.changeSecondsRemaining(timeCost);
+                        return words.buildApplyReturn({salt: saltCost, time: timeCost})
                     },
                     buttons: [
                         {
