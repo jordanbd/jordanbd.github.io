@@ -3,17 +3,13 @@ TODO
 
 > Stats on home page
 > Tips on home page
-> More items for bags
-> Consolidate +/- increments into one field
-> Keep briefcase in game?
 > Class - twitch streamer
 > Final battle quest
-> Fix front page time description
-> Rebalance winston quest cost
 > Add "Corruption" meter for book of salt story
 > Fix beta chance descriptions
 > Berries: something needs to be done with them
 > Sammy's idea: If you walk around with gun and without license you get arrested
+> Add "helpful" expensive items to shop instead of just traps
 
 TODO OLD
 

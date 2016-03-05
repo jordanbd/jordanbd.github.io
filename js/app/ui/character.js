@@ -60,41 +60,52 @@ function($, emitter, templates, timer, player, words, items) {
         checkForMaxSaltiness();
     }
 
-    function showSaltChange(amount) {
-        var s = $('<span/>');
-        if (amount > 0) {
-            s.text("(+" + amount + ")");
-        } else {
-            s.text("(" + amount + ")");
+    function showChange(amount, $bucket, format) {
+        var value = null;
+        var $ele = null;
+        var formatAmount = function(amt) {
+            if (amt > 0) {
+                return '(+' + amt + ')';
+            } else {
+                return '(' + amt + ')';
+            }
+        };
+        if (format !== undefined) {
+            formatAmount = format;
         }
 
-        s.addClass('fade-queue');
-        s.appendTo($('.salt > .increment', $ele));
+        var $existing = $('span:not(.fading)', $bucket).last();
+        var existingValue = Number($existing.attr('data-amount'));
+        if ($existing.length != 0 && ((existingValue > 0 && amount > 0) || (existingValue < 0 && amount < 0))) {
+            value = amount + existingValue;
+            $ele = $existing;
+        } else {
+            $ele = $('<span/>');
+            value = amount;
+            $ele.appendTo($bucket);
+        }
+
+        $ele.text(formatAmount(value));
+        $ele.attr('data-amount', value);
+        $ele.addClass('fade-queue');
+    }
+
+    function showSaltChange(amount) {
+        showChange(amount, $('.salt > .increment', $ele));
     }
 
     function showMoneyChange(amount) {
-        var s = $('<span/>');
-        if (amount > 0) {
-            s.text("(+" + amount + ")");
-        } else {
-            s.text("(" + amount + ")");
-        }
-
-        s.addClass('fade-queue');
-        s.appendTo($('.money > .increment', $ele));
+        showChange(amount, $('.money > .increment', $ele));
     }
 
     function showBetaChanceChange(amount) {
-        var s = $('<span/>');
-        s.text(words.betaChanceIncrement(amount));
-
-        s.addClass('fade-queue');
-        s.appendTo($('.beta-chance > .increment', $ele));
+        showChange(amount, $('.beta-chance > .increment', $ele), words.betaChanceIncrement);
     }
 
     function fadeQueuedElements() {
         $('.fade-queue', $ele)
             .removeClass('fade-queue')
+            .addClass('fading')
             .animate({opacity: 0}, 300, 'linear', function() {
                 $(this).remove();
             });
