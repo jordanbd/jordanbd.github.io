@@ -1,6 +1,6 @@
 'use strict';
 
-define(['app/model/player', 'app/model/words'], function(player, words) {
+define(['app/model/player', 'app/model/words', 'emitter'], function(player, words, emitter) {
 
     var items = [
         {
@@ -39,6 +39,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         player.items.push('deadbook');
                         player.data['deadbook'] = true;
                         player.data['darkness'] = 0;
+                        emitter.emit('new-character-attribute', {id: 'darkness', name: 'Darkness', format: 'corruptionValue', value: 0});
                         return words.buildApplyReturn({money: -400, itemCount: 1});
                     }
                 }

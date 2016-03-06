@@ -132,6 +132,10 @@ p strong {
     color: #00b4ff;
 }
 
+.custom-darkness {
+    color: #720000;
+}
+
 /** News **/
 
 .panel-news-title {

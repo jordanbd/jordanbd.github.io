@@ -43,6 +43,16 @@ function($, emitter, templates, timer, player, words, items) {
         var $betaChanceDescription = $('.beta-chance > .description', $ele);
         var $betaChanceValue = $('.beta-chance > .value', $ele);
         $betaChanceValue.text(words.betaChanceValue(player.betaChance));
+
+        /** Custom **/
+        var $customAttributes = $('[class^="custom-"]');
+        $customAttributes.each(function(index, $custEleTd) {
+            var id = $customAttributes.attr('data-custom-id');
+            var format = $customAttributes.attr('data-format');
+            var value = player.data[id];
+            var $customValue = $('.value', $custEleTd);
+            $customValue.text(words[format](value));
+        });
     }
 
     function checkForMaxSaltiness() {
@@ -100,6 +110,28 @@ function($, emitter, templates, timer, player, words, items) {
 
     function showBetaChanceChange(amount) {
         showChange(amount, $('.beta-chance > .increment', $ele), words.betaChanceIncrement);
+    }
+
+    function addCustomAttribute(data) {
+        var $table = $('.character-stats');
+
+        var defaultValue = words[data.format](data.value);
+
+        var $tr = $(
+            '<tr>' +
+            '<th>' + data.name + '</th>' +
+            '<td data-format="' + data.format + '" data-custom-id="' + data.id + '" class="custom-' + data.id + '">' +
+            '<span class="value">' + defaultValue + '</span>' +
+            '<span class="description"></span>\n' + // note the line-break hack
+            '<span class="increment"></span>' +
+            '</td>' +
+            '</tr>');
+        $table.append($tr);
+    }
+
+    function showCustomAttributeChange(data) {
+        console.debug('Custom Attribute Change: %O', data);
+        showChange(data.value, $('.custom-' + data.id + ' > .increment', $ele));
     }
 
     function fadeQueuedElements() {
@@ -187,6 +219,9 @@ function($, emitter, templates, timer, player, words, items) {
 
         emitter.on('global-timer-tick10', itemTick10);
         emitter.on('global-timer-tick30', itemTick30);
+
+        emitter.on('new-character-attribute', addCustomAttribute);
+        emitter.on('custom-attribute-change', showCustomAttributeChange);
     }
 
     return {

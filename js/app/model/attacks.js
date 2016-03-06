@@ -715,9 +715,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
             subDescription: function() {
                 var timeCost = -common.TIME.ACCOUNT_COST;
                 if (player.countItems('account-salt-free') > 0) {
-                    console.debug('reducing = %s', timeCost);
                     timeCost /= 2;
-                    console.debug('reduced = %s', timeCost);
                 }
                 return 'Costs: ' + timeCost + ' seconds, Increases: Salt, Chance to finish game'
             },

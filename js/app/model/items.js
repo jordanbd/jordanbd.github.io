@@ -1,6 +1,6 @@
 'use strict';
 
-define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/common'], function(player, words, random, common) {
+define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/common', 'emitter'], function(player, words, random, common, emitter) {
 
     // TODO: Salty pants - increases your salt generation but every N seconds increase your beta chance
     // TODO: on Tick applications
@@ -223,6 +223,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     flavourText: 'You hear voices as you open the dusty tome. The darkness has found you.',
                     apply: function() {
                         player.data['darkness'] += 10;
+                        emitter.emit('custom-attribute-change', {id: 'darkness', value: 10});
                         player.data['deadbookread'] = true;
                         player.removeItem('deadbook');
                         return words.buildApplyReturn({itemCount: -1, miscText: 'New items for sale at shop.'});
@@ -245,6 +246,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     flavourText: 'Sodium chloride crystalline beta salinity!',
                     apply: function() {
                         player.data['darkness'] += 10;
+                        emitter.emit('custom-attribute-change', {id: 'darkness', value: 10});
                         player.removeItem('spell-increasechance');
                         player.changeBetaChance(common.BETA.MEDIUM);
                         player.changeSalt(40);
@@ -268,6 +270,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     flavourText: 'Sodium chloride crystalline currency salinity mines!',
                     apply: function() {
                         player.data['darkness'] += 10;
+                        emitter.emit('custom-attribute-change', {id: 'darkness', value: 10});
                         player.removeItem('spell-increasemoney');
                         player.changeMoney(1000);
                         player.changeSalt(40);
@@ -291,6 +294,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     flavourText: 'Chlorine $$CM beta salinity halite sodium!',
                     apply: function() {
                         player.data['darkness'] += 100; // doesn't matter anyway but just for completeness
+                        emitter.emit('custom-attribute-change', {id: 'darkness', value: 100});
                         player.removeItem('spell-mindcontrol');
                         player.data['beta'] = true;
                         player.data['mindcontrol'] = true;
@@ -308,6 +312,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     flavourText: 'Chlorine $$CM beta salinity halite sodium!',
                     apply: function() {
                         player.data['darkness'] += 100; // doesn't matter anyway but just for completeness
+                        emitter.emit('custom-attribute-change', {id: 'darkness', value: 100});
                         player.removeItem('spell-mindcontrol');
                         player.changeSalt(40);
                         player.data['mindcontrol'] = true;

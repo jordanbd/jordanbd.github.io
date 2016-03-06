@@ -36,6 +36,10 @@ define(['app/util/random'], function(random) {
         }
     }
 
+    function corruptionValue(value) {
+        return value + '%';
+    }
+
     function betaChanceValue(value) {
         return value; // fixme
         //if (value >= 0.5) {
@@ -138,7 +142,8 @@ define(['app/util/random'], function(random) {
         betaChanceValue: betaChanceValue,
         betaChanceIncrement: betaChanceIncrement,
         textReplace: textReplace,
-        buildApplyReturn: buildApplyReturn
+        buildApplyReturn: buildApplyReturn,
+        corruptionValue: corruptionValue
     }
 
 });
