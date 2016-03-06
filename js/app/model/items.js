@@ -1045,6 +1045,54 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     ]
                 }
             ]
+        },
+        'cheeky-nandos': {
+            title: 'Cheeky Nandos',
+            description: 'Nandos makes everything better. Expensive as hell though. ' +
+                'Resets your saltiness and increases your beta chances by ' + words.betaChanceValue(common.BETA.MEDIUM) + '.',
+            rarity: 'rare',
+            outcomes: [
+                {
+                    chance: 1,
+                    flavourText: 'I love Nandos.',
+                    apply: function() {
+                        player.changeSalt(-100);
+                        player.changeBetaChance(common.BETA.HIGH);
+                        player.removeItem('cheeky-nandos');
+                        return words.buildApplyReturn({salt: -100, beta: common.BETA.HIGH, itemCount: -1});
+                    },
+                    buttons: [
+                        {
+                            text: 'Me too'
+                        }
+                    ]
+                }
+            ]
+        },
+        'onsolace-chips': {
+            title: 'OnSolace\'s Chips',
+            description: 'Or fries - whatever. While in your inventory, increases beta chance by ' + words.betaChanceValue(common.BETA.LOW) + ' every 30 seconds for 3 minutes ' +
+                '(until the chips go cold).',
+            rarity: 'rare',
+            onTick30: function() {
+                if (!player.data['onsolace-chips-count']) {
+                    player.data['onsolace-chips-count'] = 0;
+                }
+                if (player.data['onsolace-chips-count'] == 6) {
+                    return;
+                }
+                player.data['onsolace-chips-count']++;
+                player.changeBetaChance(common.BETA.LOW);
+                if (player.data['onsolace-chips-count'] == 6) {
+                    items['onsolace-chips'].title = 'OnSolace\'s COLD chips';
+                }
+            },
+            outcomes: [
+                {
+                    chance: 1,
+                    flavourText: 'Nerf McCree'
+                }
+            ]
         }
     };
 

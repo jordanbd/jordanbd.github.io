@@ -395,6 +395,40 @@ define(['app/model/player', 'app/model/words', 'emitter', 'app/model/common'], f
                 }
             ]
         },
+        {
+            itemRef: 'cheeky-nandos',
+            cost: 300,
+            outcomes: [
+                {
+                    chance: 1,
+                    flavourText: 'Classic chicken burger meal - hot.',
+                    apply: function() {
+                        player.changeMoney(-300);
+                        player.addItem('cheeky-nandos');
+                        return words.buildApplyReturn({money: -300, itemCount: 1});
+                    }
+                }
+            ]
+        },
+        {
+            itemRef: 'onsolace-chips',
+            cost: 400,
+            isAvailable: function() {
+                return !player.data['onsolace-chips'];
+            },
+            outcomes: [
+                {
+                    chance: 1,
+                    flavourText: 'Now all I need is a puppet.',
+                    apply: function() {
+                        player.data['onsolace-chips'] = true;
+                        player.changeMoney(-400);
+                        player.addItem('onsolace-chips');
+                        return words.buildApplyReturn({money: -400, itemCount: 1});
+                    }
+                }
+            ]
+        }
     ];
 
     function getItemsForSale() {

@@ -13,6 +13,7 @@ define(['emitter'], function(emitter) {
             for (var i = 0; i < this.items.length; i++) {
                 if (this.items[i] == code) {
                     this.items.splice(i, 1);
+                    emitter.emit('item-change');
                     break;
                 }
             }
@@ -45,6 +46,7 @@ define(['emitter'], function(emitter) {
                 if (this.quests[i] == code) {
                     this.quests.splice(i, 1);
                     this.questHistory.push(code);
+                    emitter.emit('quest-change');
                     break;
                 }
             }
