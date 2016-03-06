@@ -41,31 +41,20 @@ define(['app/util/random'], function(random) {
     }
 
     function betaChanceValue(value) {
-        return value; // fixme
-        //if (value >= 0.5) {
-        //    return 'Extremely high'
-        //} else if (value >= 0.3) {
-        //    return 'High'
-        //} else if (value >= 0.1) {
-        //    return 'Medium'
-        //} else if (value >= 0.05) {
-        //    return 'Low'
-        //} else if (value >= 0.01) {
-        //    return 'Very low'
-        //} else {
-        //    return 'No chance'
-        //}
+        var v = +(value * 100).toFixed(2);
+        return v + '%';
     }
 
     function betaChanceIncrement(value) {
-        if (value >= 0.1) {
-            return '(large increase)'
-        } else if (value > 0) {
-            return '(small increase)'
-        } else if (value <= 0.1) {
-            return '(large decrease)'
-        } else if (value < 0) {
-            return '(small decrease)'
+        var inc = +(value * 100).toFixed(2);
+        if (inc == 0) {
+            return '(tiny amount)';
+        } else {
+            if (inc > 0) {
+                return '(+' + inc + '%)';
+            } else {
+                return '(' + inc + '%)';
+            }
         }
     }
 
@@ -105,9 +94,9 @@ define(['app/util/random'], function(random) {
         }
         if (opts.beta) {
             if (opts.beta > 0) {
-                sb += "<span class='word word-beta'>Your beta chances have increased by " + Math.round(opts.beta * 100) + "%.</span> "
+                sb += "<span class='word word-beta'>Your beta chances have increased by " + betaChanceValue(opts.beta) + ".</span> "
             } else if (opts.beta < 0) {
-                sb += "<span class='word word-beta'>Your beta chances have decreased by " + Math.round(opts.beta * 100) + "%.</span> "
+                sb += "<span class='word word-beta'>Your beta chances have decreased by " + betaChanceValue(opts.beta) + ".</span> "
             }
         }
         if (opts.time) {
