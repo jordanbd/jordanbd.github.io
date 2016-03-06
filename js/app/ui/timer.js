@@ -5,6 +5,7 @@ define(['jquery', 'emitter', 'app/ui/templates', 'app/model/player'], function($
     var $timerElement;
     var interval;
     var stopped = false;
+    var pauseBlinkInterval = null;
 
     function str_pad_left(string,pad,length) {
         return (new Array(length+1).join(pad)+string).slice(-length);
@@ -60,9 +61,22 @@ define(['jquery', 'emitter', 'app/ui/templates', 'app/model/player'], function($
             emitter.emit('timer-tick10');
         }
 
+        if (pauseBlinkInterval != null) {
+            clearInterval(pauseBlinkInterval);
+        }
         interval = setInterval(update, 1000);
         updateUI();
         console.log('timer started');
+    }
+
+    function blink() {
+        var pauseText = 'paused';
+        var $clock = $('.clock', $timerElement);
+        if ($clock.text() == pauseText) {
+            updateUI(); // back to digital display
+        } else {
+            $clock.text(pauseText);
+        }
     }
 
     function pause() {
@@ -70,6 +84,7 @@ define(['jquery', 'emitter', 'app/ui/templates', 'app/model/player'], function($
             return;
         }
         clearInterval(interval);
+        pauseBlinkInterval = setInterval(blink, 1000);
         console.log('timer paused');
     }
 

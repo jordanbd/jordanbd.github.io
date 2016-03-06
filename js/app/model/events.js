@@ -14,8 +14,7 @@ define(['app/model/player'], function(player) {
             },
             type: 'twitter',
             flavourText: [
-                '$$CM posts on Twitter, "We are starting a new beta wave for Overwatch! Check your Battle.net accounts to see ' +
-                'if you were accepted."'
+                '$$CM posts on Twitter, "We are starting a new beta wave for Overwatch! The wave will end shortly."'
             ]
         },
         {

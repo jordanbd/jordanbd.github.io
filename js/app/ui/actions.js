@@ -250,10 +250,28 @@ function($, _, emitter, templates, modal, timer, player, attacks, items, shop, q
             emitter.emit('defeat');
         });
 
+        // Find bnet account action
+        var availableAttacks = attacks.getAttacks();
+        var bnetAttack = null;
+        for (var i = 0; i < availableAttacks.length; i++) {
+            var attack = availableAttacks[i];
+            if (attack.title == 'Check your Battle.net account') {
+                bnetAttack = attack;
+                break;
+            }
+        }
+
+        if (bnetAttack != null) {
+            $(document).on('click', '#action-bnet', function() {
+                useAction(bnetAttack);
+            });
+        }
+
 
         $canvas.append($actionsPanel);
         $optionsPanel = $('.panel-actions-options');
 
+        showAttackOptions();
     }
 
     function destroy() {

@@ -6,6 +6,7 @@ TODO
 > Class - twitch streamer
 > Final battle quest
 > Add "helpful" expensive items to shop instead of just traps
+> Make sure everything uses misc text if any text after word builder
 
 TODO OLD
 
