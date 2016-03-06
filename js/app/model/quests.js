@@ -187,6 +187,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                 }
             ]
         },
+        // @deprecated
         'roadhog-truck': {
             title: 'Fat Bane and the ice-cream truck',
             description: 'That weird cosplayer might want the bag that fell off the truck back.',

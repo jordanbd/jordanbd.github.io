@@ -6,9 +6,8 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
         /* Default class attacks */
         {
             title: 'Post to social media',
-            description: 'Discuss the current ongoing wave on social media. Let\'s not kid around though - you are hoping that someone at Blizzard ' +
-                'notices your desperation and gives you beta. You are so transparent. Maybe stay away if you are very salty...',
-            subDescription: 'Costs: -' + common.TIME.SOCIAL_COST + ' seconds, May increase: Money, May increase: Beta chance, May increase: Salt',
+            description: 'This is a wildcard action where you can find items, quests, gain or lose beta chances and increase or lower salt.',
+            subDescription: 'Costs: -' + common.TIME.SOCIAL_COST + ' seconds',
             beforeOutcome: function() {
                 if (!player.data['socialmediacount']) {
                     player.data['socialmediacount'] = 0;
@@ -19,7 +18,6 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                 return player.secondsRemaining >= common.TIME.SOCIAL_COST && player.characterClassId == 'default';
             },
             outcomes: [
-                // TODO : remember - social media is "MF%"
 
                 /* start blizzard pizza quest */
                 {
@@ -290,7 +288,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
             ]
         },
         {
-            title: 'Go for a walk',
+            title: 'Go for a walk to find a quest',
             description: 'Lowers your saltiness by -' + common.SALT.WALK_DECREASE + '%. Chance to start a quest.',
             subDescription: 'Costs: -' + common.TIME.WALK_COST + ' seconds',
             isAvailable: function() {
@@ -514,12 +512,58 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                         player.changeSalt(-common.SALT.WALK_DECREASE);
                         player.data['roadhog-quest'] = true;
                         player.addItem('dollar-sign-bag');
-                        player.addQuest('roadhog-truck');
-                        return words.buildApplyReturn({time: -common.TIME.WALK_COST, salt: -common.SALT.WALK_DECREASE, itemCount: 1, questCountAdded: 1});
+                        //player.addQuest('roadhog-truck');
+                        return words.buildApplyReturn({time: -common.TIME.WALK_COST, salt: -common.SALT.WALK_DECREASE, itemCount: 1});
                     },
                     buttons: [
                         {
                             text: 'I don\'t think he saw me'
+                        }
+                    ]
+                },
+
+                /* roadhod quest follow-up - opened item */
+                {
+                    chance: 0.3,
+                    isAvailable: function() {
+                        return player.data['roadhog-quest'] && player.countItems('dollar-sign-bag') == 0;
+                    },
+                    flavourText: [
+                        'The fat idiot who was driving the ice-cream truck steps out from the shadows. He demands to know where the bag that fell ' +
+                        'off his truck went.<br/><br/>You tell fatty that you took the items and that if he wants them back so bad he can try and chase you. ' +
+                        'You are unaware he possesses a hook.<br/><br/> Fat Bane beats you up and takes your money.'
+                    ],
+                    apply: function() {
+                        var moneyStolen = player.money;
+                        player.changeMoney(-moneyStolen);
+                        return words.buildApplyReturn({money: -moneyStolen});
+                    },
+                    buttons: [
+                        {
+                            text: 'Four people witnessed that and did nothing'
+                        }
+                    ]
+                },
+
+                /* roadhog quest follow-up - did not open item */
+                {
+                    chance: 0.3,
+                    isAvailable: function() {
+                        return player.data['roadhog-quest'] && player.countItems('dollar-sign-bag') == 1;
+                    },
+                    flavourText: [
+                        'The fat idiot who was driving the ice-cream truck steps out from the shadows. He demands to know where the bag that fell ' +
+                        'off his truck went.<br/><br/>You don\'t want to upset him so you give him his bag back. In exchange he offers you a bag of ' +
+                        'junk he collected.'
+                    ],
+                    apply: function() {
+                        player.addItem('bag-rare');
+                        player.removeItem('dollar-sign-bag');
+                        return words.buildApplyReturn({itemCount: 1});
+                    },
+                    buttons: [
+                        {
+                            text: 'His Bane costume sucked'
                         }
                     ]
                 },

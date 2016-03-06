@@ -660,7 +660,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
         'dollar-sign-bag': {
             title: 'A bag with a dollar sign on it',
             description: 'Kind of inconspicuous isn\'t it?',
-            rarity: 'quest',
+            rarity: 'epic',
             outcomes: [
                 {
                     chance: 0.5,

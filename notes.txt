@@ -5,8 +5,6 @@ TODO
 > Tips on home page
 > Class - twitch streamer
 > Final battle quest
-> Add "helpful" expensive items to shop instead of just traps
-> Actions need to be made very clear: rename "go for walk" to "find quest",
 
 TODO OLD
 
@@ -30,6 +28,20 @@ http://asciiflow.com/#0B6nDGcibuPdKS2hGd1RRM3FwWGc
 Some links...
 http://i.imgur.com/HXT95hr.png
 http://i.imgur.com/KxCGsVN.png
+
+STATS
+
+1. got into beta
+2. saw monster.
+3. fought monster
+4. bought jkapp beard
+5. used dark powers of salt
+6. shot soldier 76
+7. died
+8. ran out of time
+9. were consumed by salt
+10. were arrested
+11. ran
 
 KNOWN BUGS
 
