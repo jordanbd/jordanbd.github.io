@@ -5,10 +5,6 @@ TODO
 > Tips on home page
 > Class - twitch streamer
 > Final battle quest
-> Add "Corruption" meter for book of salt story
-> Fix beta chance descriptions
-> Berries: something needs to be done with them
-> Sammy's idea: If you walk around with gun and without license you get arrested
 > Add "helpful" expensive items to shop instead of just traps
 
 TODO OLD

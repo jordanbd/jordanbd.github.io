@@ -93,7 +93,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
 
                 /* lower beta */
                 {
-                    chance: 0.01,
+                    chance: 0.03,
                     isAvailable: function() {
                         return player.salt >= 50 && player.betaChance > 0;
                     },

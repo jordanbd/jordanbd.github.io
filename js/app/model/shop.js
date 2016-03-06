@@ -1,6 +1,6 @@
 'use strict';
 
-define(['app/model/player', 'app/model/words', 'emitter'], function(player, words, emitter) {
+define(['app/model/player', 'app/model/words', 'emitter', 'app/model/common'], function(player, words, emitter, common) {
 
     var items = [
         {
@@ -250,11 +250,11 @@ define(['app/model/player', 'app/model/words', 'emitter'], function(player, word
                     chance: 0.6,
                     flavourText: 'It doesn\'t come with beta access but you can\'t help but feel luckier.',
                     apply: function() {
-                        player.changeBetaChance(0.02);
+                        player.changeBetaChance(common.BETA.MEDIUM);
                         player.changeMoney(-60);
                         player.items.push('origins');
                         player.data['origins'] = true;
-                        return words.buildApplyReturn({money: -60, itemCount: 1, beta: 0.02});
+                        return words.buildApplyReturn({money: -60, itemCount: 1, beta: common.BETA.MEDIUM});
                     },
                     buttons: [
                         {
