@@ -30,7 +30,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     flavourText: 'You notice $$CM mention that she is hungry on Twitter...',
                     apply: function() {
                         player.changeSecondsRemaining(-10);
-                        player.quests.push('blizzard-pizza');
+                        player.addQuest('blizzard-pizza');
                         player.data['blizzard-pizza-quest'] = true;
                         return words.buildApplyReturn({time: -common.TIME.SOCIAL_COST, questCountAdded: 1});
                     },
@@ -52,7 +52,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                         'side of the salt.',
                     apply: function() {
                         player.changeSecondsRemaining(-common.TIME.SOCIAL_COST);
-                        player.quests.push('reddit-spammer');
+                        player.addQuest('reddit-spammer');
                         player.data['reddit-spammer-quest'] = true;
                         player.data['reddit-spammer-started'] = true;
                         return words.buildApplyReturn({time: -common.TIME.SOCIAL_COST, questCountAdded: 1});
@@ -69,7 +69,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                         'for an upcoming tournament!',
                     apply: function() {
                         player.changeSecondsRemaining(-common.TIME.SOCIAL_COST);
-                        player.quests.push('dva-scrim');
+                        player.addQuest('dva-scrim');
                         player.data['dva-scrim-quest'] = true;
                         return words.buildApplyReturn({time: -common.TIME.SOCIAL_COST, questCountAdded: 1});
                     }
@@ -85,7 +85,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     'machine to do this? Anyway, they need scrap metal because the stupid thing is all rusted and broken because it hasn\'t been used in ages.',
                     apply: function() {
                         player.changeSecondsRemaining(-common.TIME.SOCIAL_COST);
-                        player.quests.push('blizzard-button');
+                        player.addQuest('blizzard-button');
                         player.data['blizzard-button-quest'] = true;
                         return words.buildApplyReturn({time: -common.TIME.SOCIAL_COST, questCountAdded: 1});
                     }
@@ -241,7 +241,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                         'For filling in one of Blizzard\'s surveys they send you a bag of junk. There are no Beta keys in this bag.'
                     ],
                     apply: function() {
-                        player.items.push('bag-common');
+                        player.addItem('bag-common');
                         player.changeSecondsRemaining(-common.TIME.SOCIAL_COST);
                         return words.buildApplyReturn({time: -common.TIME.SOCIAL_COST, itemCount: 1});
                     },
@@ -259,7 +259,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                         'You win a Twitch giveaway by using a view bot to stack the odds in your favour.'
                     ],
                     apply: function() {
-                        player.items.push('bag-rare');
+                        player.addItem('bag-rare');
                         player.changeSecondsRemaining(-common.TIME.SOCIAL_COST);
                         return words.buildApplyReturn({time: -common.TIME.SOCIAL_COST, itemCount: 1});
                     },
@@ -277,7 +277,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                         'A blinking pop-up congratulates you for being viewer one million. You are apparently the first person ever to claim the prize.'
                     ],
                     apply: function() {
-                        player.items.push('bag-epic');
+                        player.addItem('bag-epic');
                         player.changeSecondsRemaining(-common.TIME.SOCIAL_COST);
                         return words.buildApplyReturn({time: -common.TIME.SOCIAL_COST, itemCount: 1});
                     },
@@ -336,7 +336,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     apply: function() {
                         player.changeSecondsRemaining(-common.TIME.WALK_COST);
                         player.changeSalt(-common.SALT.WALK_DECREASE);
-                        player.items.push('clover');
+                        player.addItem('clover');
                         player.data['clover'] = true;
                         return words.buildApplyReturn({time: -common.TIME.WALK_COST, salt: -common.SALT.WALK_DECREASE, itemCount: 1});
                     },
@@ -357,7 +357,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                         player.changeSecondsRemaining(-common.TIME.WALK_COST);
                         player.changeSalt(-common.SALT.WALK_DECREASE);
                         player.data['slender-spotted'] = true;
-                        player.quests.push('slenderman');
+                        player.addQuest('slenderman');
                         return words.buildApplyReturn({time: -common.TIME.WALK_COST, salt: -common.SALT.WALK_DECREASE})
                             + 'You pretend you didn\'t see anything.';
                     },
@@ -380,7 +380,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     apply: function() {
                         player.changeSecondsRemaining(-common.TIME.WALK_COST);
                         player.changeSalt(-common.SALT.WALK_DECREASE);
-                        player.items.push('briefcase');
+                        player.addItem('briefcase');
                         player.data['briefcase-found'] = true;
                         return words.buildApplyReturn({time: -common.TIME.WALK_COST, salt: -common.SALT.WALK_DECREASE, itemCount: 1})
                     },
@@ -402,12 +402,12 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     apply: function() {
                         player.changeSecondsRemaining(-common.TIME.WALK_COST);
                         player.changeSalt(-common.SALT.WALK_DECREASE);
-                        player.items.push('berry');
-                        player.items.push('berry');
-                        player.items.push('berry');
-                        player.items.push('berry');
-                        player.items.push('berry');
-                        player.items.push('berry');
+                        player.addItem('berry');
+                        player.addItem('berry');
+                        player.addItem('berry');
+                        player.addItem('berry');
+                        player.addItem('berry');
+                        player.addItem('berry');
                         player.data['berries'] = true;
                         return words.buildApplyReturn({time: -common.TIME.WALK_COST, salt: -common.SALT.WALK_DECREASE, itemCount: 4})
                     },
@@ -442,7 +442,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     apply: function() {
                         player.changeSecondsRemaining(-common.TIME.WALK_COST);
                         player.changeSalt(-common.SALT.WALK_DECREASE);
-                        player.items.push('stale-water');
+                        player.addItem('stale-water');
                         player.data['stale-water-found'] = true;
                         return words.buildApplyReturn({time: -common.TIME.WALK_COST, salt: -common.SALT.WALK_DECREASE, itemCount: 1});
                     },
@@ -466,7 +466,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                         player.changeSecondsRemaining(-common.TIME.WALK_COST);
                         player.changeSalt(-common.SALT.WALK_DECREASE);
                         player.data['winston-quest'] = true;
-                        player.quests.push('winston-peanut1');
+                        player.addQuest('winston-peanut1');
                         return words.buildApplyReturn({time: -common.TIME.WALK_COST, salt: -common.SALT.WALK_DECREASE, questCountAdded: 1});
                     },
                     buttons: [
@@ -489,7 +489,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                         player.changeSecondsRemaining(-common.TIME.WALK_COST);
                         player.changeSalt(-common.SALT.WALK_DECREASE);
                         player.data['soldier76-quest'] = true;
-                        player.quests.push('soldier76-glasses');
+                        player.addQuest('soldier76-glasses');
                         return words.buildApplyReturn({time: -common.TIME.WALK_COST, salt: -common.SALT.WALK_DECREASE, questCountAdded: 1});
                     },
                     buttons: [
@@ -513,8 +513,8 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                         player.changeSecondsRemaining(-common.TIME.WALK_COST);
                         player.changeSalt(-common.SALT.WALK_DECREASE);
                         player.data['roadhog-quest'] = true;
-                        player.items.push('dollar-sign-bag');
-                        player.quests.push('roadhog-truck');
+                        player.addItem('dollar-sign-bag');
+                        player.addQuest('roadhog-truck');
                         return words.buildApplyReturn({time: -common.TIME.WALK_COST, salt: -common.SALT.WALK_DECREASE, itemCount: 1, questCountAdded: 1});
                     },
                     buttons: [
@@ -536,7 +536,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                         player.changeSecondsRemaining(-common.TIME.WALK_COST);
                         player.changeSalt(-common.SALT.WALK_DECREASE);
                         player.data['torb-quest'] = true;
-                        player.quests.push('torb-scrap');
+                        player.addQuest('torb-scrap');
                         return words.buildApplyReturn({time: -common.TIME.WALK_COST, salt: -common.SALT.WALK_DECREASE, questCountAdded: 1});
                     },
                     buttons: [
@@ -557,7 +557,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                         player.changeSecondsRemaining(-common.TIME.WALK_COST);
                         player.changeSalt(-common.SALT.WALK_DECREASE);
                         player.data['lucio-quest'] = true;
-                        player.quests.push('lucio-party');
+                        player.addQuest('lucio-party');
                         return words.buildApplyReturn({questCountAdded: 1});
                     },
                     buttons: [
@@ -580,7 +580,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                         player.changeSecondsRemaining(-common.TIME.WALK_COST);
                         player.changeSalt(-common.SALT.WALK_DECREASE);
                         player.data['bastion-quest'] = true;
-                        player.quests.push('bastion-broken');
+                        player.addQuest('bastion-broken');
                         return words.buildApplyReturn({time: -common.TIME.WALK_COST, salt: -common.SALT.WALK_DECREASE, questCountAdded: 1});
                     },
                     buttons: [
@@ -602,7 +602,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                         player.changeSecondsRemaining(-common.TIME.WALK_COST);
                         player.changeSalt(-common.SALT.WALK_DECREASE);
                         player.data['bastion-bird-found'] = true;
-                        player.items.push('bird');
+                        player.addItem('bird');
                         return words.buildApplyReturn({time: -common.TIME.WALK_COST, salt: -common.SALT.WALK_DECREASE, itemCount: 1});
                     },
                     buttons: [

@@ -16,7 +16,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                     apply: function() {
                         player.removeItem('peanut');
                         player.removeQuest('winston-peanut1');
-                        player.quests.push('winston-peanut2');
+                        player.addQuest('winston-peanut2');
                         return words.buildApplyReturn({itemCount: -1, questCountAdded: 1});
                     },
                     buttons: [
@@ -41,7 +41,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                     apply: function() {
                         player.removeItem('peanut');
                         player.removeQuest('winston-peanut2');
-                        player.items.push('bag-epic');
+                        player.addItem('bag-epic');
                         return words.buildApplyReturn({itemCount: 1});
                     },
                     buttons: [
@@ -72,8 +72,8 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                     apply: function() {
                         player.removeItem('visor-data');
                         player.removeItem('glasses');
-                        player.items.push('pistol');
-                        player.quests.push('soldier76-robbery');
+                        player.addItem('pistol');
+                        player.addQuest('soldier76-robbery');
                         player.removeQuest('soldier76-glasses');
                         return words.buildApplyReturn({itemCount: 1, questCountAdded: 1});
                     },
@@ -93,7 +93,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                     apply: function() {
                         player.removeItem('visor-data');
                         player.removeQuest('soldier76-glasses');
-                        player.items.push('bag-common');
+                        player.addItem('bag-common');
                         return words.buildApplyReturn({itemCount: 1});
                     },
                     buttons: [
@@ -112,7 +112,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                     apply: function() {
                         player.removeItem('glasses');
                         player.removeQuest('soldier76-glasses');
-                        player.items.push('bag-common');
+                        player.addItem('bag-common');
                         return words.buildApplyReturn({itemCount: 1});
                     },
                     buttons: [
@@ -141,7 +141,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         'a reward bag and sends you on your way.',
                     apply: function() {
                         player.removeQuest('soldier76-robbery');
-                        player.items.push('bag-epic');
+                        player.addItem('bag-epic');
                         return words.buildApplyReturn({itemCount: 1});
                     },
                     buttons: [
@@ -160,7 +160,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         'The frustrated soldier makes you promise to never contact him again in exchange for a bag of goods.',
                     apply: function() {
                         player.removeQuest('soldier76-robbery');
-                        player.items.push('bag-rare');
+                        player.addItem('bag-rare');
                         return words.buildApplyReturn({itemCount: 1});
                     },
                     buttons: [
@@ -206,7 +206,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         'junk he collected.'
                     ],
                     apply: function() {
-                        player.items.push('bag-rare');
+                        player.addItem('bag-rare');
                         player.removeItem('dollar-sign-bag');
                         player.removeQuest('roadhog-truck');
                         return words.buildApplyReturn({itemCount: 1});
@@ -260,7 +260,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         player.removeItem('pizza');
                         player.removeItem('blizzard-fake-id');
                         player.removeQuest('blizzard-pizza');
-                        player.items.push('bag-epic');
+                        player.addItem('bag-epic');
                         return words.buildApplyReturn({itemCount: 1});
                     },
                     buttons: [
@@ -326,7 +326,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
 
                         if (Number(player.data['blizzard-invite-machine']) == 100) {
                             player.removeQuest('blizzard-button');
-                            player.items.push('bag-epic');
+                            player.addItem('bag-epic');
                             player.data['blizzard-invite-machine-complete'] = true;
                             return 'Because of your donation you have allowed Blizzard to fix their Beta-Inviter-9000 machine. But you do not get a Beta invite ' +
                                 'for helping... that might be a little unfair to everyone who did not get to donate scrap.<br/><br/>' + words.buildApplyReturn({itemCount: 1});
@@ -361,8 +361,8 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                     apply: function() {
                         player.removeItem('pizza');
                         player.removeQuest('reddit-spammer');
-                        player.items.push('spam-script');
-                        player.items.push('bag-common');
+                        player.addItem('spam-script');
+                        player.addItem('bag-common');
                         player.data['reddit-spammer-started'] = false;
                         return words.buildApplyReturn({itemCount: 2});
                     },
@@ -382,7 +382,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         '<br/><br/>Since you\'ve already come this far you may as well rob him too? You take a bag of items from his house.',
                     apply: function() {
                         player.removeQuest('reddit-spammer');
-                        player.items.push('bag-rare');
+                        player.addItem('bag-rare');
                         player.data['reddit-spammer-started'] = false;
                         return words.buildApplyReturn({itemCount: 1});
                     },
@@ -429,7 +429,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                     ],
                     apply: function() {
                         player.removeQuest('dva-scrim');
-                        player.items.push('bag-common');
+                        player.addItem('bag-common');
                         player.data['beaten-by-dva'] = true;
                         return 'She thanks you for your time but says she doesn\'t need anymore practice with you.<br/><br/>' +
                             words.buildApplyReturn({itemCount: 1});
@@ -452,7 +452,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                     apply: function() {
                         player.removeQuest('dva-scrim');
                         player.data['beat-dva'] = true;
-                        player.items.push('sc2-trophy');
+                        player.addItem('sc2-trophy');
                         return words.buildApplyReturn({itemCount: 1});
                     },
                     buttons: [
@@ -472,7 +472,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         'with you.',
                     apply: function() {
                         player.removeQuest('dva-scrim');
-                        player.items.push('bag-common');
+                        player.addItem('bag-common');
                         player.data['beaten-by-dva'] = true;
                         return words.buildApplyReturn({itemCount: 1});
                     },
@@ -529,7 +529,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
 
                         if (Number(player.data['torb-turret']) == 100) {
                             player.removeQuest('torb-scrap');
-                            player.items.push('bag-epic');
+                            player.addItem('bag-epic');
                             player.data['torb-turret-complete'] = true;
                             return 'Because of your donations you have helped a local lunatic build a dangerous weapon! He hands you a bag of items as a thank you.<br/><br/>'
                                 + words.buildApplyReturn({itemCount: 1});
@@ -569,7 +569,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                     apply: function() {
                         player.removeQuest('bastion-broken');
                         player.removeItem('bird');
-                        player.items.push('bag-epic');
+                        player.addItem('bag-epic');
                         return words.buildApplyReturn({itemCount: 1});
                     }
                 }
@@ -662,7 +662,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                     apply: function() {
                         player.removeQuest('lucio-party');
                         player.removeItem('djset');
-                        player.items.push('bag-epic');
+                        player.addItem('bag-epic');
                         player.changeSalt(20);
                         return words.buildApplyReturn({itemCount: 1, salt: 20});
                     },

@@ -224,6 +224,30 @@ function($, _, emitter, templates, modal, timer, player, attacks, items, shop, q
 
     }
 
+    function updateCountBadges() {
+        console.debug('updatecountbadges');
+        var $items = $('#action-item');
+        var $quests = $('#action-quests');
+
+        // if badge exists, remove
+        $('.badge', $items).remove();
+        $('.badge', $quests).remove();
+
+        // add badges
+        if (player.items.length > 0) {
+            $('<span/>')
+                .addClass('badge')
+                .text(player.items.length)
+                .appendTo($items);
+        }
+        if (player.quests.length > 0) {
+            $('<span/>')
+                .addClass('badge')
+                .text(player.quests.length)
+                .appendTo($quests);
+        }
+    }
+
     function setup() {
 
         var $canvas = $('#canvas');
@@ -272,6 +296,9 @@ function($, _, emitter, templates, modal, timer, player, attacks, items, shop, q
         $optionsPanel = $('.panel-actions-options');
 
         showAttackOptions();
+
+        emitter.on('item-change', updateCountBadges);
+        emitter.on('quest-change', updateCountBadges);
     }
 
     function destroy() {

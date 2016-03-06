@@ -19,7 +19,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                 if (items[itemRef].unique && !player.countItems(itemRef) > 0) {
                     continue;
                 }
-                player.items.push(itemRef);
+                player.addItem(itemRef);
                 count++;
             }
         }
@@ -422,7 +422,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     },
                     flavourText: 'The USB also has an executable on it named "Titan". What the?',
                     apply: function() {
-                        player.items.push('titan');
+                        player.addItem('titan');
                         return words.buildApplyReturn({itemCount: 1});
                     }
                 },

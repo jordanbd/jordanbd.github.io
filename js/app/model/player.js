@@ -26,6 +26,10 @@ define(['emitter'], function(emitter) {
             }
             return count;
         },
+        addItem: function(code) {
+            this.items.push(code);
+            emitter.emit('item-change');
+        },
         quests: [],
         questHistory: [],
         hasQuest: function(code) {
@@ -44,6 +48,10 @@ define(['emitter'], function(emitter) {
                     break;
                 }
             }
+        },
+        addQuest: function(code) {
+            this.quests.push(code);
+            emitter.emit('quest-change');
         },
         salt: 0,
         changeSalt: function(amt) {

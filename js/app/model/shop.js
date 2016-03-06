@@ -16,7 +16,7 @@ define(['app/model/player', 'app/model/words', 'emitter', 'app/model/common'], f
                     flavourText: 'It\'s just a stupid puppet?',
                     apply: function() {
                         player.changeMoney(-80);
-                        player.items.push('puppet');
+                        player.addItem('puppet');
                         player.data['puppet'] = true;
                         return words.buildApplyReturn({money: -80, itemCount: 1});
                     }
@@ -36,7 +36,7 @@ define(['app/model/player', 'app/model/words', 'emitter', 'app/model/common'], f
                     flavourText: 'Is this, like, some kind of cookbook?',
                     apply: function() {
                         player.changeMoney(-400);
-                        player.items.push('deadbook');
+                        player.addItem('deadbook');
                         player.data['deadbook'] = true;
                         player.data['darkness'] = 0;
                         emitter.emit('new-character-attribute', {id: 'darkness', name: 'Darkness', format: 'corruptionValue', value: 0});
@@ -58,7 +58,7 @@ define(['app/model/player', 'app/model/words', 'emitter', 'app/model/common'], f
                     flavourText: 'The voice cackles.',
                     apply: function() {
                         player.changeMoney(-200);
-                        player.items.push('spell-increasemoney');
+                        player.addItem('spell-increasemoney');
                         return words.buildApplyReturn({money: -200, itemCount: 1});
                     }
                 }
@@ -80,7 +80,7 @@ define(['app/model/player', 'app/model/words', 'emitter', 'app/model/common'], f
                     flavourText: 'The voice grows louder.',
                     apply: function() {
                         player.changeMoney(-400);
-                        player.items.push('spell-increasechance');
+                        player.addItem('spell-increasechance');
                         return words.buildApplyReturn({money: -400, itemCount: 1});
                     }
                 }
@@ -102,7 +102,7 @@ define(['app/model/player', 'app/model/words', 'emitter', 'app/model/common'], f
                     flavourText: 'The voice cackles.',
                     apply: function() {
                         player.changeMoney(-1000);
-                        player.items.push('spell-mindcontrol');
+                        player.addItem('spell-mindcontrol');
                         return words.buildApplyReturn({money: -1000, itemCount: 1});
                     }
                 }
@@ -122,7 +122,7 @@ define(['app/model/player', 'app/model/words', 'emitter', 'app/model/common'], f
                     chance: 1,
                     apply: function() {
                         player.data['item-bought-visor-data'] = true;
-                        player.items.push('visor-data');
+                        player.addItem('visor-data');
                         player.changeMoney(-80);
                         return words.buildApplyReturn({money: -80, itemCount: 1});
                     }
@@ -140,7 +140,7 @@ define(['app/model/player', 'app/model/words', 'emitter', 'app/model/common'], f
                     chance: 1,
                     apply: function() {
                         player.data['item-bought-glasses'] = true;
-                        player.items.push('glasses');
+                        player.addItem('glasses');
                         player.changeMoney(-80);
                         return words.buildApplyReturn({money: -80, itemCount: 1});
                     }
@@ -158,7 +158,7 @@ define(['app/model/player', 'app/model/words', 'emitter', 'app/model/common'], f
                     chance: 1,
                     apply: function() {
                         player.data['item-bought-gun-license'] = true;
-                        player.items.push('gun-license');
+                        player.addItem('gun-license');
                         player.changeMoney(-120);
                         return words.buildApplyReturn({money: -120, itemCount: 1});
                     }
@@ -175,7 +175,7 @@ define(['app/model/player', 'app/model/words', 'emitter', 'app/model/common'], f
                 {
                     chance: 1,
                     apply: function() {
-                        player.items.push('pizza');
+                        player.addItem('pizza');
                         player.changeMoney(-20);
                         return words.buildApplyReturn({money: -20, itemCount: 1});
                     }
@@ -193,7 +193,7 @@ define(['app/model/player', 'app/model/words', 'emitter', 'app/model/common'], f
                 {
                     chance: 1,
                     apply: function() {
-                        player.items.push('blizzard-fake-id');
+                        player.addItem('blizzard-fake-id');
                         player.data['item-bought-blizzard-fake-id'] = true;
                         player.changeMoney(-100);
                         return words.buildApplyReturn({money: -100, itemCount: 1});
@@ -210,7 +210,7 @@ define(['app/model/player', 'app/model/words', 'emitter', 'app/model/common'], f
                     flavourText: 'This is salt-free peanut butter.',
                     apply: function() {
                         player.changeMoney(-60);
-                        player.items.push('peanut');
+                        player.addItem('peanut');
                         return words.buildApplyReturn({money: -60, itemCount: 1});
                     }
                 }
@@ -229,7 +229,7 @@ define(['app/model/player', 'app/model/words', 'emitter', 'app/model/common'], f
                     flavourText: 'Developed by Brother Chris.',
                     apply: function() {
                         player.changeMoney(-60);
-                        player.items.push('blizzard-hacks');
+                        player.addItem('blizzard-hacks');
                         player.data['item-bought-blizzard-hacks'] = true;
                         return words.buildApplyReturn({money: -60, itemCount: 1});
                     }
@@ -253,7 +253,7 @@ define(['app/model/player', 'app/model/words', 'emitter', 'app/model/common'], f
                     apply: function() {
                         player.changeBetaChance(common.BETA.MEDIUM);
                         player.changeMoney(-60);
-                        player.items.push('origins');
+                        player.addItem('origins');
                         player.data['origins'] = true;
                         return words.buildApplyReturn({money: -60, itemCount: 1, beta: common.BETA.MEDIUM});
                     },
@@ -269,7 +269,7 @@ define(['app/model/player', 'app/model/words', 'emitter', 'app/model/common'], f
                     flavourText: 'You were told that it didn\'t come with beta access. Blizzard weren\'t kidding.',
                     apply: function() {
                         player.changeMoney(-60);
-                        player.items.push('origins');
+                        player.addItem('origins');
                         player.data['origins'] = true;
                         return words.buildApplyReturn({money: -60, itemCount: 1});
                     },
@@ -295,7 +295,7 @@ define(['app/model/player', 'app/model/words', 'emitter', 'app/model/common'], f
                     flavourText: 'You can\'t wait to plug your Macbook into this and press PLAY.',
                     apply: function() {
                         player.changeMoney(-200);
-                        player.items.push('djset');
+                        player.addItem('djset');
                         player.data['djset'] = true;
                         player.data['djset-bought'] = true;
                         return words.buildApplyReturn({money: -200, itemCount: 1});
@@ -306,7 +306,7 @@ define(['app/model/player', 'app/model/words', 'emitter', 'app/model/common'], f
                     flavourText: 'Oh what the hell - this is just a box full of bricks!',
                     apply: function() {
                         player.changeMoney(-200);
-                        player.items.push('djbricks');
+                        player.addItem('djbricks');
                         player.data['djset-bought'] = true;
                         return words.buildApplyReturn({money: -200, itemCount: 1});
                     },
@@ -334,7 +334,7 @@ define(['app/model/player', 'app/model/words', 'emitter', 'app/model/common'], f
                     flavourText: 'This better be worth it',
                     apply: function() {
                         player.changeMoney(-80);
-                        player.items.push('djpractice1');
+                        player.addItem('djpractice1');
                         player.data['djpractice1-bought'] = true;
                         return words.buildApplyReturn({money: -80, itemCount: 1});
                     },
@@ -363,7 +363,7 @@ define(['app/model/player', 'app/model/words', 'emitter', 'app/model/common'], f
                     flavourText: 'Hey! It\'s just an MP3 file on USB!',
                     apply: function() {
                         player.changeMoney(-80);
-                        player.items.push('djbeta');
+                        player.addItem('djbeta');
                         player.data['djbeta'] = true;
                         return words.buildApplyReturn({money: -80, itemCount: 1});
                     },
@@ -388,7 +388,7 @@ define(['app/model/player', 'app/model/words', 'emitter', 'app/model/common'], f
                     flavourText: 'A voice calls to you...',
                     apply: function() {
                         player.changeMoney(-1000);
-                        player.items.push('beard');
+                        player.addItem('beard');
                         player.data['beard'] = true;
                         return words.buildApplyReturn({money: -1000, itemCount: 1});
                     }
