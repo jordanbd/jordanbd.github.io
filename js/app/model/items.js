@@ -101,17 +101,17 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
             ]
         },
         'berry': {
-            title: 'A berry',
-            description: 'Probably safe to eat.',
+            title: 'A mysterious berry',
+            description: 'Probably safe to eat. Really low chance of being poisonous so don\'t worry. Will have a random effect. ',
             rarity: 'uncommon',
             outcomes: [
                 {
-                    chance: 0.66,
+                    chance: 0.25,
                     flavourText: 'Ew, it\'s all salty.',
                     apply: function() {
-                        player.changeSalt(5);
+                        player.changeSalt(30);
                         player.removeItem('berry');
-                        return words.buildApplyReturn({salt: 5, itemCount: -1});
+                        return words.buildApplyReturn({salt: 30, itemCount: -1});
                     },
                     buttons: [
                         {
@@ -120,16 +120,44 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     ]
                 },
                 {
-                    chance: 0.32,
-                    flavourText: 'Oh lucky, it wasn\'t one of the poisonous berries.',
+                    chance: 0.25,
+                    flavourText: 'It\'s very watery.',
                     apply: function() {
-                        player.changeSalt(-5);
+                        player.changeSalt(-50);
                         player.removeItem('berry');
-                        return words.buildApplyReturn({salt: -5, itemCount: -1});
+                        return words.buildApplyReturn({salt: -50, itemCount: -1});
                     },
                     buttons: [
                         {
-                            text: 'I should eat another one.'
+                            text: 'I should eat another one'
+                        }
+                    ]
+                },
+                {
+                    chance: 0.25,
+                    flavourText: 'Oh sweet it has a gold nugget inside it!',
+                    apply: function() {
+                        player.changeMoney(200);
+                        player.removeItem('berry');
+                        return words.buildApplyReturn({money: 200, itemCount: -1});
+                    },
+                    buttons: [
+                        {
+                            text: 'Well that hurt my tooth'
+                        }
+                    ]
+                },
+                {
+                    chance: 0.25,
+                    flavourText: 'Reality distorts around you as you gain more time.',
+                    apply: function() {
+                        player.changeSecondsRemaining(30);
+                        player.removeItem('berry');
+                        return words.buildApplyReturn({time: 30, itemCount: -1});
+                    },
+                    buttons: [
+                        {
+                            text: 'Umm what kind of berry was that?'
                         }
                     ]
                 },

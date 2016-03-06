@@ -397,7 +397,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                         return !player.data['berries'];
                     },
                     flavourText: [
-                        'You grab a handful of berries from an unidentified bush while out walking.'
+                        'You grab a handful of berries from an strange shrub while out walking.'
                     ],
                     apply: function() {
                         player.changeSecondsRemaining(-common.TIME.WALK_COST);
@@ -406,9 +406,16 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                         player.items.push('berry');
                         player.items.push('berry');
                         player.items.push('berry');
+                        player.items.push('berry');
+                        player.items.push('berry');
                         player.data['berries'] = true;
                         return words.buildApplyReturn({time: -common.TIME.WALK_COST, salt: -common.SALT.WALK_DECREASE, itemCount: 4})
-                    }
+                    },
+                    buttons: [
+                        {
+                            text: 'Yep, that\'s a safe thing to do'
+                        }
+                    ]
                 },
                 /* death on walk */
                 {

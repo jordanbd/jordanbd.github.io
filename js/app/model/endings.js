@@ -325,7 +325,7 @@ define(['app/model/player', 'app/util/random'], function(player, random) {
                 'weren\'t so bleak.<br/>' +
                 '<br/>' +
                 'But you are dead.',
-            score: 999,
+            score: 9999,
             isAvailable: function() {
                 return player.characterClassId == 'default' && player.data['deadberry'];
             }
@@ -337,7 +337,7 @@ define(['app/model/player', 'app/util/random'], function(player, random) {
                 'weren\'t so bleak.<br/>' +
                 '<br/>' +
                 'But you are dead.',
-            score: 999,
+            score: 9999,
             isAvailable: function() {
                 return player.characterClassId == 'default' && player.data['scrap-metal-dead'];
             }
@@ -377,7 +377,7 @@ define(['app/model/player', 'app/util/random'], function(player, random) {
                 'ironic, but I don\'t know what irony really means anymore.<br/>' +
                 '<br/>' +
                 'You are dead.',
-            score: 1000,
+            score: 9999,
             isAvailable: function() {
                 return player.characterClassId == 'default' && player.data['deadorcstatue'];
             }
