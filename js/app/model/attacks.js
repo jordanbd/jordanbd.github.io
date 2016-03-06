@@ -610,6 +610,47 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                             text: 'ITS IN MY HAIR'
                         }
                     ]
+                },
+
+                /* get arrested for having unlicensed gun */
+                {
+                    chance: 0.3,
+                    isAvailable: function() {
+                        return player.countItems('pistol') == 1 && player.countItems('gun-license') == 0 && player.salt >= 50;
+                    },
+                    flavourText: 'Your relaxing walk is brought to an abrupt halt when a policeman asks to see your license for the gun that the soldier gave you. ' +
+                        'You tell him to "chill" and that "it\'s cool". <br/><br/>When he informs you that you will be fined your saltiness takes over and you pull ' +
+                        'your gun on the policeman.',
+                    apply: function() {
+                        player.data['beta'] = true; // hack
+                        player.data['unlicensed-weapon'] = true;
+                    },
+                    buttons: [
+                        {
+                            text: 'Time to reap!'
+                        }
+                    ]
+                },
+
+                /* get fined for having unlicensed gun */
+                {
+                    chance: 0.3,
+                    isAvailable: function() {
+                        return player.countItems('pistol') == 1 && player.countItems('gun-license') == 0 && player.salt < 50;
+                    },
+                    flavourText: 'Your relaxing walk is brought to an abrupt halt when a policeman asks to see your license for the gun that the soldier gave you. ' +
+                    'You tell him to "chill" and that "it\'s cool". <br/><br/>You receive a fine of "all your money."',
+                    apply: function() {
+                        player.changeSecondsRemaining(-common.TIME.WALK_COST);
+                        var money = -player.money;
+                        player.changeMoney(money);
+                        return words.buildApplyReturn({time: -common.TIME.WALK_COST, money: money});
+                    },
+                    buttons: [
+                        {
+                            text: 'This is why I\'m voting for Trump'
+                        }
+                    ]
                 }
 
             ]

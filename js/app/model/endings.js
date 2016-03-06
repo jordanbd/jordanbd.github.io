@@ -356,9 +356,20 @@ define(['app/model/player', 'app/util/random'], function(player, random) {
             type: 'Defeat',
             title: 'You have been arrested',
             description: 'For what it\'s worth you absolutely NAILED that window. Unfortunately there will be no Overwatch where you\'re heading.',
-            score: 999,
+            score: 9999,
             isAvailable: function() {
                 return player.characterClassId == 'default' && player.data['brickrage'];
+            }
+        },
+        {
+            type: 'Defeat',
+            title: 'You have been arrested',
+            description: 'You just can\'t walk around with an unlicensed weapon you idiot. Pulling your gun on the police officer and then telling the judge that it was ' +
+                '"just a prank" may have gotten you off with a lighter sentence but your insistence on calling the judge "bro" landed you in contempt of court.<br/><br/>' +
+                'There is no Overwatch where you are heading.',
+            score: 9999,
+            isAvailable: function() {
+                return player.characterClassId == 'default' && player.data['unlicensed-weapon'];
             }
         },
         {

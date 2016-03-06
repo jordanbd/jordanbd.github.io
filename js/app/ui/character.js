@@ -71,6 +71,9 @@ function($, emitter, templates, timer, player, words, items) {
     }
 
     function showChange(amount, $bucket, format) {
+        if (amount == 0) {
+            return;
+        }
         var value = null;
         var $ele = null;
         var formatAmount = function(amt) {
