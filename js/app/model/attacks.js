@@ -183,7 +183,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                         player.changeSalt(-100);
                         player.changeSecondsRemaining(-common.TIME.SOCIAL_COST);
                         player.data['saltreset'] = true;
-                        return words.buildApplyReturn({time: -common.TIME.SOCIAL_COST}) + 'Your saltiness has reset to zero.';
+                        return words.buildApplyReturn({time: -common.TIME.SOCIAL_COST, miscText: 'Your saltiness has reset to zero.'});
                     },
                     buttons: [
                         {

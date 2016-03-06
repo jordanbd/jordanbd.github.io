@@ -806,7 +806,10 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     chance: 1,
                     flavourText: 'Oh man you have to edit config files and stuff? This looks hard.'
                 }
-            ]
+            ],
+            onTick10: function() {
+                player.data['game-over'] = true;
+            }
         },
         'titan': {
             title: 'An executable program that simply says "titan.exe"',

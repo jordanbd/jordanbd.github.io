@@ -220,7 +220,8 @@ define(['app/model/player', 'app/model/words', 'emitter', 'app/model/common'], f
             itemRef: 'blizzard-hacks',
             cost: 60,
             isAvailable: function() {
-                return !player.data['item-bought-blizzard-hacks'];
+                return !player.data['item-bought-blizzard-hacks']
+                    && player.hasQuest('dva-scrim');
             },
             outcomes: [
                 {

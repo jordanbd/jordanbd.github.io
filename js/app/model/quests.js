@@ -418,7 +418,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
             },
             outcomes: [
                 {
-                    chance: 0.9,
+                    chance: 0.7,
                     isAvailable: function() {
                         return player.countItems('blizzard-hacks') == 0;
                     },
@@ -441,7 +441,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                     ]
                 },
                 {
-                    chance: 0.1,
+                    chance: 0.3,
                     isAvailable: function() {
                         return player.countItems('blizzard-hacks') == 0;
                     },
