@@ -22,6 +22,7 @@ define(['app/screen/manager', 'app/ui/templates'], function(screenManager, templ
                 e.preventDefault();
 
                 var maskHeight = $(document).height();
+                //console.debug('ben test doc height = %s', maskHeight)
                 var maskWidth = $(window).width();
 
                 $('#titles').css({
@@ -33,7 +34,7 @@ define(['app/screen/manager', 'app/ui/templates'], function(screenManager, templ
                 $('#titles').fadeTo("slow");
                 $('#titles').fadeIn();
                 $('#credits').css("left", (($('#credits').parent().width() - $('#credits').outerWidth()) / 2) + "px");
-                $('#credits').css("bottom", "-" + (maskHeight * 2) + "px");
+                $('#credits').css("bottom", "-" + (maskHeight * 1.5) + "px");
                 $('#credits').show('slow');
 
                 $('#credits').animate({
@@ -43,11 +44,11 @@ define(['app/screen/manager', 'app/ui/templates'], function(screenManager, templ
                     complete: function () {
                         $('#titles').fadeOut();
                         $('.window').fadeOut();
-                        $('#credits').css("bottom", "-" + (maskHeight * 2) + "px");
+                        $('#credits').css("bottom", "-" + (maskHeight * 1.5) + "px");
                     },
                     step: function (n, t) {
                         var pos = $(this).position();
-                        console.log('X: ' + pos.left.toFixed(2) + ' Y: ' + pos.top.toFixed(2));
+                        //console.log('X: ' + pos.left.toFixed(2) + ' Y: ' + pos.top.toFixed(2));
                     }
                 });
 
