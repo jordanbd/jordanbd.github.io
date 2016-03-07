@@ -859,8 +859,8 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                         }
 
                         player.changeSalt(saltCost);
-                        player.changeSecondsRemaining(timeCost);
-                        return words.buildApplyReturn({salt: saltCost, time: timeCost})
+                        player.changeSecondsRemaining(timeCost, true);
+                        return words.buildApplyReturn({salt: saltCost, time: timeCost, noSaltChangeDueToTime: true})
                     },
                     buttons: [
                         {
@@ -894,8 +894,8 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                         }
 
                         player.changeSalt(saltCost);
-                        player.changeSecondsRemaining(timeCost);
-                        return words.buildApplyReturn({salt: saltCost, time: timeCost})
+                        player.changeSecondsRemaining(timeCost, true);
+                        return words.buildApplyReturn({salt: saltCost, time: timeCost, noSaltChangeDueToTime: true})
                     },
                     buttons: [
                         {
@@ -927,8 +927,8 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                         }
 
                         player.changeSalt(saltCost);
-                        player.changeSecondsRemaining(timeCost);
-                        return words.buildApplyReturn({salt: saltCost, time: timeCost})
+                        player.changeSecondsRemaining(timeCost, true);
+                        return words.buildApplyReturn({salt: saltCost, time: timeCost, noSaltChangeDueToTime: true})
                     },
                     buttons: [
                         {

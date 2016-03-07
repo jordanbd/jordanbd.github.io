@@ -45,9 +45,7 @@ function($, _, emitter, templates, modal, timer, player, attacks, items, shop, q
             }));
 
             var click = function(a) {
-                console.debug('use action(%)', a);
                 useAction(a);
-                console.debug('showAttackOptions');
                 showAttackOptions();
             }.bind(this, attack);
 
@@ -268,8 +266,6 @@ function($, _, emitter, templates, modal, timer, player, attacks, items, shop, q
                     console.error('missing outcome victory in action %O', action);
                     return;
                 }
-
-                console.debug('Outcome %O has passed', winningOutcome);
 
                 var output = winningOutcome.apply ? winningOutcome.apply() : null;
                 emitter.emit('character-refresh');

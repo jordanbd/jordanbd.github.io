@@ -924,8 +924,8 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     apply: function() {
                         player.removeItem('beta-time');
                         player.changeBetaChance(common.BETA.MEDIUM);
-                        player.changeSecondsRemaining(-30);
-                        return words.buildApplyReturn({itemCount: -1, beta: common.BETA.MEDIUM, time: -30});
+                        player.changeSecondsRemaining(-30, true);
+                        return words.buildApplyReturn({itemCount: -1, beta: common.BETA.MEDIUM, time: -30, noSaltChangeDueToTime: true});
                     }
                 }
             ]
