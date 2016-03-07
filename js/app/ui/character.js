@@ -1,8 +1,8 @@
 'use strict';
 
-define(['jquery', 'emitter', 'app/ui/templates', 'app/ui/timer', 'app/model/player', 'app/model/words', 'app/model/items'],
+define(['jquery', 'emitter', 'app/ui/templates', 'app/ui/timer', 'app/model/player', 'app/model/words', 'app/model/items', 'app/model/common'],
 
-function($, emitter, templates, timer, player, words, items) {
+function($, emitter, templates, timer, player, words, items, common) {
 
     var $ele;
 
@@ -64,9 +64,8 @@ function($, emitter, templates, timer, player, words, items) {
     }
 
     function increaseSalt() {
-        var incr = 10;
-        player.salt += incr;
-        emitter.emit('salt-change', incr);
+        player.salt += common.SALT.TICK_INCREMENT;
+        emitter.emit('salt-change', common.SALT.TICK_INCREMENT);
         checkForMaxSaltiness();
     }
 
@@ -202,7 +201,12 @@ function($, emitter, templates, timer, player, words, items) {
         }));
         $parent.append($ele);
 
-        emitter.on('timer-tick5', increaseSalt);
+        emitter.on('player-timer-tick5', function(noSaltChange) {
+            if (noSaltChange) {
+                return;
+            }
+            increaseSalt();
+        });
 
         emitter.on('timer-tick', updateUI);
         emitter.on('timer-tick', fadeQueuedElements); // fades the +salt value on screen

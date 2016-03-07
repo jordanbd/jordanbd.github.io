@@ -179,9 +179,9 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     'literally any time googling it. You are so stupid, but you are happy that senpai has noticed you.',
                     apply: function() {
                         player.changeSalt(-100);
-                        player.changeSecondsRemaining(-common.TIME.SOCIAL_COST);
+                        player.changeSecondsRemaining(-common.TIME.SOCIAL_COST, true);
                         player.data['saltreset'] = true;
-                        return words.buildApplyReturn({time: -common.TIME.SOCIAL_COST, miscText: 'Your saltiness has reset to zero.'});
+                        return words.buildApplyReturn({time: -common.TIME.SOCIAL_COST, miscText: 'Your saltiness has reset to zero.', noSaltChangeDueToTime: true});
                     },
                     buttons: [
                         {
@@ -222,8 +222,8 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     ],
                     apply: function() {
                         player.changeSalt(-5);
-                        player.changeSecondsRemaining(-common.TIME.SOCIAL_COST);
-                        return words.buildApplyReturn({salt: -5, time: -common.TIME.SOCIAL_COST});
+                        player.changeSecondsRemaining(-common.TIME.SOCIAL_COST, true);
+                        return words.buildApplyReturn({salt: -5, time: -common.TIME.SOCIAL_COST, noSaltChangeDueToTime: true});
                     },
                     buttons: [
                         {
@@ -316,9 +316,9 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                         'You think about the big bucks you\'re going to make when you turn pro at this game.'
                     ],
                     apply: function() {
-                        player.changeSecondsRemaining(-common.TIME.WALK_COST);
-                        player.changeSalt(-30);
-                        return words.buildApplyReturn({time: -common.TIME.WALK_COST, salt: -common.SALT.WALK_DECREASE});
+                        player.changeSecondsRemaining(-common.TIME.WALK_COST, true);
+                        player.changeSalt(-common.SALT.WALK_DECREASE);
+                        return words.buildApplyReturn({time: -common.TIME.WALK_COST, salt: -common.SALT.WALK_DECREASE, noSaltChangeDueToTime: true});
                     }
                 },
 
@@ -332,11 +332,11 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                         ' a seven-leaf clover - looks like your luck is changing! You add the clover to your inventory.<br/><br/><em>"Here Lies ' +
                         'Philip J. Fry, named for his uncle, to carry on his spirit."</em>',
                     apply: function() {
-                        player.changeSecondsRemaining(-common.TIME.WALK_COST);
+                        player.changeSecondsRemaining(-common.TIME.WALK_COST, true);
                         player.changeSalt(-common.SALT.WALK_DECREASE);
                         player.addItem('clover');
                         player.data['clover'] = true;
-                        return words.buildApplyReturn({time: -common.TIME.WALK_COST, salt: -common.SALT.WALK_DECREASE, itemCount: 1});
+                        return words.buildApplyReturn({time: -common.TIME.WALK_COST, salt: -common.SALT.WALK_DECREASE, itemCount: 1, noSaltChangeDueToTime: true});
                     },
                     buttons: [
                         {
@@ -352,11 +352,11 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     },
                     flavourText: 'You stop briefly to look out your office window. In the distance you spot what looks like a tall, thin gray man wearing black.',
                     apply: function() {
-                        player.changeSecondsRemaining(-common.TIME.WALK_COST);
+                        player.changeSecondsRemaining(-common.TIME.WALK_COST, true);
                         player.changeSalt(-common.SALT.WALK_DECREASE);
                         player.data['slender-spotted'] = true;
                         player.addQuest('slenderman');
-                        return words.buildApplyReturn({time: -common.TIME.WALK_COST, salt: -common.SALT.WALK_DECREASE})
+                        return words.buildApplyReturn({time: -common.TIME.WALK_COST, salt: -common.SALT.WALK_DECREASE, noSaltChangeDueToTime: true})
                             + 'You pretend you didn\'t see anything.';
                     },
                     buttons: [
@@ -368,7 +368,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
 
                 /* find briefcase */ // fixme what is this crap
                 {
-                    chance: 0.01,
+                    chance: 0.001,
                     isAvailable: function() {
                         return !player.data['briefcase-found'];
                     },
@@ -376,11 +376,11 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                         'A crazy-looking Australian fellow hands you a briefcase and asks you to hide it for him. He then giggles and runs off.'
                     ],
                     apply: function() {
-                        player.changeSecondsRemaining(-common.TIME.WALK_COST);
+                        player.changeSecondsRemaining(-common.TIME.WALK_COST, true);
                         player.changeSalt(-common.SALT.WALK_DECREASE);
                         player.addItem('briefcase');
                         player.data['briefcase-found'] = true;
-                        return words.buildApplyReturn({time: -common.TIME.WALK_COST, salt: -common.SALT.WALK_DECREASE, itemCount: 1})
+                        return words.buildApplyReturn({time: -common.TIME.WALK_COST, salt: -common.SALT.WALK_DECREASE, itemCount: 1, noSaltChangeDueToTime: true})
                     },
                     buttons: [
                         {
@@ -398,7 +398,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                         'You grab a handful of berries from an strange shrub while out walking.'
                     ],
                     apply: function() {
-                        player.changeSecondsRemaining(-common.TIME.WALK_COST);
+                        player.changeSecondsRemaining(-common.TIME.WALK_COST, true);
                         player.changeSalt(-common.SALT.WALK_DECREASE);
                         player.addItem('berry');
                         player.addItem('berry');
@@ -407,7 +407,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                         player.addItem('berry');
                         player.addItem('berry');
                         player.data['berries'] = true;
-                        return words.buildApplyReturn({time: -common.TIME.WALK_COST, salt: -common.SALT.WALK_DECREASE, itemCount: 4})
+                        return words.buildApplyReturn({time: -common.TIME.WALK_COST, salt: -common.SALT.WALK_DECREASE, itemCount: 6, noSaltChangeDueToTime: true})
                     },
                     buttons: [
                         {
@@ -438,11 +438,11 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     },
                     flavourText: 'On your walk you find some stale water in an old gym bag. You add the water to your inventory.',
                     apply: function() {
-                        player.changeSecondsRemaining(-common.TIME.WALK_COST);
+                        player.changeSecondsRemaining(-common.TIME.WALK_COST, true);
                         player.changeSalt(-common.SALT.WALK_DECREASE);
                         player.addItem('stale-water');
                         player.data['stale-water-found'] = true;
-                        return words.buildApplyReturn({time: -common.TIME.WALK_COST, salt: -common.SALT.WALK_DECREASE, itemCount: 1});
+                        return words.buildApplyReturn({time: -common.TIME.WALK_COST, salt: -common.SALT.WALK_DECREASE, itemCount: 1, noSaltChangeDueToTime: true});
                     },
                     buttons: [
                         {
@@ -461,11 +461,11 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                         'some peanut butter and that he would greatly reward anyone who gave him some.<br/><br/>' +
                         'He then sighs and trudges off. Nobody else seems to notice the magic talking gorilla.',
                     apply: function() {
-                        player.changeSecondsRemaining(-common.TIME.WALK_COST);
+                        player.changeSecondsRemaining(-common.TIME.WALK_COST, true);
                         player.changeSalt(-common.SALT.WALK_DECREASE);
                         player.data['winston-quest'] = true;
                         player.addQuest('winston-peanut1');
-                        return words.buildApplyReturn({time: -common.TIME.WALK_COST, salt: -common.SALT.WALK_DECREASE, questCountAdded: 1});
+                        return words.buildApplyReturn({time: -common.TIME.WALK_COST, salt: -common.SALT.WALK_DECREASE, questCountAdded: 1, noSaltChangeDueToTime: true});
                     },
                     buttons: [
                         {
@@ -484,11 +484,11 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                         'help him see again. You imply that glasses don\'t cure blindness and that maybe he\'d prefer a ' +
                         'hot meal? No. He wants the glasses.<br/><br/>"The mission is all that matters."',
                     apply: function() {
-                        player.changeSecondsRemaining(-common.TIME.WALK_COST);
+                        player.changeSecondsRemaining(-common.TIME.WALK_COST, true);
                         player.changeSalt(-common.SALT.WALK_DECREASE);
                         player.data['soldier76-quest'] = true;
                         player.addQuest('soldier76-glasses');
-                        return words.buildApplyReturn({time: -common.TIME.WALK_COST, salt: -common.SALT.WALK_DECREASE, questCountAdded: 1});
+                        return words.buildApplyReturn({time: -common.TIME.WALK_COST, salt: -common.SALT.WALK_DECREASE, questCountAdded: 1, noSaltChangeDueToTime: true});
                     },
                     buttons: [
                         {
@@ -501,19 +501,19 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                 {
                     chance: 0.3,
                     isAvailable: function() {
-                        return !player.data['roadhog-quest'];
+                        return !player.data['roadhog-quest'] && !player.data['roadhog-quest-complete'];
                     },
                     flavourText: [
                         'A bag with a dollar sign on it falls off the back of an ice-cream truck driven by a fat guy in a Bane constume.<br/><br/>' +
                         'You take the bag... it could come in handy!'
                     ],
                     apply: function() {
-                        player.changeSecondsRemaining(-common.TIME.WALK_COST);
+                        player.changeSecondsRemaining(-common.TIME.WALK_COST, true);
                         player.changeSalt(-common.SALT.WALK_DECREASE);
                         player.data['roadhog-quest'] = true;
                         player.addItem('dollar-sign-bag');
                         //player.addQuest('roadhog-truck');
-                        return words.buildApplyReturn({time: -common.TIME.WALK_COST, salt: -common.SALT.WALK_DECREASE, itemCount: 1});
+                        return words.buildApplyReturn({time: -common.TIME.WALK_COST, salt: -common.SALT.WALK_DECREASE, itemCount: 1, noSaltChangeDueToTime: true});
                     },
                     buttons: [
                         {
@@ -526,7 +526,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                 {
                     chance: 0.3,
                     isAvailable: function() {
-                        return player.data['roadhog-quest'] && player.countItems('dollar-sign-bag') == 0;
+                        return player.data['roadhog-quest'] && player.countItems('dollar-sign-bag') == 0 && !player.data['roadhog-quest-complete'];
                     },
                     flavourText: [
                         'The fat idiot who was driving the ice-cream truck steps out from the shadows. He demands to know where the bag that fell ' +
@@ -534,9 +534,12 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                         'You are unaware he possesses a hook.<br/><br/> Fat Bane beats you up and takes your money.'
                     ],
                     apply: function() {
+                        player.changeSecondsRemaining(-common.TIME.WALK_COST, true);
                         var moneyStolen = player.money;
                         player.changeMoney(-moneyStolen);
-                        return words.buildApplyReturn({money: -moneyStolen});
+                        player.data['roadhog-beaten-up'] = true;
+                        player.data['roadhog-quest-complete'] = true;
+                        return words.buildApplyReturn({time: -common.TIME.WALK_COST, money: -moneyStolen, noSaltChangeDueToTime: true});
                     },
                     buttons: [
                         {
@@ -549,7 +552,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                 {
                     chance: 0.3,
                     isAvailable: function() {
-                        return player.data['roadhog-quest'] && player.countItems('dollar-sign-bag') == 1;
+                        return player.data['roadhog-quest'] && player.countItems('dollar-sign-bag') == 1 && !player.data['roadhog-quest-complete'];
                     },
                     flavourText: [
                         'The fat idiot who was driving the ice-cream truck steps out from the shadows. He demands to know where the bag that fell ' +
@@ -559,6 +562,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     apply: function() {
                         player.addItem('bag-rare');
                         player.removeItem('dollar-sign-bag');
+                        player.data['roadhog-quest-complete'] = true;
                         return words.buildApplyReturn({itemCount: 1});
                     },
                     buttons: [
@@ -577,11 +581,11 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     flavourText: 'You bump into a man dumpster diving in an ally. He tells you that he is an inventor and needs scrap metal. ' +
                         'You tell him that he might be looking in the wrong place but you\'ll keep an eye out. He returns to his fossicking.',
                     apply: function() {
-                        player.changeSecondsRemaining(-common.TIME.WALK_COST);
+                        player.changeSecondsRemaining(-common.TIME.WALK_COST, true);
                         player.changeSalt(-common.SALT.WALK_DECREASE);
                         player.data['torb-quest'] = true;
                         player.addQuest('torb-scrap');
-                        return words.buildApplyReturn({time: -common.TIME.WALK_COST, salt: -common.SALT.WALK_DECREASE, questCountAdded: 1});
+                        return words.buildApplyReturn({time: -common.TIME.WALK_COST, salt: -common.SALT.WALK_DECREASE, questCountAdded: 1, noSaltChangeDueToTime: true});
                     },
                     buttons: [
                         {
@@ -598,11 +602,11 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     },
                     flavourText: 'You find a flyer for a dance party that needs a DJ. You could do that?',
                     apply: function() {
-                        player.changeSecondsRemaining(-common.TIME.WALK_COST);
+                        player.changeSecondsRemaining(-common.TIME.WALK_COST, true);
                         player.changeSalt(-common.SALT.WALK_DECREASE);
                         player.data['lucio-quest'] = true;
                         player.addQuest('lucio-party');
-                        return words.buildApplyReturn({questCountAdded: 1});
+                        return words.buildApplyReturn({questCountAdded: 1, noSaltChangeDueToTime: true});
                     },
                     buttons: [
                         {
@@ -621,11 +625,11 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     flavourText: 'You find that idiot scientist again chasing birds in the park. He says he needs one to fix a robot he found in the forest. ' +
                         'Right.',
                     apply: function() {
-                        player.changeSecondsRemaining(-common.TIME.WALK_COST);
+                        player.changeSecondsRemaining(-common.TIME.WALK_COST, true);
                         player.changeSalt(-common.SALT.WALK_DECREASE);
                         player.data['bastion-quest'] = true;
                         player.addQuest('bastion-broken');
-                        return words.buildApplyReturn({time: -common.TIME.WALK_COST, salt: -common.SALT.WALK_DECREASE, questCountAdded: 1});
+                        return words.buildApplyReturn({time: -common.TIME.WALK_COST, salt: -common.SALT.WALK_DECREASE, questCountAdded: 1, noSaltChangeDueToTime: true});
                     },
                     buttons: [
                         {
@@ -643,11 +647,11 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     },
                     flavourText: 'While on your walk a bird decides to land on your shoulder and start singing. You immediately hate this bird.',
                     apply: function() {
-                        player.changeSecondsRemaining(-common.TIME.WALK_COST);
+                        player.changeSecondsRemaining(-common.TIME.WALK_COST, true);
                         player.changeSalt(-common.SALT.WALK_DECREASE);
                         player.data['bastion-bird-found'] = true;
                         player.addItem('bird');
-                        return words.buildApplyReturn({time: -common.TIME.WALK_COST, salt: -common.SALT.WALK_DECREASE, itemCount: 1});
+                        return words.buildApplyReturn({time: -common.TIME.WALK_COST, salt: -common.SALT.WALK_DECREASE, itemCount: 1, noSaltChangeDueToTime: true});
                     },
                     buttons: [
                         {
@@ -685,10 +689,10 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     flavourText: 'Your relaxing walk is brought to an abrupt halt when a policeman asks to see your license for the gun that the soldier gave you. ' +
                     'You tell him to "chill" and that "it\'s cool". <br/><br/>You receive a fine of "all your money."',
                     apply: function() {
-                        player.changeSecondsRemaining(-common.TIME.WALK_COST);
+                        player.changeSecondsRemaining(-common.TIME.WALK_COST, true);
                         var money = -player.money;
                         player.changeMoney(money);
-                        return words.buildApplyReturn({time: -common.TIME.WALK_COST, money: money});
+                        return words.buildApplyReturn({time: -common.TIME.WALK_COST, money: money, noSaltChangeDueToTime: true});
                     },
                     buttons: [
                         {

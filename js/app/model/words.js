@@ -1,6 +1,6 @@
 'use strict';
 
-define(['app/util/random'], function(random) {
+define(['app/util/random', 'app/model/common'], function(random, common) {
 
     function escapeRegExp(str) {
         return str.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
@@ -78,8 +78,13 @@ define(['app/util/random'], function(random) {
             if (opts.salt > 0) {
                 sb += "<span class='word word-salt'>Your saltiness has increased by " + opts.salt + "%.</span> "
             } else if (opts.salt < 0) {
-                sb += "<span class='word word-salt'>Your saltiness has decreased by " + opts.salt + "%.</span> "
+                sb += "<span class='word word-salt'>Your saltiness has decreased by " + Math.abs(opts.salt) + "%.</span> "
             }
+        }
+        if (opts.time && opts.time < 0 && !opts.noSaltChangeDueToTime) {
+            var saltTicks = Math.floor(opts.time / 5);
+            var saltChangeDueToTime = saltTicks * common.SALT.TICK_INCREMENT;
+            sb += "<span class='word word-salt'>Your saltiness has increased by " + Math.abs(saltChangeDueToTime) + "% due to the passage of time.</span>"
         }
         if (opts.itemCount) {
             if (opts.itemCount == 1) {
@@ -101,9 +106,9 @@ define(['app/util/random'], function(random) {
         }
         if (opts.time) {
             if (opts.time > 0) {
-                sb += "<span class='word word-time'>Your time remaining has increased by " + opts.time + " seconds.</span> "
+                sb += "<span class='word word-time'>Your time remaining has increased by " + Math.abs(opts.time) + " seconds.</span> "
             } else if (opts.time < 0) {
-                sb += "<span class='word word-time'>Your time remaining has decreased by " + opts.time + " seconds.</span> "
+                sb += "<span class='word word-time'>Your time remaining has decreased by " + Math.abs(opts.time) + " seconds.</span> "
             }
         }
         if (opts.money) {

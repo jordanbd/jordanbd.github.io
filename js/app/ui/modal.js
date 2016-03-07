@@ -46,7 +46,17 @@ define(['jquery', 'app/ui/templates'], function($, templates) {
                 $modal.remove();
                 return deferred.resolve();
             },
-            buttons: buttons
+            buttons: buttons,
+            // http://jwcooney.com/2015/01/25/how-to-fix-a-jquery-ui-dialog-strangely-positioning-itself/
+            position: {
+                my: "center",
+                at: "center",
+                of: window,
+                collision: "none"
+            },
+            create: function (event, ui) {
+                $(event.target).parent().css('position', 'fixed');
+            }
         });
 
         return deferred.promise();

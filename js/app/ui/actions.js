@@ -213,6 +213,9 @@ function($, _, emitter, templates, modal, timer, player, attacks, items, shop, q
                     if (player.data['beta'] || player.data['game-over']) {
                         timer.stop();
                         emitter.emit('victory');
+                    } else if (player.secondsRemaining <= 0) {
+                        timer.stop();
+                        emitter.emit('defeat');
                     } else {
                         timer.start();
                     }

@@ -22,6 +22,7 @@
     target.emit = function(){
         var args = Array.apply([], arguments),
             list = events[args.shift()] || [], i=0, j
+        //console.debug('emit(%O)', arguments);
         for(;j=list[i++];) j.f.apply(j.c, args)
     };
 };

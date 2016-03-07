@@ -121,7 +121,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                 },
                 {
                     chance: 0.25,
-                    flavourText: 'It\'s very watery.',
+                    flavourText: 'Pretty sure that was one of those \'gateway drug\' berries.',
                     apply: function() {
                         player.changeSalt(-50);
                         player.removeItem('berry');
@@ -129,7 +129,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     },
                     buttons: [
                         {
-                            text: 'I should eat another one'
+                            text: 'Time to destroy my life!'
                         }
                     ]
                 },

@@ -64,11 +64,32 @@ define(['emitter'], function(emitter) {
             emitter.emit('salt-change', amt);
         },
         secondsRemaining: 240,
-        changeSecondsRemaining: function(amt) {
-            this.secondsRemaining += amt;
+        changeSecondsRemaining: function(amt, noSaltChange) {
+            if (amt == 0) {
+                return;
+            }
+
+            var sign = amt?amt<0?-1:1:0;
+
+            for (var t = 0; t < Math.abs(amt); t++) {
+                this.secondsRemaining += sign;
+                if (sign < 0) {
+                    emitter.emit('player-timer-tick', noSaltChange);
+                    if (this.secondsRemaining % 30 == 0) {
+                        emitter.emit('player-timer-tick30', noSaltChange);
+                    }
+                    if (this.secondsRemaining % 10 == 0) {
+                        emitter.emit('player-timer-tick10', noSaltChange);
+                    }
+                    if (this.secondsRemaining % 5 == 0) {
+                        emitter.emit('player-timer-tick5', noSaltChange);
+                    }
+                }
+            }
             if (this.secondsRemaining < 0) {
                 this.secondsRemaining = 0;
             }
+
             if (amt < 0) {
                 this.changeSecondsElapsed(Math.abs(amt));
             }

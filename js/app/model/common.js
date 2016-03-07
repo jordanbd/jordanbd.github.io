@@ -13,7 +13,8 @@ define([], function() {
 
         SALT: {
             WALK_DECREASE: 30,
-            ACCOUNT_INCREASE: 5
+            ACCOUNT_INCREASE: 5,
+            TICK_INCREMENT: 5
         },
 
         TIME: {
