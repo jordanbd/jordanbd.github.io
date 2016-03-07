@@ -35,8 +35,6 @@ define(['jquery', 'app/ui/templates'], function($, templates) {
             });
         }
 
-        console.debug('using buttons: %O', buttons);
-
         $modal.dialog({
             dialogClass: 'no-close',
             modal: true,

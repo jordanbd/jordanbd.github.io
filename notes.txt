@@ -8,13 +8,10 @@ TODO
 
 JAMIE FEEDBACK
 
-- The -10 seconds was a bit confusing because of the double negative (Costs: -10 seconds and "Your remaining time has decreased by -10 seconds"). Maybe Lose/Lost 10 seconds, and Gain/Gained 10 seconds? or just Your remaining time has decreased by 10 seconds. You have added 10 seconds to the timer? Something like that
-- Make the timer a bit more noticeable, maybe in red and bigger?
 - I didn't really know how to increase my beta chances, or how often to check. I was only increasing my chances by small increments so I wanted to wait until it was a lot higher.
 - Put a (new) next to the new items, or put it in the popup when you get it so you know what you go
 - Maybe somehow put the actions/quests/items/shop on the same page? so you can see what you have? may be too easy though.
 - I didn't look at the Beta News Stream. Is this just for show or does it have impact on the game?
-- The sorting on the Items was a bit annoying, especially when there are more than one, if you click on it, sometimes it would move to a different location
 - I'm not sure what the Darkness is or what it does
 - The Ginger Puppet appeared randomly in the shop, are there random items I should be checking the shop for?
 - The items that are solely for reducing salt level (cadbury creme egg) aren't that useful. the going for a walk reduces it by 30% and i have found that I am spamming it. Up until the point that the fucking ice-cream driver appears, then it is risky.

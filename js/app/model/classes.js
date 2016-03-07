@@ -26,7 +26,7 @@ define(['app/util/random'], function(random) {
             name: function() {
                 return random.randomArray(['BlizzFan84', 'TracerFanBoy63', 'WIN_son', 'TheCavalry', 'BetaPlsBlizz', 'Soldier84', 'LuckTruck']);
             },
-            salt: 20,
+            salt: 0,
             money: 40,
             secondsRemaining: 360,
             betaChance: 0

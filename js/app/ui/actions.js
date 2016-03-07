@@ -67,19 +67,26 @@ function($, _, emitter, templates, modal, timer, player, attacks, items, shop, q
             for (var i = 0; i < player.items.length; i++) {
                 if (!groupedItems[player.items[i]]) {
                     groupedItems[player.items[i]] = {
+                        code: player.items[i],
                         count: 0
                     }
                 }
                 groupedItems[player.items[i]].count++;
             }
 
+            var groupedItemsAsArray = [];
             for (var code in groupedItems) {
-                var item = items.get[code]; // weird syntax, I am awful
+                groupedItemsAsArray.push(groupedItems[code]);
+            }
+            sortPlayerItems(groupedItemsAsArray);
+
+            for (var i = 0; i < groupedItemsAsArray.length; i++) {
+                var item = items.get[groupedItemsAsArray[i].code]; // weird syntax, I am awful
 
                 var title = item.title + ' <span class="rarity ' + item.rarity + '">[' + item.rarity + ']</span>';
                 var count = undefined;
-                if (groupedItems[code].count > 1) {
-                    count = groupedItems[code].count;
+                if (groupedItemsAsArray[i].count > 1) {
+                    count = groupedItemsAsArray[i].count;
                 }
 
                 var $opt = $(templates.getTemplate('actionOptionTmpl')({
@@ -97,11 +104,78 @@ function($, _, emitter, templates, modal, timer, player, attacks, items, shop, q
                 $optionsPanel.append($opt);
             }
         } else {
-            $optionsPanel.append($('<p>You have no items</p>'));
+            $optionsPanel.append($('<p>You have no items. Find items to help increase your chances of getting into the beta!</p>'));
+        }
+    }
+
+    function sortPlayerItems(playerItems) {
+        if (playerItems.length > 0) {
+            playerItems.sort(function compareFunction(a, b) {
+                console.debug('compareFunction(%O, %O)', a, b);
+                var itemA = items.get[a.code];
+                var itemB = items.get[b.code];
+
+                // If compareFunction(a, b) is less than 0, sort a to a lower index than b, i.e. a comes first.
+                // If compareFunction(a, b) is greater than 0, sort b to a lower index than a.
+                // If compareFunction(a, b) returns 0, leave a and b unchanged with respect to each other, but sorted with respect to all different elements.
+
+                return itemA.title.localeCompare(itemB.title);
+
+            });
+        }
+    }
+
+    function sortShop(itemsForSale) {
+        itemsForSale.sort(function compareFunction(a, b) {
+
+            if (a.cost < b.cost) {
+                // If compareFunction(a, b) is less than 0, sort a to a lower index than b, i.e. a comes first.
+                return -1;
+                // If compareFunction(a, b) is greater than 0, sort b to a lower index than a.
+            } else if (b.cost < a.cost) {
+                return 1;
+            }
+            // If compareFunction(a, b) returns 0, leave a and b unchanged with respect to each other, but sorted with respect to all different elements.
+
+            var itemA = items.get[a.itemRef];
+            var itemB = items.get[b.itemRef];
+
+            var aTitle = a.title ? a.title : itemA.title;
+            var bTitle = b.title ? b.title : itemB.title;
+
+            return aTitle.localeCompare(bTitle);
+
+        });
+    }
+
+    function sortPlayerQuests() {
+        if (player.quests.length > 0) {
+            player.quests.sort(function compareFunction(a, b) {
+                var questA = quests.getQuest(a);
+                var questB = quests.getQuest(b);
+
+                // If compareFunction(a, b) is less than 0, sort a to a lower index than b, i.e. a comes first.
+                // If compareFunction(a, b) is greater than 0, sort b to a lower index than a.
+                // If compareFunction(a, b) returns 0, leave a and b unchanged with respect to each other, but sorted with respect to all different elements.
+
+                var questACanComplete = questA.canComplete();
+                var questBCanComplete = questB.canComplete();
+
+                if (questACanComplete && !questBCanComplete) {
+                    return -1;
+                }
+                if (questBCanComplete && !questACanComplete) {
+                    return 1;
+                }
+
+                return questA.title.localeCompare(questB.title);
+
+            });
         }
     }
 
     function showQuestOptions() {
+        sortPlayerQuests();
         unselectAction();
         $('#action-quests').addClass('active');
         if (player.quests.length > 0) {
@@ -123,7 +197,7 @@ function($, _, emitter, templates, modal, timer, player, attacks, items, shop, q
                 $optionsPanel.append($opt);
             }
         } else {
-            $optionsPanel.append($('<p>You have no quests</p>'));
+            $optionsPanel.append($('<p>You have no quests. Find quests to help increase your chances of getting into the beta!</p>'));
         }
     }
 
@@ -132,6 +206,7 @@ function($, _, emitter, templates, modal, timer, player, attacks, items, shop, q
         $('#action-shop').addClass('active');
 
         var itemsForSale = shop.getItemsForSale();
+        sortShop(itemsForSale);
         if (itemsForSale.length > 0) {
             for (var i = 0; i < itemsForSale.length; i++) {
 

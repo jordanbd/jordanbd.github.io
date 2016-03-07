@@ -433,20 +433,6 @@ define(['app/model/player', 'app/model/words', 'emitter', 'app/model/common'], f
 
     function getItemsForSale() {
 
-        items.sort(function compareFunction(a, b) {
-
-            if (a.cost < b.cost) {
-                // If compareFunction(a, b) is less than 0, sort a to a lower index than b, i.e. a comes first.
-                return -1;
-                // If compareFunction(a, b) is greater than 0, sort b to a lower index than a.
-            } else if (b.cost < a.cost) {
-                return 1;
-            }
-            // If compareFunction(a, b) returns 0, leave a and b unchanged with respect to each other, but sorted with respect to all different elements.
-            return 0;
-
-        });
-
         var result = [];
         for (var i = 0; i < items.length; i++) {
             var item = items[i];
