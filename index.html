@@ -133,6 +133,37 @@
             <button id="creditos" name="creditos">Credits</button>
         </div>
 
+        <br/>
+
+        <h3>Achievements</h3>
+        <br/>
+        <div id="achievements-left" class="col-1-2">
+            <!--<div class="achievement">-->
+                <!--<div class="achievement-header">-->
+                    <!--<span class="achievement-title">Achievement that was not achieved</span>-->
+                    <!--<span class="achievement-points">15</span>-->
+                <!--</div>-->
+                <!--<div class="achievement-body">-->
+                    <!--Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.-->
+                <!--</div>-->
+            <!--</div>-->
+
+            <!--<div class="achievement">-->
+                <!--<div class="achievement-header achievement-achieved">-->
+                    <!--<span class="achievement-title">Achievement that was achieved</span>-->
+                    <!--<span class="achievement-points">15</span>-->
+                <!--</div>-->
+                <!--<div class="achievement-body">-->
+                    <!--Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.-->
+                <!--</div>-->
+            <!--</div>-->
+
+        </div>
+
+        <div id="achievements-right" class="col-1-2">
+
+        </div>
+
         <!--<br/>-->
         <!--<h3>Statistics</h3>-->
 
@@ -147,6 +178,20 @@
             <!--<dd>People who have fought the monster.</dd>-->
         <!--</dl>-->
 
+    </div>
+
+</script>
+
+<script id="template-achievement" type="text/html">
+
+    <div class="achievement">
+        <div class="achievement-header <%= achievedClass %>">
+            <span class="achievement-title"><%= title %></span>
+            <span class="achievement-points"><%= points %></span>
+        </div>
+        <div class="achievement-body">
+            <%= body %>
+        </div>
     </div>
 
 </script>

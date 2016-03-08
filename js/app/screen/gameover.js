@@ -1,6 +1,6 @@
 'use strict';
 
-define(['jquery', 'app/ui/templates', 'app/model/endings', 'app/model/words'], function($, templates, endings, words) {
+define(['jquery', 'app/ui/templates', 'app/model/endings', 'app/model/words', 'app/model/achievements', 'app/model/player'], function($, templates, endings, words, achievements, player) {
 
     var sm;
     var entered = false;

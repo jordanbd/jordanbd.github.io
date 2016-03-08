@@ -61,7 +61,7 @@ define(['jquery', 'emitter', 'app/ui/templates', 'app/model/player'], function($
 
         interval = setInterval(update, 1000);
         updateUI();
-        console.log('timer started');
+        //console.log('timer started');
     }
 
     function pause() {
@@ -69,13 +69,13 @@ define(['jquery', 'emitter', 'app/ui/templates', 'app/model/player'], function($
             return;
         }
         clearInterval(interval);
-        console.log('timer paused');
+        //console.log('timer paused');
     }
 
     function stop() {
         clearInterval(interval);
         stopped = true;
-        console.log('timer stopped');
+        //console.log('timer stopped');
     }
 
     return {

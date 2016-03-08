@@ -65,6 +65,15 @@ h2 {
     text-align: center;
 }
 
+h3 {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+strong {
+    font-weight: bold;
+}
+
 h1.pageTitle {
     font-family: "Big Noodle", sans-serif;
     font-size: 4em;
@@ -368,4 +377,32 @@ p strong {
     border-radius: 10px;
 
     margin-left: 5px;
+}
+
+/* Achievements */
+
+.achievement {
+    text-shadow: 1px 1px 1px rgba(0,0,0,.5)
+}
+
+.achievement-header {
+    display: block;
+    font-weight: bold;
+    padding: 5px;
+    width: 100%;
+    background-color: rgba(255,255,255,.04);
+}
+
+.achievement-achieved {
+    color: #ffc70e;
+}
+
+.achievement-points {
+    float:right;
+}
+
+.achievement-body {
+    display: block;
+    padding: 5px;
+    width: 100%;
 }

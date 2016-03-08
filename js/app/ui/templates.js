@@ -19,6 +19,7 @@ define(['jquery', 'underscore'], function($, _) {
         templates['newsTmpl'] = _.template($('#template-news').html());
         templates['selectClassTmpl'] = _.template($('#template-select-class').html());
         templates['questOptionTmpl'] = _.template($('#template-quest-action-option').html());
+        templates['achievementTmpl'] = _.template($('#template-achievement').html());
 
         console.debug('templates compiled');
     }

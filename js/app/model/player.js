@@ -1,6 +1,6 @@
 'use strict';
 
-define(['emitter'], function(emitter) {
+define(['emitter', 'jquery'], function(emitter, $) {
 
     return {
         data: {
@@ -8,6 +8,11 @@ define(['emitter'], function(emitter) {
         },
         name: 'test',
         characterClassId: null,
+        achievements: [],
+        hasAchievement: function(code) {
+            //console.debug('testing to see if %s is in array %O and result is %O', code, this.achievements, $.inArray(code, this.achievements));
+            return $.inArray(code, this.achievements) >= 0;
+        },
         items: [],
         removeItem: function(code) {
             for (var i = 0; i < this.items.length; i++) {

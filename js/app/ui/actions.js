@@ -11,9 +11,10 @@ define(['jquery', 'underscore',
     'app/model/shop',
     'app/model/quests',
     'app/model/words',
+    'app/model/achievements',
     'app/util/random'],
 
-function($, _, emitter, templates, modal, timer, player, attacks, items, shop, quests, words, random) {
+function($, _, emitter, templates, modal, timer, player, attacks, items, shop, quests, words, achievements, random) {
 
     var $actionsPanel;
     var $optionsPanel;
@@ -109,7 +110,6 @@ function($, _, emitter, templates, modal, timer, player, attacks, items, shop, q
     function sortPlayerItems(playerItems) {
         if (playerItems.length > 0) {
             playerItems.sort(function compareFunction(a, b) {
-                console.debug('compareFunction(%O, %O)', a, b);
                 var itemA = items.get[a.code];
                 var itemB = items.get[b.code];
 
@@ -232,8 +232,6 @@ function($, _, emitter, templates, modal, timer, player, attacks, items, shop, q
     }
 
     function useAction(action) {
-        console.debug('using attack %O', action);
-
         timer.pause();
 
         if (action.isAvailable && !action.isAvailable()) {
@@ -269,8 +267,13 @@ function($, _, emitter, templates, modal, timer, player, attacks, items, shop, q
 
                 var output = winningOutcome.apply ? winningOutcome.apply() : null;
                 emitter.emit('character-refresh');
-                var flavourText = random.randomArray(winningOutcome.flavourText);
 
+                var newAchievements = achievements.testForAchievements();
+                for (var i = 0; i < newAchievements.length; i++) {
+                    player.achievements.push(newAchievements[i]);
+                }
+
+                var flavourText = random.randomArray(winningOutcome.flavourText);
                 var text = flavourText != null ? flavourText : "";
                 if (output != null) {
                     if (flavourText != null) text += "<br/><br/>";
@@ -280,7 +283,24 @@ function($, _, emitter, templates, modal, timer, player, attacks, items, shop, q
                 modal.open({
                     text: words.textReplace(text),
                     buttons: winningOutcome.buttons
-                }).then(function onClose() {
+                })
+                .then(function showAchievements() {
+                    if (newAchievements.length > 0) {
+                        // Fuck it! You can only show one - whatever screw this crap.
+                        var achievement = achievements.getAchievement(newAchievements[0]);
+                        var achieveText = words.textReplace('<strong>Achievement completed!</strong><br/><br/>' +
+                                achievement.title + '<br/><br/>' +
+                                achievement.description);
+                        return modal.open({
+                            text: achieveText,
+                            buttons: [{text: 'Nice!'}]
+                        });
+                    } else {
+                        return true;
+                    }
+                })
+                .then(function allModalsClosed() {
+
                     if (player.data['beta'] || player.data['game-over']) {
                         timer.stop();
                         emitter.emit('victory');
@@ -299,7 +319,6 @@ function($, _, emitter, templates, modal, timer, player, attacks, items, shop, q
     }
 
     function updateCountBadges() {
-        console.debug('updatecountbadges');
         var $items = $('#action-item');
         var $quests = $('#action-quests');
 

@@ -42,6 +42,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         player.removeItem('peanut');
                         player.removeQuest('winston-peanut2');
                         player.addItem('bag-epic');
+                        player.data['winston-achievement'] = true;
                         return words.buildApplyReturn({itemCount: 1});
                     },
                     buttons: [
@@ -142,6 +143,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                     apply: function() {
                         player.removeQuest('soldier76-robbery');
                         player.addItem('bag-epic');
+                        player.data['soldier76-robbery-achievement'] = true;
                         return words.buildApplyReturn({itemCount: 1});
                     },
                     buttons: [
@@ -177,6 +179,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                     flavourText: 'You and the soldier charge into the bank via the back door. You run ahead, firing your gun into the air while screaming ' +
                         'various threats. <br/><br/>A bullet ricochets off a wall and kills the soldier. You drop the gun and quietly flee the scene.',
                     apply: function() {
+                        player.data['soldier76-shot-achievement'] = true;
                         player.removeQuest('soldier76-robbery');
                     },
                     buttons: [
@@ -262,6 +265,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         player.removeItem('blizzard-fake-id');
                         player.removeQuest('blizzard-pizza');
                         player.addItem('bag-epic');
+                        player.data['blizzard-pizza-success-achievement'] = true;
                         return words.buildApplyReturn({itemCount: 1});
                     },
                     buttons: [
@@ -279,6 +283,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         'The pizza gets cold and has to be thrown away.',
                     apply: function() {
                         player.removeItem('pizza');
+                        player.data['blizzard-pizza-fail-achievement'] = true
                         return words.buildApplyReturn({itemCount: -1});
                     },
                     buttons: [
@@ -385,6 +390,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         player.removeQuest('reddit-spammer');
                         player.addItem('bag-rare');
                         player.data['reddit-spammer-started'] = false;
+                        player.data['reddit-spammer-violence-achievement'] = true;
                         return words.buildApplyReturn({itemCount: 1});
                     },
                     buttons: [
@@ -596,6 +602,8 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         'can give you a beta invite. <br/><br/>No one can hear your begging over the booing.',
                     apply: function() {
                         player.removeQuest('lucio-party');
+                        player.addItem('bag-common');
+                        return words.buildApplyReturn({itemCount: 1});
                     },
                     buttons: [
                         {

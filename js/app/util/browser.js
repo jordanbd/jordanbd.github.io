@@ -10,8 +10,22 @@ define([], function() {
         return ( location.search.indexOf( 'ignorebrowser=true' ) >= 0 || ( !oldIE ) );
     }
 
+    function isStorageAvailable(type) {
+        try {
+            var storage = window[type],
+                x = '__storage_test__';
+            storage.setItem(x, x);
+            storage.removeItem(x);
+            return true;
+        }
+        catch(e) {
+            return false;
+        }
+    }
+
     return {
         isMobile: isMobile,
-        isBrowserSupported: isBrowserSupported
+        isBrowserSupported: isBrowserSupported,
+        isStorageAvailable: isStorageAvailable
     }
 });

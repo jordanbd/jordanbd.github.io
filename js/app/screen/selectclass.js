@@ -1,6 +1,6 @@
 'use strict';
 
-define(['jquery', 'app/ui/templates', 'app/model/classes', 'app/model/player'], function($, templates, classes, player) {
+define(['jquery', 'app/ui/templates', 'app/model/classes', 'app/model/player', 'app/model/achievements'], function($, templates, classes, player, achievements) {
 
     var sm;
 
@@ -48,6 +48,7 @@ define(['jquery', 'app/ui/templates', 'app/model/classes', 'app/model/player'], 
         if (characterClass.quests) {
             player.quests = characterClass.quests;
         }
+        player.achievements = achievements.loadAchievements();
 
         sm.enterScreen('battle');
     }

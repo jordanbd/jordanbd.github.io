@@ -3,8 +3,16 @@ TODO
 
 > Stats on home page
 > Tips on home page
+> Quick tutorial screen
+> Maybe some quick achievements
 > Class - twitch streamer
 > Final battle quest
+> Tidy up names
+> Remove GOD
+> Update costs (absolute values), show icons
+> I still think I need a better way to get scrap
+> History
+> i am not running out of time
 
 JAMIE FEEDBACK
 
