@@ -560,10 +560,12 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                         'junk he collected.'
                     ],
                     apply: function() {
+                        player.changeSalt(-common.SALT.WALK_DECREASE);
+                        player.changeSecondsRemaining(-common.TIME.WALK_COST, true);
                         player.addItem('bag-rare');
                         player.removeItem('dollar-sign-bag');
                         player.data['roadhog-quest-complete'] = true;
-                        return words.buildApplyReturn({itemCount: 1});
+                        return words.buildApplyReturn({itemCount: 1, time: -common.TIME.WALK_COST, salt: -common.SALT.WALK_DECREASE, noSaltChangeDueToTime: true});
                     },
                     buttons: [
                         {
