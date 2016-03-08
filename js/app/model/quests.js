@@ -673,6 +673,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         player.removeItem('djset');
                         player.addItem('bag-epic');
                         player.changeSalt(20);
+                        player.data['lucio-achievement'] = true;
                         return words.buildApplyReturn({itemCount: 1, salt: 20});
                     },
                     buttons: [

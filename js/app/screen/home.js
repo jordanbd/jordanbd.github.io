@@ -9,10 +9,10 @@ define(['jquery', 'underscore', 'app/ui/templates', 'app/model/achievements'], f
         var playerAchievementCodes = achieveDb.loadAchievements();
         var achievements = achieveDb.getAllAchievements();
         var numAchievements = _.size(achievements);
-        var halfSize = (numAchievements % 2 == 0) ? numAchievements / 2 : Math.floor((numAchievements / 2) + 1);
+        //var halfSize = (numAchievements % 2 == 0) ? numAchievements / 2 : Math.floor((numAchievements / 2) + 1);
 
-        var $leftAchievements = $('#achievements-left');
-        var $rightAchievements = $('#achievements-right');
+        var $leftAchievements = $('#achievements');
+        //var $rightAchievements = $('#achievements-right');
 
         var $currentAchievementBucket = $leftAchievements;
 
@@ -31,9 +31,9 @@ define(['jquery', 'underscore', 'app/ui/templates', 'app/model/achievements'], f
             $currentAchievementBucket.append($achieve);
 
             count++;
-            if (count >= halfSize) {
-                $currentAchievementBucket = $rightAchievements;
-            }
+            //if (count >= halfSize) {
+            //    $currentAchievementBucket = $rightAchievements;
+            //}
         }
 
         // load all possible acheivements

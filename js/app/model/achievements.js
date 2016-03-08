@@ -12,7 +12,7 @@ define(['app/util/browser', 'app/model/player', 'emitter'], function(browser, pl
             }
         },
         'soldier76-murder': {
-            title: 'Soldier: 76 and simple geometry',
+            title: 'Simple geometry',
             description: 'You accidentally shot Soldier: 76.',
             points: 10,
             hasAchieved: function() {
@@ -59,6 +59,16 @@ define(['app/util/browser', 'app/model/player', 'emitter'], function(browser, pl
                 return player.data['reddit-spammer-violence-achievement'];
             }
         },
+        'died': {
+            title: 'You either die a hero...',
+            description: 'Somehow managed to die.',
+            points: 10,
+            hasAchieved: function() {
+                return player.data['deadorcstatue']
+                    || player.data['deadberry']
+                    || player.data['scrap-metal-dead'];
+            }
+        },
         'spammer-banned': {
             title: '... or see yourself become the villain',
             description: 'Became the salty reddit spammer.',
@@ -73,6 +83,23 @@ define(['app/util/browser', 'app/model/player', 'emitter'], function(browser, pl
             points: 10,
             hasAchieved: function() {
                 return player.data['virus'];
+            }
+        },
+        'lucio': {
+            title: 'Sweet rave bro',
+            description: 'Filled in for Lucio at a dance party.',
+            points: 20,
+            hasAchieved: function() {
+                return player.data['lucio-achievement'];
+            }
+        },
+        'arrested': {
+            title: 'I didn\'t do it!',
+            description: 'Got yourself arrested.',
+            points: 5,
+            hasAchieved: function() {
+                return player.data['brickrage']
+                    || player.data['unlicensed-weapon'];
             }
         }
     };
