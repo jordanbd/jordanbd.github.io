@@ -907,7 +907,7 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         'defeat these weirdo terrorists. You quietly flee the scene leaving your allies to be executed.<br/><br/>You also steal some stuff from the ' +
                         'museum on your way out. They don\'t need it.',
                     apply: function() {
-                        player.addItem('bag-epic');
+                        player.addItem('bag-rare');
                         player.data['final-quest-complete-fail'] = true;
                         player.removeQuest('widow-reaper-bossfight');
                         return words.buildApplyReturn({itemCount: 1})

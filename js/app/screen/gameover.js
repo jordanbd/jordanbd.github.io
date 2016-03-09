@@ -42,6 +42,7 @@ define(['jquery', 'app/ui/templates', 'app/model/endings', 'app/model/words', 'a
                         $('#restart')
                             .attr('href', url)
                             .show();
+                        $('#devby').show();
                     }
                 });
             });

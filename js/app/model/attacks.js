@@ -832,12 +832,18 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                 if (player.countItems('account-salt-free') > 0) {
                     timeCost /= 2;
                 }
+                if (timeCost > player.secondsRemaining) {
+                    timeCost = -player.secondsRemaining;
+                }
                 return 'Costs <span class="word word-time">' + Math.abs(timeCost) + ' seconds</span>'
             },
             isAvailable: function() {
                 var timeCost = -common.TIME.ACCOUNT_COST;
                 if (player.countItems('account-salt-free') > 0) {
                     timeCost /= 2;
+                }
+                if (timeCost > player.secondsRemaining) {
+                    timeCost = -player.secondsRemaining;
                 }
                 return player.secondsRemaining >= Math.abs(timeCost) && player.characterClassId == 'default';
             },
@@ -872,6 +878,10 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                         if (player.countItems('account-salt-free') > 0) {
                             timeCost /= 2;
                         }
+                        if (timeCost > player.secondsRemaining) {
+                            timeCost = -player.secondsRemaining;
+                        }
+
                         var saltCost = common.SALT.ACCOUNT_INCREASE;
                         if (player.countItems('account-salt-free') > 0) {
                             saltCost = 0;
@@ -907,6 +917,10 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                         if (player.countItems('account-salt-free') > 0) {
                             timeCost /= 2;
                         }
+                        if (timeCost > player.secondsRemaining) {
+                            timeCost = -player.secondsRemaining;
+                        }
+
                         var saltCost = common.SALT.ACCOUNT_INCREASE;
                         if (player.countItems('account-salt-free') > 0) {
                             saltCost = 0;
@@ -940,6 +954,10 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                         if (player.countItems('account-salt-free') > 0) {
                             timeCost /= 2;
                         }
+                        if (timeCost > player.secondsRemaining) {
+                            timeCost = -player.secondsRemaining;
+                        }
+
                         var saltCost = common.SALT.ACCOUNT_INCREASE;
                         if (player.countItems('account-salt-free') > 0) {
                             saltCost = 0;

@@ -2,9 +2,6 @@
 
 define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/common', 'emitter'], function(player, words, random, common, emitter) {
 
-    // TODO: Salty pants - increases your salt generation but every N seconds increase your beta chance
-    // TODO: on Tick applications
-
 
     function spawnLootFromTable(table) {
         if (table.length == 0) {
@@ -16,7 +13,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
             var group = table[i];
             if (group.chance && Math.random() < group.chance) {
                 var itemRef = random.randomArray(group.options);
-                if (items[itemRef].unique && !player.countItems(itemRef) > 0) {
+                if (items[itemRef].unique && player.countItems(itemRef) > 0) {
                     continue;
                 }
                 player.addItem(itemRef);
@@ -608,8 +605,8 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
             ]
         },
         'pistol': {
-            title: 'P228 Pistol',
-            description: 'It\'s a simple little pistol. It is also magic, so you don\'t have to buy bullets.',
+            title: 'Revolver',
+            description: 'It\'s an old-timey revolver. It is also magic, so you don\'t have to buy bullets.',
             rarity: 'quest',
             outcomes: [
                 {

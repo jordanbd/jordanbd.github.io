@@ -190,6 +190,10 @@ define(['app/model/player'], function(player) {
                 {
                     user: 'defnotbjk',
                     text: 'Blizzard should really increase beta Invites in general. It\'s kinda crazy seeing beta accounts sell for 500+ or people "renting" put their account.'
+                },
+                {
+                    user: 'raptornex',
+                    text: 'Holy crap please invite me Darkust#6214 I made the game you\'re playing I am going out of my mind.'
                 }
             ]
         }
