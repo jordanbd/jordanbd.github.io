@@ -78,7 +78,7 @@ define(['app/util/browser', 'app/model/player', 'emitter'], function(browser, pl
             }
         },
         'titan': {
-            title: 'Project Prometheus',
+            title: 'Prometheus',
             description: 'Find the source of Overwatch.',
             points: 10,
             hasAchieved: function() {

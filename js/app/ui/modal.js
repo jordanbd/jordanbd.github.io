@@ -2,12 +2,17 @@
 
 define(['jquery', 'app/ui/templates'], function($, templates) {
 
-    function render(opts) {
-
-    }
+    var $modal;
+    var disabled = false;
 
     function open(opts) {
-        var $modal = $(templates.getTemplate('modalTmpl')({
+        if (disabled) {
+            var deferred = $.Deferred()
+            deferred.resolve();
+            return deferred;
+        }
+
+        $modal = $(templates.getTemplate('modalTmpl')({
             text: opts.text
         }));
         $('body').append($modal);
@@ -42,6 +47,7 @@ define(['jquery', 'app/ui/templates'], function($, templates) {
             closeOnEscape: false,
             close: function(event, ui) {
                 $modal.remove();
+                $modal = null;
                 return deferred.resolve();
             },
             buttons: buttons,
@@ -60,8 +66,18 @@ define(['jquery', 'app/ui/templates'], function($, templates) {
         return deferred.promise();
     }
 
+    function disable() {
+        disabled = true;
+    }
+
+    function enable() {
+        disabled = false;
+    }
+
     return {
-        open: open
+        open: open,
+        enable: enable,
+        disable: disable
     }
 
 });

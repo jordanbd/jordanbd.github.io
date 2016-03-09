@@ -1,13 +1,14 @@
 'use strict';
 
-define(['jquery', 'app/util/browser', 'app/screen/home', 'app/screen/battle', 'app/screen/gameover', 'app/screen/selectclass'],
-function($, browser, home, battle, gameover, selectClass) {
+define(['jquery', 'app/util/browser', 'app/screen/home', 'app/screen/battle', 'app/screen/gameover', 'app/screen/selectclass', 'app/screen/tutorial', 'app/ui/modal'],
+function($, browser, home, battle, gameover, selectClass, tutorial, modal) {
 
     var screens = {
         'home': home,
         'selectClass': selectClass,
         'battle': battle,
-        'gameover': gameover
+        'gameover': gameover,
+        'tutorial': tutorial
     };
 
     var currentScreen = null;
@@ -37,11 +38,14 @@ function($, browser, home, battle, gameover, selectClass) {
         console.log('entering screen %s', name);
 
         var $canvas = $('#canvas');
+        modal.disable();
 
         var deferred = $.Deferred();
         deferred.done(function() {
             var screen = screens[name];
             currentScreen = name;
+
+            modal.enable();
 
             // lol i don't know how to program
             screen.enter({

@@ -6,8 +6,9 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
         /* Default class attacks */
         {
             title: 'Post to social media',
-            description: 'This is a wildcard action where you can find items, quests, gain or lose beta chances and increase or lower salt.',
-            subDescription: 'Costs: -' + common.TIME.SOCIAL_COST + ' seconds',
+            description: 'This is a wildcard action where you can find items, ' +
+                'quests, increase or lower beta chances and increase or lower salt.',
+            subDescription: 'Costs <span class="word word-time">' + common.TIME.SOCIAL_COST + ' seconds</span>',
             beforeOutcome: function() {
                 if (!player.data['socialmediacount']) {
                     player.data['socialmediacount'] = 0;
@@ -289,8 +290,8 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
         },
         {
             title: 'Go for a walk to find a quest',
-            description: 'Lowers your saltiness by -' + common.SALT.WALK_DECREASE + '%. Chance to start a quest.',
-            subDescription: 'Costs: -' + common.TIME.WALK_COST + ' seconds',
+            description: 'Lowers your saltiness by ' + common.SALT.WALK_DECREASE + '%. Chance to start a quest.',
+            subDescription: 'Costs <span class="word word-time">' + common.TIME.WALK_COST + ' seconds</span>',
             isAvailable: function() {
                 return player.secondsRemaining >= common.TIME.WALK_COST && player.characterClassId == 'default';
             },
@@ -707,8 +708,8 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
         },
         {
             title: 'Do some work',
-            description: 'Actually do your job instead of sitting around waiting for a Beta invite.',
-            subDescription: 'Costs: -30 seconds, Increases: Money by $100',
+            description: 'Actually do your job instead of sitting around waiting for a Beta invite. Increases money by $100.',
+            subDescription: 'Costs <span class="word word-time">30 seconds</span>',
             isAvailable: function() {
                 return player.secondsRemaining >= 30 && player.characterClassId == 'default';
             },
@@ -747,7 +748,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
         {
             title: 'Check your email inbox',
             description: 'Beta invites take hours to arrive by email. There is literally no reason why you should check your inbox...',
-            subDescription: 'Costs: 0 seconds',
+            subDescription: 'Costs: <span class="word word-time">0 seconds</span>',
             isAvailable: function() {
                 return player.characterClassId == 'default';
             },
@@ -809,13 +810,13 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
         {
             title: 'Check your Battle.net account',
             description: 'Log in to Account Management and check to see if you have been invited into the Beta. This is the only way ' +
-            'to confirm you are in beta. Be warned: if you have not yet been invited into the beta your salt will increase.',
+                'to confirm you are in beta. Be warned: if you have not yet been invited into the beta your salt will increase.',
             subDescription: function() {
                 var timeCost = -common.TIME.ACCOUNT_COST;
                 if (player.countItems('account-salt-free') > 0) {
                     timeCost /= 2;
                 }
-                return 'Costs: ' + timeCost + ' seconds, Increases: Salt, Chance to finish game'
+                return 'Costs <span class="word word-time">' + Math.abs(timeCost) + ' seconds</span>'
             },
             isAvailable: function() {
                 var timeCost = -common.TIME.ACCOUNT_COST;

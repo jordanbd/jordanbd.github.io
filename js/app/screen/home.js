@@ -1,6 +1,6 @@
 'use strict';
 
-define(['jquery', 'underscore', 'app/ui/templates', 'app/model/achievements'], function($, _, templates, achieveDb) {
+define(['jquery', 'underscore', 'app/ui/templates', 'app/model/achievements', 'app/util/browser'], function($, _, templates, achieveDb, browser) {
 
     var sm;
 
@@ -8,38 +8,31 @@ define(['jquery', 'underscore', 'app/ui/templates', 'app/model/achievements'], f
 
         var playerAchievementCodes = achieveDb.loadAchievements();
         var achievements = achieveDb.getAllAchievements();
-        var numAchievements = _.size(achievements);
-        //var halfSize = (numAchievements % 2 == 0) ? numAchievements / 2 : Math.floor((numAchievements / 2) + 1);
 
-        var $leftAchievements = $('#achievements');
-        //var $rightAchievements = $('#achievements-right');
+        var $achievements = $('#achievements');
 
-        var $currentAchievementBucket = $leftAchievements;
-
-        var count = 0;
+        var totalPoints = 0;
+        var achievedPoints = 0;
         for (var code in achievements) {
 
             var achievement = achieveDb.getAchievement(code);
+
+            var achieved = $.inArray(code, playerAchievementCodes) >= 0;
+            totalPoints += achievement.points;
+            achievedPoints += achieved ? achievement.points : 0;
 
             var $achieve = $(templates.getTemplate('achievementTmpl')({
                 title: achievement.title,
                 points: achievement.points,
                 body: achievement.description,
-                achievedClass: $.inArray(code, playerAchievementCodes) >= 0 ? 'achievement-achieved' : ''
+                achievedClass: achieved ? 'achievement-achieved' : ''
             }));
 
-            $currentAchievementBucket.append($achieve);
+            $achievements.append($achieve);
 
-            count++;
-            //if (count >= halfSize) {
-            //    $currentAchievementBucket = $rightAchievements;
-            //}
+            $('#points-achieved').text(achievedPoints);
+            $('#points-total').text(totalPoints);
         }
-
-        // load all possible acheivements
-        // split into two
-        // load all achievements i've achieved
-        // if achieved, yellow
 
     }
 
@@ -51,7 +44,16 @@ define(['jquery', 'underscore', 'app/ui/templates', 'app/model/achievements'], f
 
         // Bind start button
         $(document).one('click', '#start', function() {
-            sm.enterScreen('selectClass');
+            if (browser.isStorageAvailable('localStorage')) {
+                var tutorialDone = window.localStorage.getItem('tutorial-done');
+                if (!tutorialDone) {
+                    sm.enterScreen('tutorial');
+                } else {
+                    sm.enterScreen('selectClass');
+                }
+            } else {
+                sm.enterScreen('tutorial');
+            }
         });
 
 

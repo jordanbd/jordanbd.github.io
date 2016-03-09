@@ -135,48 +135,10 @@
 
         <br/>
 
-        <h3>Achievements</h3>
+        <h3>Achievements (<span id="points-achieved"></span>/<span id="points-total"></span>)</h3>
         <br/>
-        <div id="achievements" >
-            <!--<div class="achievement">-->
-                <!--<div class="achievement-header">-->
-                    <!--<span class="achievement-title">Achievement that was not achieved</span>-->
-                    <!--<span class="achievement-points">15</span>-->
-                <!--</div>-->
-                <!--<div class="achievement-body">-->
-                    <!--Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.-->
-                <!--</div>-->
-            <!--</div>-->
-
-            <!--<div class="achievement">-->
-                <!--<div class="achievement-header achievement-achieved">-->
-                    <!--<span class="achievement-title">Achievement that was achieved</span>-->
-                    <!--<span class="achievement-points">15</span>-->
-                <!--</div>-->
-                <!--<div class="achievement-body">-->
-                    <!--Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.-->
-                <!--</div>-->
-            <!--</div>-->
-
+        <div id="achievements">
         </div>
-
-        <!--<div id="achievements-right" class="col-1-1">-->
-
-        <!--</div>-->
-
-        <!--<br/>-->
-        <!--<h3>Statistics</h3>-->
-
-        <!--<dl>-->
-            <!--<dt>2</dt>-->
-            <!--<dd>People who have gotten into the beta.</dd>-->
-
-            <!--<dt>0</dt>-->
-            <!--<dd>People who have seen the monster.</dd>-->
-
-            <!--<dt>0</dt>-->
-            <!--<dd>People who have fought the monster.</dd>-->
-        <!--</dl>-->
 
     </div>
 
@@ -193,6 +155,39 @@
             <%= body %>
         </div>
     </div>
+
+</script>
+
+<script id="template-tutorial" type="text/html">
+
+    <div style="text-align:center">
+        <h3>Tutorial</h3>
+        <br/>
+
+        <img src="img/help-time.png"/><br/>
+        <br/>
+        <p style="text-align:left;">Time only moves when you complete actions.</p>
+        <br/>
+
+        <img src="img/help-beta.png"/><br/>
+        <br/>
+        <p style="text-align:left;">Your beta chance is the probability that you will get into the beta when you check your Battle.net profile. You can increase this by posting on social media, completing quests, using items, etc.</p>
+        <br/>
+
+        <img src="img/help-items.png"/><br/>
+        <br/>
+        <p style="text-align:left;">Click on items from your <strong>Items</strong> screen to use them. Items can be acquired from the shop, posting on social media and from completing quests.</p>
+        <br/>
+
+        <img src="img/help-quests.png"><br/>
+        <br/>
+        <p style="text-align:left;">Quests can be found when going for a walk. Quests with a <span class="word word-quest-complete">can be completed</span>. Quests with a <span class="word word-quest">mean</span> you do not meet the requirements to complete the quest.</p>
+        <br/>
+
+        <button id="tutorial-ok">Got it</button>
+
+    </div>
+
 
 </script>
 

@@ -7,10 +7,10 @@ define(['emitter', 'jquery'], function(emitter, $) {
             events: {}
         },
         name: 'test',
+        history: [],
         characterClassId: null,
         achievements: [],
         hasAchievement: function(code) {
-            //console.debug('testing to see if %s is in array %O and result is %O', code, this.achievements, $.inArray(code, this.achievements));
             return $.inArray(code, this.achievements) >= 0;
         },
         items: [],

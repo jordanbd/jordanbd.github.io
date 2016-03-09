@@ -137,9 +137,9 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     chance: 0.25,
                     flavourText: 'Oh sweet it has a gold nugget inside it!',
                     apply: function() {
-                        player.changeMoney(200);
+                        player.changeMoney(100);
                         player.removeItem('berry');
-                        return words.buildApplyReturn({money: 200, itemCount: -1});
+                        return words.buildApplyReturn({money: 100, itemCount: -1});
                     },
                     buttons: [
                         {
@@ -151,9 +151,9 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     chance: 0.25,
                     flavourText: 'Reality distorts around you as you gain more time.',
                     apply: function() {
-                        player.changeSecondsRemaining(30);
+                        player.changeSecondsRemaining(15);
                         player.removeItem('berry');
-                        return words.buildApplyReturn({time: 30, itemCount: -1});
+                        return words.buildApplyReturn({time: 15, itemCount: -1});
                     },
                     buttons: [
                         {
@@ -752,18 +752,6 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
             title: 'An executable program that spams /r/overwatch',
             description: 'Seems pretty easy to use - double click the exe and watch it go!',
             rarity: 'rare',
-            onTick10: function() {
-                if (player.data['self-spammer']) {
-                    if (!player.data['self-spammer-count']) {
-                        player.data['self-spammer-count'] = 0;
-                    }
-                    player.data['self-spammer-count']++;
-                    if (Number(player.data['self-spammer-count']) >= 3) {
-                        player.data['self-spammer-banned'] = true;
-                        player.data['game-over'] = true;
-                    }
-                }
-            },
             outcomes: [
                 {
                     chance: 1,
@@ -774,24 +762,12 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     apply: function() {
                         player.data['reddit-spammer-started'] = true;
                         player.data['self-spammer'] = true;
+                        player.data['self-spammer-banned'] = true;
+                        player.data['game-over'] = true;
                     },
                     buttons: [
                         {
                             text: 'Oh crap how do I stop it'
-                        }
-                    ]
-                },
-                {
-                    chance: 1,
-                    isAvailable: function() {
-                        return player.data['self-spammer'];
-                    },
-                    flavourText: 'Oh god how do I turn it off?!?',
-                    apply: function() {
-                    },
-                    buttons: [
-                        {
-                            text: 'Now I wish I paid attention in hacker club'
                         }
                     ]
                 }

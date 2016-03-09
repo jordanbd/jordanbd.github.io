@@ -1,10 +1,6 @@
 
 TODO
 
-> Stats on home page
-> Tips on home page
-> Quick tutorial screen
-> Maybe some quick achievements
 > Class - twitch streamer
 > Final battle quest
 > Tidy up names
@@ -12,15 +8,12 @@ TODO
 > Update costs (absolute values), show icons
 > I still think I need a better way to get scrap
 > History
-> i am not running out of time
+> New indicator
 
 JAMIE FEEDBACK
 
-- I didn't really know how to increase my beta chances, or how often to check. I was only increasing my chances by small increments so I wanted to wait until it was a lot higher.
 - Put a (new) next to the new items, or put it in the popup when you get it so you know what you go
-- I didn't look at the Beta News Stream. Is this just for show or does it have impact on the game?
 - I'm not sure what the Darkness is or what it does
-- The items that are solely for reducing salt level (cadbury creme egg) aren't that useful. the going for a walk reduces it by 30% and i have found that I am spamming it. Up until the point that the fucking ice-cream driver appears, then it is risky.
 
 TODO OLD
 

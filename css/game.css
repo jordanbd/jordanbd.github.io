@@ -325,7 +325,11 @@ p strong {
 
 .word {
     padding-left: 1.2em;
-    display:block;
+    display:inline-block;
+    margin-bottom: 0.3em;
+}
+
+.ui-dialog .word {
     margin-bottom: 1em;
 }
 
@@ -344,6 +348,11 @@ p strong {
 
 .word-quest {
     background: url('../img/Quest_Avail_Inside_16x16.png') no-repeat;
+    background-size: 1em;
+}
+
+.word-quest-complete {
+    background: url('../img/Quest_Complete_Inside_16x16.png') no-repeat;
     background-size: 1em;
 }
 

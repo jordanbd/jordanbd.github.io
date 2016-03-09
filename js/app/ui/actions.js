@@ -234,6 +234,10 @@ function($, _, emitter, templates, modal, timer, player, attacks, items, shop, q
     function useAction(action) {
         timer.pause();
 
+        player.history.push({
+            text: action.title
+        });
+
         if (action.isAvailable && !action.isAvailable()) {
             modal.open({
                 text: 'This action is no longer valid'
@@ -279,9 +283,14 @@ function($, _, emitter, templates, modal, timer, player, attacks, items, shop, q
                     if (flavourText != null) text += "<br/><br/>";
                     text += output;
                 }
+                text = words.textReplace(text);
+
+                player.history.push({
+                    text:text
+                });
 
                 modal.open({
-                    text: words.textReplace(text),
+                    text: text,
                     buttons: winningOutcome.buttons
                 })
                 .then(function showAchievements() {
