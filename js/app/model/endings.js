@@ -51,7 +51,7 @@ define(['app/model/player', 'app/util/random'], function(player, random) {
             title: 'You have been invited into the Overwatch Beta',
             description: 'Hey guys check me out on Twitch I\'m going to be playing OVERWATCH tomorrow - it\'s Blizzard\'s new MMO or something?<br/><br/>' +
                 'But don\'t worry I\'ll be back playing H1Z1 after that. Gonna be pwning noobs! Make sure to like and subscribe and donate you idiots. ' +
-                'Loool! JK <3 <3.',
+                'Loool! JK <3 <3.<br/><br/><br/><br/><br/>Sorry, I wrote this ending shortly after missing out on an invite wave. I am very salty right now.',
             score: 1,
             isAvailable: function() {
                 return player.characterClassId == 'twitch' && player.data['beta']
