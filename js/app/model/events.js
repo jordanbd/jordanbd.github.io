@@ -28,8 +28,72 @@ define(['app/model/player'], function(player) {
             type: 'twitter',
             flavourText: [
                 {
-                    user: 'David Clyde',
+                    user: 'DaytimeCoder',
                     text: 'I cannot flag your account for beta access. Please stop spamming me!'
+                }
+            ]
+        },
+        {
+            chance: 0.1,
+            isAvailable: function() {
+                return !player.data['blizz-dc-warn2'];
+            },
+            apply: function() {
+                player.data['blizz-dc-warn2'] = true;
+            },
+            type: 'twitter',
+            flavourText: [
+                {
+                    user: 'DaytimeCoder',
+                    text: 'Seriously where did all you people come from? How did you find this account? Stop asking me for beta access.'
+                }
+            ]
+        },
+        {
+            chance: 0.1,
+            isAvailable: function() {
+                return !player.data['blizz-dc-warn3'];
+            },
+            apply: function() {
+                player.data['blizz-dc-warn3'] = true;
+            },
+            type: 'twitter',
+            flavourText: [
+                {
+                    user: 'DaytimeCoder',
+                    text: 'That\'s it - the overstalk guy will pay!'
+                }
+            ]
+        },
+        {
+            chance: 0.1,
+            isAvailable: function() {
+                return !player.data['blizz-wave-schedule'];
+            },
+            apply: function() {
+                player.data['blizz-wave-schedule'] = true;
+            },
+            type: 'twitter',
+            flavourText: [
+                {
+                    user: '$$CM',
+                    text: 'We don\'t have a set schedule for beta invites. We\'ll let you know right here once another one has finished.'
+                }
+            ]
+        },
+        {
+            chance: 0.1,
+            isAvailable: function() {
+                return !player.data['blizz-preorder-msg'];
+            },
+            apply: function() {
+                player.data['blizz-preorder-msg'] = true;
+            },
+            type: 'twitter',
+            flavourText: [
+                {
+                    user: '$$CM',
+                    text: 'Pre-ordering does not guarantee Closed Beta access. Invite waves have no schedule and depend on our testing needs.'
                 }
             ]
         },
