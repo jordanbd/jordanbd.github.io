@@ -412,7 +412,7 @@ define(['app/model/player', 'app/model/words', 'emitter', 'app/model/common'], f
         },
         {
             itemRef: 'onsolace-chips',
-            cost: 400,
+            cost: 200,
             isAvailable: function() {
                 return !player.data['onsolace-chips'];
             },
