@@ -776,11 +776,9 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         'as much loot from the museum as you can.',
                     apply: function() {
                         player.addItem('bag-epic');
-                        player.addItem('bag-epic');
-                        player.addItem('bag-epic');
                         player.data['final-quest-complete'] = true;
                         player.removeQuest('widow-reaper-bossfight');
-                        return words.buildApplyReturn({itemCount: 3})
+                        return words.buildApplyReturn({itemCount: 1})
                     },
                     buttons: [
                         {
@@ -802,11 +800,9 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         'as much loot from the museum as you can.',
                     apply: function() {
                         player.addItem('bag-epic');
-                        player.addItem('bag-epic');
-                        player.addItem('bag-epic');
                         player.data['final-quest-complete'] = true;
                         player.removeQuest('widow-reaper-bossfight');
-                        return words.buildApplyReturn({itemCount: 3})
+                        return words.buildApplyReturn({itemCount: 1})
                     },
                     buttons: [
                         {
@@ -828,11 +824,9 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         'as much loot from the museum as you can.',
                     apply: function() {
                         player.addItem('bag-epic');
-                        player.addItem('bag-epic');
-                        player.addItem('bag-epic');
                         player.data['final-quest-complete'] = true;
                         player.removeQuest('widow-reaper-bossfight');
-                        return words.buildApplyReturn({itemCount: 3})
+                        return words.buildApplyReturn({itemCount: 1})
                     },
                     buttons: [
                         {
@@ -854,11 +848,9 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         'as much loot from the museum as you can.',
                     apply: function() {
                         player.addItem('bag-epic');
-                        player.addItem('bag-epic');
-                        player.addItem('bag-epic');
                         player.data['final-quest-complete'] = true;
                         player.removeQuest('widow-reaper-bossfight');
-                        return words.buildApplyReturn({itemCount: 4})
+                        return words.buildApplyReturn({itemCount: 1})
                     },
                     buttons: [
                         {
@@ -880,11 +872,9 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         'as much loot from the museum as you can.',
                     apply: function() {
                         player.addItem('bag-epic');
-                        player.addItem('bag-epic');
-                        player.addItem('bag-epic');
                         player.data['final-quest-complete'] = true;
                         player.removeQuest('widow-reaper-bossfight');
-                        return words.buildApplyReturn({itemCount: 4})
+                        return words.buildApplyReturn({itemCount: 1})
                     },
                     buttons: [
                         {

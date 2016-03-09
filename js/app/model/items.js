@@ -315,7 +315,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
             rarity: 'uncommon',
             outcomes: [
                 {
-                    chance: 0.1,
+                    chance: 0.9,
                     flavourText: 'Chlorine $$CM beta salinity halite sodium!',
                     apply: function() {
                         player.data['darkness'] += 100; // doesn't matter anyway but just for completeness
@@ -324,7 +324,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                         player.data['beta'] = true;
                         player.data['mindcontrol'] = true;
                         player.data['mindcontrolpass'] = true;
-                        return 'Using your dark powers of salt you command the CM to give you Beta.'
+                        return 'Using your dark powers of salt you command the CMs to give you Beta.'
                     },
                     buttons: [
                         {
@@ -333,7 +333,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     ]
                 },
                 {
-                    chance: 0.9,
+                    chance: 0.1,
                     flavourText: 'Chlorine $$CM beta salinity halite sodium!',
                     apply: function() {
                         player.data['darkness'] += 100; // doesn't matter anyway but just for completeness
@@ -864,16 +864,16 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
         },
         'time-berry': {
             title: 'Time berry',
-            description: 'Increases your time remaining by 15 seconds.',
+            description: 'Increases your time remaining by 10 seconds.',
             rarity: 'uncommon',
             outcomes: [
                 {
                     chance: 0.8,
                     flavourText: 'You feel reality distort around you. That is one magical berry.',
                     apply: function() {
-                        player.changeSecondsRemaining(15);
+                        player.changeSecondsRemaining(10);
                         player.removeItem('time-berry');
-                        return words.buildApplyReturn({time: 15, itemCount: -1});
+                        return words.buildApplyReturn({time: 10, itemCount: -1});
                     }
                 },
                 {
