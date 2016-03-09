@@ -142,7 +142,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                         'You build a dev tracker for Overwatch, which is literally the easiest type of application to build for anything. Ad revenue pays handsomely!'
                     ],
                     apply: function() {
-                        var money = 1 + random.nextInt(100);
+                        var money = 50 + random.nextInt(50);
                         player.changeMoney(money);
                         player.changeSecondsRemaining(-common.TIME.SOCIAL_COST);
                         return words.buildApplyReturn({time: -common.TIME.SOCIAL_COST, money: money});
@@ -690,7 +690,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                         return player.countItems('pistol') == 1 && player.countItems('gun-license') == 0 && player.salt < 50;
                     },
                     flavourText: 'Your relaxing walk is brought to an abrupt halt when a policeman asks to see your license for the gun that the soldier gave you. ' +
-                    'You tell him to "chill" and that "it\'s cool". <br/><br/>You receive a fine of "all your money."',
+                       'You tell him to "chill" and that "it\'s cool". <br/><br/>You receive a fine of "all your money."',
                     apply: function() {
                         player.changeSecondsRemaining(-common.TIME.WALK_COST, true);
                         var money = -player.money;
@@ -702,6 +702,22 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                             text: 'This is why I\'m voting for Trump'
                         }
                     ]
+                },
+
+                /* start boss fight quest */
+                {
+                    chance: 0.2,
+                    isAvailable: function() {
+                        return !player.data['boss-quest'];
+                    },
+                    flavourText: 'You hear an explosion go off some distance away. It\'s coming from the museum - someone is attacking it!',
+                    apply: function() {
+                        player.changeSecondsRemaining(-common.TIME.WALK_COST, true);
+                        player.changeSalt(-common.SALT.WALK_DECREASE);
+                        player.data['boss-quest'] = true;
+                        player.addQuest('widow-reaper-bossfight');
+                        return words.buildApplyReturn({time: -common.TIME.WALK_COST, salt: -common.SALT.WALK_DECREASE, questCountAdded: 1, noSaltChangeDueToTime: true});
+                    }
                 }
 
             ]

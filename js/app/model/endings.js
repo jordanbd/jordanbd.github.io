@@ -344,6 +344,25 @@ define(['app/model/player', 'app/util/random'], function(player, random) {
         },
         {
             type: 'Defeat',
+            title: 'You have died',
+            description: 'These people do not mess around - they are serious villains with weapons. You can\'t just show up to a battle like this without a weapon and ' +
+                'try to bum rush a guy who is holding two shotguns.<br/><br/>Also you do not know kung fu.',
+            score: 9999,
+            isAvailable: function() {
+                return player.characterClassId == 'default' && player.data['museum-shot'];
+            }
+        },
+        {
+            type: 'Defeat',
+            title: 'You have died',
+            description: 'Your gun was not loaded.',
+            score: 9999,
+            isAvailable: function() {
+                return player.characterClassId == 'default' && player.data['museum-shot-pistol'];
+            }
+        },
+        {
+            type: 'Defeat',
             title: 'Your computer has been infected',
             description: 'Yep, a random USB you bought from a shady shop that had an executable called "titan.exe" was a leaked version of Blizzard\'s abandoned ' +
                 'MMO. <br/><br/>That\'s quite a stretch there buddy.',

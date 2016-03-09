@@ -3,6 +3,14 @@
 define(['app/util/browser', 'app/model/player', 'emitter'], function(browser, player, emitter) {
 
     var achievements = {
+        'trailer': {
+            title: 'The world could always use more heroes',
+            description: 'Defeat Widowmaker and Reaper at the museum.',
+            points: 40,
+            hasAchieved: function() {
+                return player.data['final-quest-complete'];
+            }
+        },
         'soldier76-success': {
             title: 'Soldier: 76 and the robbery',
             description: 'You helped Soldier: 76 regain his eyesight and stop a robbery.',
@@ -11,12 +19,28 @@ define(['app/util/browser', 'app/model/player', 'emitter'], function(browser, pl
                 return player.data['soldier76-robbery-achievement'];
             }
         },
+        'lucio': {
+            title: 'Sweet rave bro',
+            description: 'Filled in for Lucio at a dance party.',
+            points: 20,
+            hasAchieved: function() {
+                return player.data['lucio-achievement'];
+            }
+        },
         'soldier76-murder': {
             title: 'Simple geometry',
             description: 'You accidentally shot Soldier: 76.',
             points: 10,
             hasAchieved: function() {
                 return player.data['soldier76-shot-achievement'];
+            }
+        },
+        'titan': {
+            title: 'Prometheus',
+            description: 'Find the source of Overwatch.',
+            points: 10,
+            hasAchieved: function() {
+                return player.data['virus'];
             }
         },
         //'winston': {
@@ -51,14 +75,6 @@ define(['app/util/browser', 'app/model/player', 'emitter'], function(browser, pl
         //        return player.data['blizzard-invite-machine-complete'];
         //    }
         //},
-        'spammer-gun': {
-            title: 'Perhaps I was a little too aggressive',
-            description: 'Stopped the reddit spammer using violence.',
-            points: 5,
-            hasAchieved: function() {
-                return player.data['reddit-spammer-violence-achievement'];
-            }
-        },
         'died': {
             title: 'You either die a hero...',
             description: 'Somehow managed to die.',
@@ -77,20 +93,12 @@ define(['app/util/browser', 'app/model/player', 'emitter'], function(browser, pl
                 return player.data['self-spammer-banned'];
             }
         },
-        'titan': {
-            title: 'Prometheus',
-            description: 'Find the source of Overwatch.',
-            points: 10,
+        'spammer-gun': {
+            title: 'Perhaps I was a little too aggressive',
+            description: 'Stopped the reddit spammer using violence.',
+            points: 5,
             hasAchieved: function() {
-                return player.data['virus'];
-            }
-        },
-        'lucio': {
-            title: 'Sweet rave bro',
-            description: 'Filled in for Lucio at a dance party.',
-            points: 20,
-            hasAchieved: function() {
-                return player.data['lucio-achievement'];
+                return player.data['reddit-spammer-violence-achievement'];
             }
         },
         'arrested': {
@@ -100,6 +108,14 @@ define(['app/util/browser', 'app/model/player', 'emitter'], function(browser, pl
             hasAchieved: function() {
                 return player.data['brickrage']
                     || player.data['unlicensed-weapon'];
+            }
+        },
+        'roadhog-beatup': {
+            title: 'All that matters is our plan',
+            description: 'Roadhog beat you up for attempting to rob him.',
+            points: 5,
+            hasAchieved: function() {
+                return player.data['roadhog-beaten-up'];
             }
         }
     };

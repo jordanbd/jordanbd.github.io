@@ -2,17 +2,15 @@
 TODO
 
 > Class - twitch streamer
-> Final battle quest
 > Tidy up names
 > Remove GOD
-> Update costs (absolute values), show icons
 > I still think I need a better way to get scrap
 > History
-> New indicator
+> Gun : rename to McCrees weapon? revolver?
+> A few more items, more stuff out of boxes
 
 JAMIE FEEDBACK
 
-- Put a (new) next to the new items, or put it in the popup when you get it so you know what you go
 - I'm not sure what the Darkness is or what it does
 
 TODO OLD

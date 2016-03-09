@@ -15,7 +15,7 @@ define(['app/util/random'], function(random) {
             money: 9999,
             secondsRemaining: 9999,
             betaChance: 0,
-            quests: ['lucio-party', 'soldier76-glasses'],
+            quests: ['lucio-party', 'soldier76-glasses', 'widow-reaper-bossfight'],
             items: ['scrap', 'scrap', 'money-with-salt', 'account-salt-free', 'beta-bite', 'beta-bite']
         },
         {

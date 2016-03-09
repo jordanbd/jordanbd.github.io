@@ -50,9 +50,9 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     chance: 0.3,
                     flavourText: 'You forget you have a tiny bladder and have to rush to the bathroom.',
                     apply: function() {
-                        player.changeSecondsRemaining(-30);
+                        player.changeSecondsRemaining(-30, true);
                         player.removeItem('stale-water');
-                        return words.buildApplyReturn({time: -30, itemCount: -1});
+                        return words.buildApplyReturn({time: -30, itemCount: -1, noSaltChangeDueToTime: true});
                     },
                     buttons: [
                         {

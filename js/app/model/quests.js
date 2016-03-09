@@ -43,6 +43,10 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         player.removeQuest('winston-peanut2');
                         player.addItem('bag-epic');
                         player.data['winston-achievement'] = true;
+                        if (!player.data['hero-count']) {
+                            player.data['hero-count'] = 0;
+                        }
+                        player.data['hero-count'] += 1;
                         return words.buildApplyReturn({itemCount: 1});
                     },
                     buttons: [
@@ -144,6 +148,10 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         player.removeQuest('soldier76-robbery');
                         player.addItem('bag-epic');
                         player.data['soldier76-robbery-achievement'] = true;
+                        if (!player.data['hero-count']) {
+                            player.data['hero-count'] = 0;
+                        }
+                        player.data['hero-count'] += 1;
                         return words.buildApplyReturn({itemCount: 1});
                     },
                     buttons: [
@@ -438,6 +446,10 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         player.removeQuest('dva-scrim');
                         player.addItem('bag-common');
                         player.data['beaten-by-dva'] = true;
+                        if (!player.data['hero-count']) {
+                            player.data['hero-count'] = 0;
+                        }
+                        player.data['hero-count'] += 1;
                         return 'She thanks you for your time but says she doesn\'t need anymore practice with you.<br/><br/>' +
                             words.buildApplyReturn({itemCount: 1});
                     },
@@ -460,6 +472,10 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         player.removeQuest('dva-scrim');
                         player.data['beat-dva'] = true;
                         player.addItem('sc2-trophy');
+                        if (!player.data['hero-count']) {
+                            player.data['hero-count'] = 0;
+                        }
+                        player.data['hero-count'] += 1;
                         return words.buildApplyReturn({itemCount: 1});
                     },
                     buttons: [
@@ -538,6 +554,10 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                             player.removeQuest('torb-scrap');
                             player.addItem('bag-epic');
                             player.data['torb-turret-complete'] = true;
+                            if (!player.data['hero-count']) {
+                                player.data['hero-count'] = 0;
+                            }
+                            player.data['hero-count'] += 1;
                             return 'Because of your donations you have helped a local lunatic build a dangerous weapon! He hands you a bag of items as a thank you.<br/><br/>'
                                 + words.buildApplyReturn({itemCount: 1});
                         } else {
@@ -577,6 +597,10 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         player.removeQuest('bastion-broken');
                         player.removeItem('bird');
                         player.addItem('bag-epic');
+                        if (!player.data['hero-count']) {
+                            player.data['hero-count'] = 0;
+                        }
+                        player.data['hero-count'] += 1;
                         return words.buildApplyReturn({itemCount: 1});
                     }
                 }
@@ -674,6 +698,10 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         player.addItem('bag-epic');
                         player.changeSalt(20);
                         player.data['lucio-achievement'] = true;
+                        if (!player.data['hero-count']) {
+                            player.data['hero-count'] = 0;
+                        }
+                        player.data['hero-count'] += 1;
                         return words.buildApplyReturn({itemCount: 1, salt: 20});
                     },
                     buttons: [
@@ -692,8 +720,203 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                 return true
             },
             outcomes: [
+                /* 0 */
                 {
-
+                    chance: 1,
+                    isAvailable: function() {
+                        return (!player.data['hero-count']
+                            || player.data['hero-count'] == 0)
+                            && player.countItems('pistol') == 0;
+                    },
+                    flavourText: 'You show up at the museum - all alone and unarmed - ready to fight. The guy dressed like the grim reaper has not seen you yet. ' +
+                        'That will be his final mistake. <br/><br/>You raise your fists.',
+                    apply: function() {
+                        player.data['game-over'] = true;
+                        player.data['museum-shot'] = true;
+                    },
+                    buttons: [
+                        {
+                            text: 'I know kung fu'
+                        }
+                    ]
+                },
+                /* 0, gun */
+                {
+                    chance: 1,
+                    isAvailable: function() {
+                        return (!player.data['hero-count']
+                            || player.data['hero-count'] == 0)
+                            && player.countItems('pistol') == 1;
+                    },
+                    flavourText: 'You show up at the museum - all alone, but ready to fight. The guy dressed like the grim reaper has not seen you yet. ' +
+                        'That will be his final mistake. <br/><br/>You raise your pistol.',
+                    apply: function() {
+                        player.data['game-over'] = true;
+                        player.data['museum-shot-pistol'] = true;
+                    },
+                    buttons: [
+                        {
+                            text: 'Wait what\'s all that shadowy stuff?'
+                        }
+                    ]
+                },
+                /* 1 */
+                {
+                    chance: function() {
+                        return 1/5;
+                    },
+                    isAvailable: function() {
+                        return player.data['hero-count'] == 1;
+                    },
+                    flavourText: 'An epic battle breaks out between the hero you have helped and the bad guys. You busy yourself by shooting at ' +
+                        'bystanders who get too close, warning them to stay back because it is dangerous. Most people assume you are with the bad guys.<br/><br/>' +
+                        'Your hero friend eventually win the day. But you\'re not here for the glory. You\'re here for beta. In the confusion you steal ' +
+                        'as much loot from the museum as you can.',
+                    apply: function() {
+                        player.addItem('bag-epic');
+                        player.addItem('bag-epic');
+                        player.addItem('bag-epic');
+                        player.data['final-quest-complete'] = true;
+                        player.removeQuest('widow-reaper-bossfight');
+                        return words.buildApplyReturn({itemCount: 3})
+                    },
+                    buttons: [
+                        {
+                            text: 'That was awesome!'
+                        }
+                    ]
+                },
+                /* 2 */
+                {
+                    chance: function() {
+                        return 2/5;
+                    },
+                    isAvailable: function() {
+                        return player.data['hero-count'] == 2;
+                    },
+                    flavourText: 'An epic battle breaks out between the 2 heroes you have helped and the bad guys. You busy yourself by shooting at ' +
+                        'bystanders who get too close, warning them to stay back because it is dangerous. Most people assume you are with the bad guys.<br/><br/>' +
+                        'Your hero friends eventually win the day. But you\'re not here for the glory. You\'re here for beta. In the confusion you steal ' +
+                        'as much loot from the museum as you can.',
+                    apply: function() {
+                        player.addItem('bag-epic');
+                        player.addItem('bag-epic');
+                        player.addItem('bag-epic');
+                        player.data['final-quest-complete'] = true;
+                        player.removeQuest('widow-reaper-bossfight');
+                        return words.buildApplyReturn({itemCount: 3})
+                    },
+                    buttons: [
+                        {
+                            text: 'That was awesome!'
+                        }
+                    ]
+                },
+                /* 3 */
+                {
+                    chance: function() {
+                        return 3/5;
+                    },
+                    isAvailable: function() {
+                        return player.data['hero-count'] == 3;
+                    },
+                    flavourText: 'An epic battle breaks out between the 3 heroes you have helped and the bad guys. You busy yourself by shooting at ' +
+                        'bystanders who get too close, warning them to stay back because it is dangerous. Most people assume you are with the bad guys.<br/><br/>' +
+                        'Your hero friends eventually win the day. But you\'re not here for the glory. You\'re here for beta. In the confusion you steal ' +
+                        'as much loot from the museum as you can.',
+                    apply: function() {
+                        player.addItem('bag-epic');
+                        player.addItem('bag-epic');
+                        player.addItem('bag-epic');
+                        player.data['final-quest-complete'] = true;
+                        player.removeQuest('widow-reaper-bossfight');
+                        return words.buildApplyReturn({itemCount: 3})
+                    },
+                    buttons: [
+                        {
+                            text: 'That was awesome!'
+                        }
+                    ]
+                },
+                /* 4 */
+                {
+                    chance: function() {
+                        return 4/5;
+                    },
+                    isAvailable: function() {
+                        return player.data['hero-count'] == 4;
+                    },
+                    flavourText: 'An epic battle breaks out between the 4 heroes you have helped and the bad guys. You busy yourself by shooting at ' +
+                        'bystanders who get too close, warning them to stay back because it is dangerous. Most people assume you are with the bad guys.<br/><br/>' +
+                        'Your hero friends eventually win the day. But you\'re not here for the glory. You\'re here for beta. In the confusion you steal ' +
+                        'as much loot from the museum as you can.',
+                    apply: function() {
+                        player.addItem('bag-epic');
+                        player.addItem('bag-epic');
+                        player.addItem('bag-epic');
+                        player.data['final-quest-complete'] = true;
+                        player.removeQuest('widow-reaper-bossfight');
+                        return words.buildApplyReturn({itemCount: 4})
+                    },
+                    buttons: [
+                        {
+                            text: 'That was awesome!'
+                        }
+                    ]
+                },
+                /* >= 5 */
+                {
+                    chance: function() {
+                        return 1;
+                    },
+                    isAvailable: function() {
+                        return player.data['hero-count'] >= 5;
+                    },
+                    flavourText: 'An epic battle breaks out between the heroes you have helped and the bad guys. You busy yourself by shooting at ' +
+                        'bystanders who get too close, warning them to stay back because it is dangerous. Most people assume you are with the bad guys.<br/><br/>' +
+                        'Your hero friends eventually win the day. But you\'re not here for the glory. You\'re here for beta. In the confusion you steal ' +
+                        'as much loot from the museum as you can.',
+                    apply: function() {
+                        player.addItem('bag-epic');
+                        player.addItem('bag-epic');
+                        player.addItem('bag-epic');
+                        player.data['final-quest-complete'] = true;
+                        player.removeQuest('widow-reaper-bossfight');
+                        return words.buildApplyReturn({itemCount: 4})
+                    },
+                    buttons: [
+                        {
+                            text: 'That was awesome!'
+                        }
+                    ]
+                },
+                /* Fail */
+                {
+                    chance: function() {
+                        var heroCount = Number(player.data['hero-count']);
+                        if (heroCount >= 5) {
+                            return 0;
+                        } else {
+                            return (5 - heroCount) / 5;
+                        }
+                    },
+                    isAvailable: function() {
+                        return player.data['hero-count'] >= 0;
+                    },
+                    flavourText: 'An epic battle breaks out between the heroes you have helped and the bad guys. Unfortunately your side does not have the numbers to ' +
+                        'defeat these weirdo terrorists. You quietly flee the scene leaving your allies to be executed.<br/><br/>You also steal some stuff from the ' +
+                        'museum on your way out. They don\'t need it.',
+                    apply: function() {
+                        player.addItem('bag-epic');
+                        player.data['final-quest-complete-fail'] = true;
+                        player.removeQuest('widow-reaper-bossfight');
+                        return words.buildApplyReturn({itemCount: 1})
+                    },
+                    buttons: [
+                        {
+                            text: 'That is dark'
+                        }
+                    ]
                 }
             ]
         }
