@@ -442,11 +442,15 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                         var itemCount = spawnLootFromTable([
                             {
                                 chance: 1,
+                                options: ['scrap', 'berry', 'berry']
+                            },
+                            {
+                                chance: 1,
                                 options: ['scrap', 'berry']
                             },
                             {
                                 chance: 1,
-                                options: ['scrap']
+                                options: ['scrap', 'berry']
                             },
                             {
                                 chance: 1,
@@ -479,6 +483,14 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                             {
                                 chance: 1,
                                 options: ['scrap']
+                            },
+                            {
+                                chance: 1,
+                                options: ['scrap']
+                            },
+                            {
+                                chance: 1,
+                                options: ['time-berry', 'time-berry', 'time-berry', 'beta-bite']
                             },
                             {
                                 chance: 1,
@@ -515,11 +527,15 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                             },
                             {
                                 chance: 1,
+                                options: ['time-berry', 'time-berry', 'time-berry', 'beta-bite']
+                            },
+                            {
+                                chance: 1,
                                 options: ['salt-sacrifice', 'four-clover', 'cadbury-creme-egg', 'beta-time']
                             },
                             {
                                 chance: 1,
-                                options: ['accelerator', 'accelerator', 'accelerator', 'money-with-salt', 'account-salt-free', 'beta-30']
+                                options: ['accelerator', 'accelerator', 'money-with-salt', 'account-salt-free', 'beta-30']
                             }
                         ]);
                         player.removeItem('bag-epic');
