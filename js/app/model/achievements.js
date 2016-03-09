@@ -86,7 +86,7 @@ define(['app/util/browser', 'app/model/player', 'emitter'], function(browser, pl
             }
         },
         'spammer-banned': {
-            title: '... or see yourself become the villain',
+            title: '... or live long enough to see yourself become the villain',
             description: 'Became the salty reddit spammer.',
             points: 5,
             hasAchieved: function() {

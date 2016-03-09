@@ -14,6 +14,7 @@ define(['emitter', 'jquery'], function(emitter, $) {
             return $.inArray(code, this.achievements) >= 0;
         },
         items: [],
+        newItems: [],
         removeItem: function(code) {
             for (var i = 0; i < this.items.length; i++) {
                 if (this.items[i] == code) {
@@ -34,6 +35,7 @@ define(['emitter', 'jquery'], function(emitter, $) {
         },
         addItem: function(code) {
             this.items.push(code);
+            this.newItems.push(code);
             emitter.emit('item-change');
         },
         quests: [],

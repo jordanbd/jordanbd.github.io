@@ -1,9 +1,6 @@
 
 TODO
 
-> Class - twitch streamer
-> Tidy up names
-> Remove GOD
 > History
 > A few more items, more stuff out of boxes
 

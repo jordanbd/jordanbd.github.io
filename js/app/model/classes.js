@@ -3,28 +3,28 @@
 define(['app/util/random'], function(random) {
 
     var classes = [
-        {
-            identifier: 'default',
-            title: 'GOD',
-            description: 'The developer',
-            subDescription: '',
-            name: function() {
-                return 'Ben';
-            },
-            salt: 0,
-            money: 9999,
-            secondsRemaining: 9999,
-            betaChance: 0,
-            quests: ['lucio-party', 'soldier76-glasses', 'widow-reaper-bossfight'],
-            items: ['scrap', 'scrap', 'money-with-salt', 'account-salt-free', 'beta-bite', 'beta-bite']
-        },
+        //{
+        //    identifier: 'default',
+        //    title: 'GOD',
+        //    description: 'The developer',
+        //    subDescription: '',
+        //    name: function() {
+        //        return 'Ben';
+        //    },
+        //    salt: 0,
+        //    money: 9999,
+        //    secondsRemaining: 9999,
+        //    betaChance: 0,
+        //    quests: ['lucio-party', 'soldier76-glasses', 'widow-reaper-bossfight'],
+        //    items: ['scrap', 'scrap', 'money-with-salt', 'account-salt-free', 'beta-bite', 'beta-bite']
+        //},
         {
             identifier: 'default',
             title: 'A typical Blizzard fan',
-            description: 'The <strong>Blizzard Fan</strong> has no friends at Blizzard, no connections and no hope at getting into Beta.',
+            description: 'The Blizzard Fan has no friends at Blizzard, no connections and no hope at getting into Beta.',
             subDescription: 'Difficulty: Hard',
             name: function() {
-                return random.randomArray(['BlizzFan84', 'TracerFanBoy63', 'WIN_son', 'TheCavalry', 'BetaPlsBlizz', 'Soldier84', 'LuckTruck']);
+                return random.randomArray(['BlizzFan84', 'TracerFanBoy63', 'WIN_son', 'TheCavalryIsHereLuv', 'BetaPlsBlizz', 'Soldier84', 'LuckTruckBrrrrr']);
             },
             salt: 0,
             money: 40,
@@ -33,17 +33,29 @@ define(['app/util/random'], function(random) {
         },
         {
             identifier: 'friend',
-            title: 'Your jerk friend who only signed up for beta yesterday',
-            description: 'Your friend doesn\'t like Blizzard games. He doesn\'t even own any of the free Blizzard games like Hearthstone or ' +
-                'Heroes of the Storm - that\'s how dedicated to not playing Blizzard games he is. He still signed up for ' +
-                'the Overwatch beta. I wonder how that will work out for him?',
-            subDescription: 'Difficulty: Very Easy',
+            title: 'Your idiot friend who only signed up for beta yesterday',
+            description: 'Your friend doesn\'t like Blizzard games. He still signed up for ' +
+                'the Overwatch beta but doesn\'t think he will play.',
+            subDescription: 'Difficulty: Very Easy (not the real game)',
             name: function() {
                 return 'Mike (Loser)'
             },
             salt: 0,
             money: 'Funemployed',
-            secondsRemaining: 240,
+            secondsRemaining: 360,
+            betaChance: 1
+        },
+        {
+            identifier: 'twitch',
+            title: 'A Twitch streamer',
+            description: 'Didn\'t even sign up for beta, lol.',
+            subDescription: 'Difficulty: Very Easy (not the real game)',
+            name: function() {
+                return 'SupYoFollowMe'
+            },
+            salt: 0,
+            money: 10000,
+            secondsRemaining: 360,
             betaChance: 1
         }
     ];

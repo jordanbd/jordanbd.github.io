@@ -80,17 +80,24 @@ function($, _, emitter, templates, modal, timer, player, attacks, items, shop, q
             sortPlayerItems(groupedItemsAsArray);
 
             for (var i = 0; i < groupedItemsAsArray.length; i++) {
-                var item = items.get[groupedItemsAsArray[i].code]; // weird syntax, I am awful
+                var code = groupedItemsAsArray[i].code;
+                var item = items.get[code]; // weird syntax, I am awful
 
-                // Mark / unmark as new
-                if (item.new === undefined) {
-                    item.new = true;
-                } else {
-                    item.new = false;
+                var isNew = $.inArray(code, player.newItems) >= 0;
+                if (isNew) {
+                    var indexesToRemove = [];
+                    for (var j = 0; j < player.newItems.length; j++) {
+                        if (code == player.newItems[j]) {
+                            indexesToRemove.push(j);
+                        }
+                    }
+                    for (var j = 0; j < indexesToRemove.length; j++) {
+                        player.newItems.splice(indexesToRemove[j], 1);
+                    }
                 }
 
                 var title = item.title + ' <span class="rarity ' + item.rarity + '">[' + item.rarity + ']</span>';
-                if (item.new) {
+                if (isNew) {
                     title = '<span class="new">new!</span> ' + title;
                 }
                 var count = undefined;
@@ -363,7 +370,6 @@ function($, _, emitter, templates, modal, timer, player, attacks, items, shop, q
     function setup() {
 
         var $canvas = $('#canvas');
-        console.debug('setting up actions, templates=%O', templates);
         $actionsPanel = $(templates.getTemplate('actionsTmpl')({
 
         }));

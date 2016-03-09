@@ -557,7 +557,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
         },
         'accelerator': {
             title: 'Miniature chronal accelerator',
-            description: 'Gives you an additional 60 seconds of time and increases your beta chances by ' + words.betaChanceValue(common.BETA.LOW) + '.',
+            description: 'Gives you an additional 30 seconds of time and increases your beta chances by ' + words.betaChanceValue(common.BETA.LOW) + '.',
             rarity: 'epic',
             outcomes: [
                 {
@@ -567,7 +567,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                         player.removeItem('accelerator');
                         player.changeSecondsRemaining(60);
                         player.changeBetaChance(common.BETA.LOW);
-                        return words.buildApplyReturn({time: 60, itemCount: -1, beta: common.BETA.LOW});
+                        return words.buildApplyReturn({time: 30, itemCount: -1, beta: common.BETA.LOW});
                     },
                     buttons: [
                         {
