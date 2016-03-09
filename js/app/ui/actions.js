@@ -82,7 +82,17 @@ function($, _, emitter, templates, modal, timer, player, attacks, items, shop, q
             for (var i = 0; i < groupedItemsAsArray.length; i++) {
                 var item = items.get[groupedItemsAsArray[i].code]; // weird syntax, I am awful
 
+                // Mark / unmark as new
+                if (item.new === undefined) {
+                    item.new = true;
+                } else {
+                    item.new = false;
+                }
+
                 var title = item.title + ' <span class="rarity ' + item.rarity + '">[' + item.rarity + ']</span>';
+                if (item.new) {
+                    title = '<span class="new">new!</span> ' + title;
+                }
                 var count = undefined;
                 if (groupedItemsAsArray[i].count > 1) {
                     count = groupedItemsAsArray[i].count;
@@ -91,7 +101,7 @@ function($, _, emitter, templates, modal, timer, player, attacks, items, shop, q
                 var $opt = $(templates.getTemplate('actionOptionTmpl')({
                     title: title,
                     description: item.description,
-                    count: count
+                    count: count,
                 }));
 
                 var click = function (a) {

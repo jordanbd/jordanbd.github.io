@@ -224,6 +224,12 @@ p strong {
     padding-left: 1.2em;
 }
 
+.new {
+    font-weight: normal;
+    text-transform: lowercase;
+    color: yellow;
+}
+
 .rarity {
     font-weight: normal;
     text-transform: lowercase;
