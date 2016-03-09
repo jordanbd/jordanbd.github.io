@@ -134,9 +134,9 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     chance: 0.25,
                     flavourText: 'Oh sweet it has a gold nugget inside it!',
                     apply: function() {
-                        player.changeMoney(100);
+                        player.changeMoney(150);
                         player.removeItem('berry');
-                        return words.buildApplyReturn({money: 100, itemCount: -1});
+                        return words.buildApplyReturn({money: 150, itemCount: -1});
                     },
                     buttons: [
                         {
@@ -273,9 +273,9 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                         player.data['darkness'] += 10;
                         emitter.emit('custom-attribute-change', {id: 'darkness', value: 10});
                         player.removeItem('spell-increasechance');
-                        player.changeBetaChance(common.BETA.MEDIUM);
+                        player.changeBetaChance(0.03);
                         player.changeSalt(40);
-                        return words.buildApplyReturn({itemCount: -1, beta: common.BETA.MEDIUM, salt: 40});
+                        return words.buildApplyReturn({itemCount: -1, beta: 0.03, salt: 40});
                     },
                     buttons: [
                         {

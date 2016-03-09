@@ -11,6 +11,14 @@ define(['app/util/browser', 'app/model/player', 'emitter'], function(browser, pl
                 return player.data['final-quest-complete'];
             }
         },
+        'beard': {
+            title: 'Jeff Kaplan\'s beard',
+            description: 'Found the legendary lost artifact.',
+            points: 20,
+            hasAchieved: function() {
+                return player.data['isjkapp'];
+            }
+        },
         'soldier76-success': {
             title: 'Soldier: 76 and the robbery',
             description: 'You helped Soldier: 76 regain his eyesight and stop a robbery.',
@@ -20,11 +28,19 @@ define(['app/util/browser', 'app/model/player', 'emitter'], function(browser, pl
             }
         },
         'lucio': {
-            title: 'Sweet rave bro',
-            description: 'Filled in for Lucio at a dance party.',
+            title: 'We are salty as one',
+            description: 'Filled in for Lucio as a DJ.',
             points: 20,
             hasAchieved: function() {
                 return player.data['lucio-achievement'];
+            }
+        },
+        'darklord': {
+            title: 'Losing sight of what is important',
+            description: 'You went too far trying to get beta.',
+            points: 20,
+            hasAchieved: function() {
+                return player.data['mindcontrol'];
             }
         },
         'soldier76-murder': {
@@ -82,15 +98,17 @@ define(['app/util/browser', 'app/model/player', 'emitter'], function(browser, pl
             hasAchieved: function() {
                 return player.data['deadorcstatue']
                     || player.data['deadberry']
-                    || player.data['scrap-metal-dead'];
+                    || player.data['scrap-metal-dead']
+                    || player.data['museum-shot'];
             }
         },
         'spammer-banned': {
             title: '... or live long enough to see yourself become the villain',
-            description: 'Became the salty reddit spammer.',
+            description: 'Had your account banned from Battle.net.',
             points: 5,
             hasAchieved: function() {
-                return player.data['self-spammer-banned'];
+                return player.data['self-spammer-banned']
+                    || player.data['hacker'];
             }
         },
         'spammer-gun': {
@@ -102,7 +120,7 @@ define(['app/util/browser', 'app/model/player', 'emitter'], function(browser, pl
             }
         },
         'arrested': {
-            title: 'I didn\'t do it!',
+            title: 'Am I being detained?',
             description: 'Got yourself arrested.',
             points: 5,
             hasAchieved: function() {

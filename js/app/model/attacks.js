@@ -94,7 +94,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                 {
                     chance: 0.03,
                     isAvailable: function() {
-                        return player.salt >= 50 && player.betaChance > 0;
+                        return player.salt >= 30 && player.betaChance > 0;
                     },
                     flavourText: [
                         'Posting on social media when you are salty is never a good idea. You send some creepy, desperate messages to $$CM ' +
@@ -132,7 +132,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
 
                 /* find money */
                 {
-                    chance: 0.05,
+                    chance: 0.15,
                     flavourText: [
                         'You post a video to Youtube demanding that Blizzard nerf McCree.',
                         'You spend an evening counting the number of rockets Pharah launches during her ultimate and post a video to Youtube about it.',
@@ -142,7 +142,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                         'You build a dev tracker for Overwatch, which is literally the easiest type of application to build for anything. Ad revenue pays handsomely!'
                     ],
                     apply: function() {
-                        var money = 50 + random.nextInt(50);
+                        var money = 50 + random.nextInt(100);
                         player.changeMoney(money);
                         player.changeSecondsRemaining(-common.TIME.SOCIAL_COST);
                         return words.buildApplyReturn({time: -common.TIME.SOCIAL_COST, money: money});
@@ -222,9 +222,9 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                         'an awful picture of Tracer using MSPaint and post it on reddit. <br/><br/>You inexplicably gets +100 upvotes.'
                     ],
                     apply: function() {
-                        player.changeSalt(-5);
+                        player.changeSalt(-30);
                         player.changeSecondsRemaining(-common.TIME.SOCIAL_COST, true);
-                        return words.buildApplyReturn({salt: -5, time: -common.TIME.SOCIAL_COST, noSaltChangeDueToTime: true});
+                        return words.buildApplyReturn({salt: -30, time: -common.TIME.SOCIAL_COST, noSaltChangeDueToTime: true});
                     },
                     buttons: [
                         {
@@ -418,7 +418,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                 },
                 /* death on walk */
                 {
-                    chance: 0.005,
+                    chance: 0.008,
                     flavourText: 'A giant orc statue collapses on you while on your walk.',
                     apply: function() {
                         player.data['deadorcstatue'] = true;
@@ -724,7 +724,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
         },
         {
             title: 'Do some work',
-            description: 'Actually do your job instead of sitting around waiting for a Beta invite. Increases money by $100.',
+            description: 'Actually do your job instead of sitting around waiting for a Beta invite. Increases money by $120.',
             subDescription: 'Costs <span class="word word-time">30 seconds</span>',
             isAvailable: function() {
                 return player.secondsRemaining >= 30 && player.characterClassId == 'default';
@@ -740,6 +740,8 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                         'the name - slender man. People know him. Others have seen him. Some have survived.<br/><br/>You find ' +
                         'what you\'re looking for. You need to be salty. At least 90% salty. Once you have it, you must run.',
                     apply: function() {
+                        player.changeSecondsRemaining(-30);
+                        player.changeMoney(120);
                         player.data['slender-research'] = true;
                     }
                 },
@@ -755,8 +757,8 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     ],
                     apply: function() {
                         player.changeSecondsRemaining(-30);
-                        player.changeMoney(100);
-                        return words.buildApplyReturn({time: -30, money: 100})
+                        player.changeMoney(120);
+                        return words.buildApplyReturn({time: -30, money: 120})
                     }
                 }
             ]

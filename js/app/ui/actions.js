@@ -84,17 +84,6 @@ function($, _, emitter, templates, modal, timer, player, attacks, items, shop, q
                 var item = items.get[code]; // weird syntax, I am awful
 
                 var isNew = $.inArray(code, player.newItems) >= 0;
-                if (isNew) {
-                    var indexesToRemove = [];
-                    for (var j = 0; j < player.newItems.length; j++) {
-                        if (code == player.newItems[j]) {
-                            indexesToRemove.push(j);
-                        }
-                    }
-                    for (var j = 0; j < indexesToRemove.length; j++) {
-                        player.newItems.splice(indexesToRemove[j], 1);
-                    }
-                }
 
                 var title = item.title + ' <span class="rarity ' + item.rarity + '">[' + item.rarity + ']</span>';
                 if (isNew) {
@@ -108,7 +97,7 @@ function($, _, emitter, templates, modal, timer, player, attacks, items, shop, q
                 var $opt = $(templates.getTemplate('actionOptionTmpl')({
                     title: title,
                     description: item.description,
-                    count: count,
+                    count: count
                 }));
 
                 var click = function (a) {
@@ -119,6 +108,8 @@ function($, _, emitter, templates, modal, timer, player, attacks, items, shop, q
 
                 $optionsPanel.append($opt);
             }
+
+            player.newItems = [];
         } else {
             $optionsPanel.append($('<p>You have no items. Find items to help increase your chances of getting into the beta!</p>'));
         }
@@ -311,7 +302,7 @@ function($, _, emitter, templates, modal, timer, player, attacks, items, shop, q
                     buttons: winningOutcome.buttons
                 })
                 .then(function showAchievements() {
-                    if (newAchievements.length > 0) {
+                    if (newAchievements.length > 0 && !(player.data['beta'] || player.data['game-over'])) {
                         // Fuck it! You can only show one - whatever screw this crap.
                         var achievement = achievements.getAchievement(newAchievements[0]);
                         var achieveText = words.textReplace('<strong>Achievement completed!</strong><br/><br/>' +

@@ -497,6 +497,8 @@ define(['app/model/player', 'app/model/words'], function(player, words) {
                         player.removeQuest('dva-scrim');
                         player.addItem('bag-common');
                         player.data['beaten-by-dva'] = true;
+                        player.data['hacker'] = true;
+                        player.data['game-over'] = true;
                         return words.buildApplyReturn({itemCount: 1});
                     },
                     buttons: [

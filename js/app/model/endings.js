@@ -357,8 +357,7 @@ define(['app/model/player', 'app/util/random'], function(player, random) {
         {
             type: 'Defeat',
             title: 'You have died',
-            description: 'These people do not mess around - they are serious villains with weapons. You can\'t just show up to a battle like this without a weapon and ' +
-                'try to bum rush a guy who is holding two shotguns.<br/><br/>Also you do not know kung fu.',
+            description: 'You tried to bum rush a guy who is holding two shotguns and you are unarmed. Good thinking.<br/><br/>Also you do not know kung fu.',
             score: 9999,
             isAvailable: function() {
                 return player.characterClassId == 'default' && player.data['museum-shot'];
@@ -418,7 +417,7 @@ define(['app/model/player', 'app/util/random'], function(player, random) {
             description: 'Yeah so those hacks were just a honeypot. They had the Blizzard logo on them and everything. You even downloaded them from the Battle.net website.',
             score: 999,
             isAvailable: function() {
-                return player.characterClassId == 'default' && player.data['item-bought-blizzard-hacks'];
+                return player.characterClassId == 'default' && player.data['hacker'];
             }
         },
         {
