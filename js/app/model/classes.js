@@ -33,10 +33,10 @@ define(['app/util/random'], function(random) {
         },
         {
             identifier: 'friend',
-            title: 'Your idiot friend who only signed up for beta yesterday',
+            title: '<span style="color:yellow">[Just for fun]</span> Your idiot friend who only signed up for beta yesterday',
             description: 'Your friend doesn\'t like Blizzard games. He still signed up for ' +
                 'the Overwatch beta but doesn\'t think he will play.',
-            subDescription: 'Difficulty: Very Easy (not the real game)',
+            subDescription: 'Difficulty: Very Easy <em>(this is not the real game)</em>',
             name: function() {
                 return 'Mike (Loser)'
             },
@@ -47,9 +47,9 @@ define(['app/util/random'], function(random) {
         },
         {
             identifier: 'twitch',
-            title: 'A Twitch streamer',
+            title: '<span style="color:yellow">[Just for fun]</span> A Twitch streamer',
             description: 'Didn\'t even sign up for beta, lol.',
-            subDescription: 'Difficulty: Very Easy (not the real game)',
+            subDescription: 'Difficulty: Very Easy <em>(this is not the real game)</em>',
             name: function() {
                 return 'SupYoFollowMe'
             },

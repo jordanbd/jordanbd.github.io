@@ -96,6 +96,10 @@ p strong {
     font-weight: bold;
 }
 
+em {
+    font-style: italic;
+}
+
 .secondaryText {
     color: rgba(255,255,255,.5);
     font-size: 0.8em;
