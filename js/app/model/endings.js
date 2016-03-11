@@ -318,7 +318,7 @@ define(['app/model/player', 'app/util/random'], function(player, random) {
             description: 'In that moment, as you clumsily pinned the beard to your face, your spirit and Jeff Kaplan\'s merged into a single ' +
                 ' mighty being - just as he had always intended.<br/>' +
                 '<br/>' +
-                'You are not sure why he chose you - perhaps your amble supply of salt will be of use in his plans. <em>Your</em> plans.<br/>' +
+                'You are not sure why he chose you - perhaps your ample supply of salt will be of use in his plans. <em>Your</em> plans.<br/>' +
                 '<br/>' +
                 'It is time to set things in motion. The people demand more beta waves and you need more salt. Much, much more.<br/>' +
                 '<br/>' +

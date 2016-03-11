@@ -581,7 +581,7 @@ define(['app/model/player', 'app/model/words', 'app/util/random', 'app/model/com
                     flavourText: 'Let\'s try that again!',
                     apply: function() {
                         player.removeItem('accelerator');
-                        player.changeSecondsRemaining(60);
+                        player.changeSecondsRemaining(30);
                         player.changeBetaChance(common.BETA.LOW);
                         return words.buildApplyReturn({time: 30, itemCount: -1, beta: common.BETA.LOW});
                     },
